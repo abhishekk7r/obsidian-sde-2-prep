@@ -8,4 +8,4 @@
 
 ## JRE — Java Runtime Environment
 **JRE** = _JVM + Class Libraries_
-- If you just want to run you
+- If you just want to run your program
