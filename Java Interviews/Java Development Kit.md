@@ -7,3 +7,4 @@
 - JVM includes **JIT compiler (Just-In-Time)** which helps improve performance by compiling code during execution.
 
 ## JRE — Java Runtime Environment
+**JRE** = _JVM + Class Libraries_
