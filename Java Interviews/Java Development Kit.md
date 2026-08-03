@@ -4,3 +4,4 @@
 - Includes compiler (javac), debugger, and utilities like jar and javadoc.
 - Provides the JRE, so it also allows running Java programs.
 - Required by developers to write, compile, and debug code.
+
