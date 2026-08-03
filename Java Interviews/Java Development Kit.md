@@ -1,4 +1,4 @@
-![[Pasted image 20260803212255.png]]
+![[Pasted image 20260803212255.png|330]]
 
 ## JVM — Java Virtual Machine
 **JVM** is the engine that runs you java programs.
