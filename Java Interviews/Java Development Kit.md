@@ -8,3 +8,4 @@
 
 ## JRE — Java Runtime Environment
 **JRE** = _JVM + Class Libraries_
+- 
