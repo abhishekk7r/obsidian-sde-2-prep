@@ -1,0 +1,14 @@
+{
+  "githubToken": "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",
+  "githubUsername": "abhishekk7r",
+  "repoName": "obsidian-dsa-notes",
+  "autoSync": true,
+  "syncIntervalMs": 3000,
+  "excludePatterns": [
+    ".obsidian/workspace",
+    ".obsidian/workspace.json",
+    ".obsidian/plugins/*/data.json"
+  ],
+  "lastSyncTime": 1785770239909,
+  "commitMessageTemplate": "sync: {{datetime}}"
+}
