@@ -11,3 +11,4 @@
 - If you just want to run your program, JRE is enough.
 - It includes **JVM + Class Libraries**
 
+## JDK — Java Development Kit
