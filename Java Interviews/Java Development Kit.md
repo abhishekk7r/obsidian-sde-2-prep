@@ -1,3 +1,3 @@
 ![[Pasted image 20260803210823.png]]
 
-**JDK** 
+**JDK** provides tools and 
