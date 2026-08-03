@@ -1,4 +1,4 @@
 ![[Pasted image 20260803211105.png|294]]
 
-**JVM** 
+**JVM** is the engine that runs you jav
 
