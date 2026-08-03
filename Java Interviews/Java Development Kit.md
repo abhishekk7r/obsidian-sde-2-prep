@@ -5,4 +5,4 @@
 - ==JVM is platform dependent but the bytecode it runs is platform independent.
 - JVM includes **JIT compiler (Just-In-Time)** which helps improve performance by compiling code during execution.
 
-JRE 
+## JRE — Java Runtime Environment
