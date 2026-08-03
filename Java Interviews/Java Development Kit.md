@@ -5,3 +5,4 @@
 - Provides the JRE, so it also allows running Java programs.
 - Required by developers to write, compile, and debug code.
 
+[JRE](https://www.geeksforgeeks.org/java/jre-in-java/) provides an environment to run Java programs but does not include development tools. It is intended for end-users who only need to execute applications.
