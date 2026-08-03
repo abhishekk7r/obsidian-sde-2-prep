@@ -6,3 +6,7 @@
 - Required by developers to write, compile, and debug code.
 
 [JRE](https://www.geeksforgeeks.org/java/jre-in-java/) provides an environment to run Java programs but does not include development tools. It is intended for end-users who only need to execute applications.
+- Contains the JVM and standard class libraries.
+- Provides all runtime requirements for Java applications.
+- Does not support compilation or debugging.
+
