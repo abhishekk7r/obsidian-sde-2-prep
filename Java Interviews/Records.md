@@ -19,5 +19,5 @@ public User(String name, int age) { this.name = name; this.age = age; }
 ```java
   public record User(String name, int age) {}
 ```
-
+- 
 
