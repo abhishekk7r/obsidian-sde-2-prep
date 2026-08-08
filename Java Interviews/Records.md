@@ -155,3 +155,45 @@ record CardPayment(String card) implements Payment {}
 record UpiPayment(String upiId) implements Payment {}
 ```
 
+## Common Interview Questions
+
+- **What is a Record?** → A special class designed for concise, immutable data carriers with minimal boilerplate.
+- **Why were Records introduced?** → To eliminate boilerplate in data-centric classes.
+- **What does Java automatically provide for a Record?** → Canonical constructor, accessors, `equals()`, `hashCode()`, and `toString()`.
+- **When were Records introduced?** → Finalized in Java 16; available in Java 17.
+- **Are Records immutable?** → Shallowly immutable; components are final, but referenced objects can still be mutable.
+- **What are Record accessors?** → Methods named after components, e.g. `user.name()`, not `user.getName()`.
+- **What is a canonical constructor?** → A constructor whose parameters correspond exactly to all Record components.
+- **What is a compact constructor?** → A concise canonical constructor mainly used for validation or normalization.
+- **Can Records have additional constructors?** → Yes, but they must ultimately delegate to the canonical constructor.
+- **Can Records have methods?** → Yes, including instance and static methods.
+- **Can Records implement interfaces?** → Yes.
+- **Can Records extend another class?** → No; a Record already extends `java.lang.Record`.
+- **Can a Record be extended?** → No; Records are implicitly `final`.
+- **Can Records have additional instance fields?** → No; instance state is defined by the Record components.
+- **Can Records have static fields?** → Yes.
+- **Can Records be generic?** → Yes, e.g. `record Pair<T, U>(T first, U second) {}`.
+- **How does** `**equals()**` **work in Records?** → It compares the Record's component values.
+- **Difference between** `**==**` **and** `**equals()**` **for Records?** → `==` compares references; `equals()` compares component values.
+- **Are Records deeply immutable?** → No; they provide only shallow immutability.
+- **Can a Record contain a mutable** `**List**` **or** `**Map**`**?** → Yes, but the referenced collection can still be modified.
+- **How can you make a collection inside a Record safely immutable?** → Use a defensive copy such as `List.copyOf()`.
+- **Can a Record be abstract?** → No.
+- **Can a Record have setters?** → Not meaningful for components because their fields are final.
+- **Is a Record just syntactic sugar?** → No; it also has specific language/JVM semantics and Record metadata.
+- **Can you override** `**equals()**`**,** `**hashCode()**`**, and** `**toString()**`**?** → Yes.
+- **Can Record components have annotations?** → Yes; commonly used for validation in Spring Boot.
+- **Why are Records useful in Spring Boot?** → They are ideal for immutable request/response DTOs, events, projections, and value objects.
+- **Can Jackson deserialize Records?** → Yes; it can use the canonical constructor.
+- **Should Records generally be used as JPA entities?** → No; JPA entities have lifecycle, proxy, and persistence requirements better suited to normal classes.
+- **Record vs Lombok** `**@Data**`**?** → `@Data` typically creates a mutable class; a Record is designed as a final data carrier.
+- **Record vs normal class?** → Use a Record for immutable data-centric objects; use a class when you need mutation, inheritance, or complex lifecycle.
+
+### Important Traps
+
+- **Does** `**record User(String name) {}**` **have** `**getName()**`**?** → No, it has `name()`.
+- **Does** `**record User(List<String> roles) {}**` **guarantee deep immutability?** → No.
+- **Can** `**class Admin extends User**` **work if** `**User**` **is a Record?** → No, Records are final.
+- **Can** `**record Admin(...) extends User**` **work?** → No, Records cannot extend classes.
+- **Can a Record contain business logic?** → Yes; Records can contain methods.
+- **Can a Record implement** `**Serializable**`**?** → Yes.
