@@ -16,6 +16,6 @@ public User(String name, int age) { this.name = name; this.age = age; }
 ```
 
 - `Records` solves this.
--```java
+```java
   public record User(String name, int age) {}
   ```
