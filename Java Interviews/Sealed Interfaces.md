@@ -1,5 +1,3 @@
-
-
 ## Core
 
 A **sealed interface** restricts which classes/interfaces are allowed to implement or extend it.
