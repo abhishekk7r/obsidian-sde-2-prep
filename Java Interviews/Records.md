@@ -13,7 +13,7 @@ getter
 setter
 hashcode
 equals
-
+*/
 }
 ```
 
