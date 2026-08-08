@@ -37,7 +37,7 @@ Thread 4 → Notifications
 												        +---------------+
 												
 												          ▲           ▲
-												          │           │
+  │           │
 	   Thread A     Thread B
 ```
 
