@@ -34,8 +34,8 @@ Thread 4 → Notifications
 												        +---------------+
 												        | Counter       |
 												        | count = 0     |
-												        +---------------+
-												
+   +---------------+
+
     ▲           ▲
   │           │
 	   Thread A     Thread B
