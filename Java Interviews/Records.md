@@ -22,7 +22,7 @@ public User(String name, int age) { this.name = name; this.age = age; }
   //You can create objects like:
   User user = new User("Abhishek", 26);
   System.out.println(user.name());
-System.out.println(user.age());
+  System.out.println(user.age());
 ```
 - The compiler automatically provides the fields, constructor, accessors, `equals()`, `hashCode()`, and `toString()`
 
