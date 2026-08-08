@@ -1,5 +1,4 @@
 ### Process:
-
 - A process is an **independent program in execution.** It has its own memory space, resources, file descriptors, and at least one thread.
 - Processes are isolated.
 
