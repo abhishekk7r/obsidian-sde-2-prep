@@ -129,3 +129,5 @@ public User(String name, int age) {
 }
 ```
 
+## 5. Compact Canonical Constructor
+
