@@ -28,5 +28,5 @@ public User(String name, int age) { this.name = name; this.age = age; }
 
 - The accessor has the **same name as the record component**.
 ```java
-
+//Normal Clas
 ```
