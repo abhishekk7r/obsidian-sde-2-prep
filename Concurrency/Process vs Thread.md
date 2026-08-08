@@ -58,7 +58,6 @@ Thread A     Thread B
 ## Thread Life Cycle
 
 ![image.png](attachment:fca3d1b3-c843-4fa4-9d2c-71f36e6faa5a:image.png)
-
 ```css
 New -> Created
 Runnable -> The thread is ready to run
