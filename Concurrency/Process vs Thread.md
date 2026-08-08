@@ -32,8 +32,8 @@ Thread 4 → Notifications
 												               Heap
 												
 												        +---------------+
-												        | Counter       |
-												        | count = 0     |
+ | Counter       |
+ | count = 0     |
    +---------------+
 
     ▲           ▲
