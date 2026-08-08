@@ -33,5 +33,7 @@ user.getName();
 user.getAge();
 
 //Records
-
+user.name();
+user.age();
 ```
+
