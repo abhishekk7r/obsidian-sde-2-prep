@@ -66,3 +66,17 @@ user.age = 30;
 ```
 
 There are no setters.
+
+The components are represented by final fields.
+
+So this is impossible:
+
+```
+user.setAge(30);
+```
+
+or:
+
+```
+user.age = 30;
+```
