@@ -40,3 +40,4 @@ user.age();
 ```
 
 ## 2. What does Java generate automatically?
+- The exact generated implementation is compiler/JVM machinery. 
