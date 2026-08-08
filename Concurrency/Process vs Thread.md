@@ -36,7 +36,7 @@ Thread 4 → Notifications
 												        | count = 0     |
 												        +---------------+
 												
-												          ▲           ▲
+    ▲           ▲
   │           │
 	   Thread A     Thread B
 ```
