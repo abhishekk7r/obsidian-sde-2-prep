@@ -27,4 +27,6 @@ public User(String name, int age) { this.name = name; this.age = age; }
 - The compiler automatically provides the fields, constructor, accessors, `equals()`, `hashCode()`, and `toString()`
 
 - The accessor has the **same name as the record component**.
-- 
+```java
+
+```
