@@ -16,4 +16,3 @@ A race condition occurs when two or more processes or threads access and modify 
 3. **Monitors**: High-level synchronization constructs that manage shared resources.
 4. **Atomic Operations**: Use hardware or software-supported atomic instructions.
 
-![image.png](attachment:2c2c8fa9-3b5a-4830-b00c-aaf9806a97b0:image.png)
