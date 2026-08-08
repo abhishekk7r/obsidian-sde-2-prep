@@ -7,3 +7,10 @@
 
 Every Java object has an **Intrinsic Lock (Monitor)**.
 
+```
+When a thread enters a synchronized block:
+- Acquires the monitor lock.
+- Executes the code.
+- Releases the lock.
+- Other threads wait until the lock is released.
+```
