@@ -57,7 +57,7 @@ Thread A     Thread B
 
 ## Thread Life Cycle
 
-
+![[Pasted image 20260808150355.png]]
 ```css
 New -> Created
 Runnable -> The thread is ready to run
