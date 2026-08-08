@@ -40,8 +40,8 @@ user.age();
 ```
 
 ## 2. What does Java generate automatically?
-- The exact generated implementation is compiler/JVM machinery. 
-- The important semantic point is that a record automatically provides:
+The exact generated implementation is compiler/JVM machinery. 
+The important semantic point is that a record automatically provides:
 	- private final component fields
 	- public accessors
 	- canonical constructor
