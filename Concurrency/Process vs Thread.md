@@ -30,7 +30,7 @@ Thread 4 → Notifications
 
 ```java
  
-      Heap
+     Heap
  +---------------+
  | Counter       |
  | count = 0     |
