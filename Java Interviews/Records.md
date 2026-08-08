@@ -115,3 +115,15 @@ Record
 ```
 
 ## 4. Canonical Constructor
+For:
+```
+record User(String name, int age) {}
+```
+
+Java automatically provides a constructor equivalent to:
+```
+public User(String name, int age) {
+    this.name = name;
+    this.age = age;
+}
+```
