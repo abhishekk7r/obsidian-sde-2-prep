@@ -39,3 +39,4 @@ user.name();
 user.age();
 ```
 
+## 2. What does Java generate automatically?
