@@ -115,6 +115,7 @@ Record
 ```
 
 ## 4. Canonical Constructor
+
 For:
 ```
 record User(String name, int age) {}
