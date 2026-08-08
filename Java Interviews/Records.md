@@ -143,7 +143,7 @@ JPA Entity → Service → Record DTO → API
 
 Entities have persistence/lifecycle/proxy requirements that don't fit the record model well.
 
-## Records + [[Sealed Interfaces
+## Records + [[Sealed Interfaces]]
 
 Records work well as implementations of sealed interfaces:
 
