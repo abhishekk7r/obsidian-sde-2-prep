@@ -1,6 +1,6 @@
 Records purpose is to model **immutable data carriers with much less boilerplate**
 
-## What problem do Records solve?
+## 1. What problem do Records solve?
 - Before records a simple class to represent users would look like this, they would carry a lot of boiler plate code:
 ```java
 public final class User { 
