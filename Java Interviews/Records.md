@@ -80,3 +80,36 @@ or:
 user.age = 30;
 ```
 
+Records provide **shallow immutability**, not deep immutability.
+This is extremely important.
+
+Consider:
+
+```
+record User(String name, List<String> hobbies) {}
+```
+
+You cannot change the `hobbies` reference:
+
+```
+user.hobbies() = anotherList;
+```
+
+But you can potentially modify the underlying list:
+
+```
+user.hobbies().add("Swimming");
+```
+
+if that list itself is mutable.
+
+So:
+
+```
+Record
+  |
+  +-- String -> immutable
+  |
+  +-- List -> reference is final
+              but List may be mutable
+```
