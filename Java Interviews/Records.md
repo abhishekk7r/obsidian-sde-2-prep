@@ -1,1 +1,1 @@
-Records purpose is to purpose is to model **immutable data carriers with much less boilerplate**
+Records purpose is to model **immutable data carriers with much less boilerplate**
