@@ -50,4 +50,17 @@ user.age();
 	- `toString()`
 
 ## 3. Records are immutable — but understand what that REALLY means
-- Records are `shallowly immutable`, not necessarily deeply immutable.
+Records are `shallowly immutable`, not necessarily deeply immutable.
+Suppose:
+
+```
+record User(String name, int age) {}
+```
+
+You cannot do:
+
+```
+user.age = 30;
+```
+
+There are no setters.
