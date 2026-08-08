@@ -1,133 +1,156 @@
-Records purpose is to model **immutable data carriers with much less boilerplate**
+# Java Records
 
-## 1. What problem do Records solve?
-- Before records a simple class to represent users would look like this, they would carry a lot of boiler plate code:
-```java
-public final class User { 
-private final String name; 
-private final int age; 
-public User(String name, int age) { this.name = name; this.age = age; }
+> Introduced as a concise way to model immutable data carriers. Finalized in Java 16; available in Java 17.
 
-/*
-getter 
-setter
-hashcode
-equals
-*/
-}
+## Core
+
+```
+record User(String name, int age) {}
 ```
 
-- `Records` solves this.
-```java
-  public record User(String name, int age) {}
-  
-  //You can create objects like:
-  User user = new User("Abhishek", 26);
-  System.out.println(user.name());
-  System.out.println(user.age());
-```
-- The compiler automatically provides the fields, constructor, accessors, `equals()`, `hashCode()`, and `toString()`
+Automatically provides:
 
-- The accessor has the **same name as the record component**.
-```java
-//Normal Class
-user.getName();
-user.getAge();
-
-//Records
-user.name();
-user.age();
-```
-
-## 2. What does Java generate automatically?
-The exact generated implementation is compiler/[[Java Development Kit]] machinery. 
-The important semantic point is that a record automatically provides:
-- private final component fields
-- public accessors
-- canonical constructor
+- `private final` component fields
+- Canonical constructor
+- Accessors: `name()`, `age()`
 - `equals()`
 - `hashCode()`
 - `toString()`
 
-## 3. Records are immutable — but understand what that REALLY means
+## Key Properties
 
-Records are `shallowly immutable`, not necessarily deeply immutable.
+- Record is implicitly `final`
+- Cannot extend another class
+- Can implement interfaces
+- Can have methods and static members
+- Cannot have additional instance fields
+- Cannot have mutable components themselves
+- Can be generic
+- Supports annotations
 
-Suppose:
-
-```
-record User(String name, int age) {}
-```
-
-You cannot do:
-
-```
-user.age = 30;
-```
-
-There are no setters.
-
-The components are represented by final fields.
-So this is impossible:
+## Accessors
 
 ```
-user.setAge(30);
+user.name()
+user.age()
 ```
 
-or:
+Not JavaBean getters:
 
 ```
-user.age = 30;
+user.getName()
 ```
 
-Records provide **shallow immutability**, not deep immutability.
-This is extremely important.
+## Immutability
 
-Consider:
-
-```
-record User(String name, List<String> hobbies) {}
-```
-
-You cannot change the `hobbies` reference:
+Records provide **shallow immutability**.
 
 ```
-user.hobbies() = anotherList;
+record User(String name, List<String> roles) {}
 ```
 
-But you can potentially modify the underlying list:
+The `roles` reference cannot be reassigned, but the underlying `List` may still be mutable.
+
+For defensive immutability:
 
 ```
-user.hobbies().add("Swimming");
-```
-
-if that list itself is mutable.
-
-So:
-
-```
-Record
-  |
-  +-- String -> immutable
-  |
-  +-- List -> reference is final
-              but List may be mutable
-```
-
-## 4. Canonical Constructor
-
-For:
-```
-record User(String name, int age) {}
-```
-
-Java automatically provides a constructor equivalent to:
-```
-public User(String name, int age) {
-    this.name = name;
-    this.age = age;
+public User {
+    roles = List.copyOf(roles);
 }
 ```
 
-## 5. Compact Canonical Constructor
+## Constructors
 
+### Canonical Constructor
+
+Constructor containing all record components.
+
+```
+record User(String name, int age) {}
+```
+
+### Compact Constructor
+
+Useful for validation/normalization.
+
+```
+record User(String name, int age) {
+    public User {
+        if (age < 0)
+            throw new IllegalArgumentException();
+    }
+}
+```
+
+The compiler handles component assignment.
+
+Additional constructors must ultimately delegate to the canonical constructor.
+
+## Methods
+
+Records can contain normal methods and implement interfaces.
+
+```
+record Rectangle(double length, double width) {
+    double area() {
+        return length * width;
+    }
+}
+```
+
+## Equality
+
+Record `equals()` and `hashCode()` are based on component values.
+
+```
+record User(String name, int age) {}
+
+new User("A", 20).equals(new User("A", 20)); // true
+```
+
+`==` still compares object references.
+
+## Spring Boot
+
+Excellent for immutable:
+
+- Request DTOs
+- Response DTOs
+- Events/messages
+- Value objects
+- API projections
+
+Example:
+
+```
+record CreateUserRequest(
+    String name,
+    String email
+) {}
+```
+
+Jackson/Spring Boot can deserialize records using their canonical constructor.
+
+## Records vs JPA
+
+Generally **don't use records as JPA entities**.
+
+Typical pattern:
+
+```
+JPA Entity → Service → Record DTO → API
+```
+
+Entities have persistence/lifecycle/proxy requirements that don't fit the record model well.
+
+## Records + Sealed Interfaces
+
+Records work well as implementations of sealed interfaces:
+
+```
+sealed interface Payment
+    permits CardPayment, UpiPayment {}
+
+record CardPayment(String card) implements Payment {}
+record UpiPayment(String upiId) implements Payment {}
+```
