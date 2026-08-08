@@ -36,9 +36,9 @@ Thread 4 → Notifications
  | count = 0     |
    +---------------+
 
-    ▲           ▲
+  ▲           ▲
   │           │
-  	   Thread A     Thread B
+Thread A     Thread B
 ```
 
 - Each thread has it’s own stack memory.
