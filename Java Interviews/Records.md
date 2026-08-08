@@ -113,3 +113,5 @@ Record
   +-- List -> reference is final
               but List may be mutable
 ```
+
+## 4. Canonical Constructor
