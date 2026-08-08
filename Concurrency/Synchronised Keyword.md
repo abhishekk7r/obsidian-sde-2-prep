@@ -14,3 +14,4 @@ When a thread enters a synchronized block:
 - Releases the lock.
 - Other threads wait until the lock is released.
 ```
+
