@@ -49,4 +49,4 @@ user.age();
 	- `hashCode()`
 	- `toString()`
 
-## 3. 
+## 3. Records are immutable — but understand what that REALLY means
