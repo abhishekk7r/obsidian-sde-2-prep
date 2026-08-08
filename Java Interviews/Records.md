@@ -18,6 +18,9 @@ public User(String name, int age) { this.name = name; this.age = age; }
 - `Records` solves this.
 ```java
   public record User(String name, int age) {}
+  
+  //You can create objects like:
+  User user = new User("Abhishek", 26);
 ```
 - The compiler automatically provides the fields, constructor, accessors, `equals()`, `hashCode()`, and `toString()`
 
