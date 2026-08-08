@@ -51,4 +51,3 @@ user.age();
 
 ## 3. Records are immutable — but understand what that REALLY means
 - Records are `shallowly immutable`, not necessarily deeply immutable.
-- 
