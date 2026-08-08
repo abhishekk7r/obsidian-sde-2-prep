@@ -9,6 +9,7 @@ private final int age;
 public User(String name, int age) { this.name = name; this.age = age; }
 
 //getter 
-/s
+//setter
+h
 }
 ```
