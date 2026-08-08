@@ -6,3 +6,4 @@
 #### How Synchronization works in java?
 
 Every Java object has an **Intrinsic Lock (Monitor)**.
+
