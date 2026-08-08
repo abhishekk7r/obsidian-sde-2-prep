@@ -29,9 +29,9 @@ Thread 4 → Notifications
 ### How the memory is shared?
 
 ```java
-    Heap
+ Heap
 
-  +---------------+
+ +---------------+
  | Counter       |
  | count = 0     |
  +---------------+
