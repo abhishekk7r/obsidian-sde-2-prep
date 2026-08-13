@@ -5,4 +5,5 @@ Lenskart:
 		- What are the production issues one would face?
     2. Java 21 Related Concepts:
 	    - Records
+	    - Atomic Class & Variables
 	    - 
