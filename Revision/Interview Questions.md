@@ -13,3 +13,5 @@ Lenskart:
 	    - Thread pool 
 	    - Thread Local
 	    - Garbage Collection (tuning)
+	    - Volatile Keyword
+2. 
