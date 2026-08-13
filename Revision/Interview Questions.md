@@ -21,4 +21,4 @@ Lenskart & Visa:
 	1. Out Of Memory Errors
 	2. How to trace and RCA (logging, metric, recent deployment, transient errors)
 3. Data Structure & Algo
-	- Max Flips to make Domino numerator = target [[] 
+	- Max Flips to make Domino numerator = target 
