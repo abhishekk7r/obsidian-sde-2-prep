@@ -9,4 +9,5 @@ Lenskart:
 	    - RentrantLocks 
 	    - Synchronized
 	    - Concurrent HashMap
-	    - 
+	    - JVM Memory
+	    - Thread pool 
