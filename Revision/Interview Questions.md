@@ -7,4 +7,4 @@ Lenskart:
 	    - Records
 	    - Atomic Class & Variables
 	    - RentrantLocks 
-	    - Sync
+	    - Synchronized
