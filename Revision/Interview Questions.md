@@ -12,4 +12,4 @@ Lenskart:
 	    - JVM Memory
 	    - Thread pool 
 	    - Thread Local
-	    - Gar
+	    - Garbage Collection ()
