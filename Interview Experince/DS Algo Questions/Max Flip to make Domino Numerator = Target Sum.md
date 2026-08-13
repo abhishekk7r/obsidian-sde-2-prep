@@ -13,7 +13,50 @@ int minNoOfFlips(int dominos[][], int targetSum) {
 }
 
 
-```
+```c++
 Solution: 
+#include <bits/stdc++.h>
+using namespace std;
 
+int minNoOfFlips(vector<vector<int>>& dominos, int targetSum) {
+    int numeratorSum = 0;
+    vector<int> difference;
+
+    for (auto& domino : dominos) {
+        int numerator = domino[0];
+        int denominator = domino[1];
+
+        numeratorSum += numerator;
+
+        if (denominator > numerator) {
+            difference.push_back(denominator - numerator);
+        }
+    }
+
+    if (numeratorSum >= targetSum)
+        return 0;
+
+    sort(difference.begin(), difference.end(), greater<int>());
+
+    int count = 0;
+
+    for (int diff : difference) {
+        numeratorSum += diff;
+        count++;
+
+        if (numeratorSum >= targetSum)
+            return count;
+    }
+
+    return -1;
+}
+
+int main() {
+    vector<vector<int>> dominos = {{1, 2}, {2, 5}, {5, 6}};
+    int targetSum = 10;
+
+    cout << minNoOfFlips(dominos, targetSum) << endl;
+
+    return 0;
+}
 ```
