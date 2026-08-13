@@ -6,4 +6,4 @@ Lenskart:
     2. Java 21 Related Concepts:
 	    - Records
 	    - Atomic Class & Variables
-	    - Re
+	    - RentrantLocks 
