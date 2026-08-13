@@ -3,4 +3,6 @@ Lenskart:
 	1. Completable Future
 		- What is completable future?
 		- What are the production issues one would face?
-    2. 
+    2. Java 21 Related Concepts:
+	    - Records
+	    - 
