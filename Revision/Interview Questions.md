@@ -1,2 +1,2 @@
 Lenskart:
-1. Jva
+1. Java
