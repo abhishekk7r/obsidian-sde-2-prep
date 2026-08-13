@@ -15,7 +15,7 @@ Lenskart & Visa:
 	    - Garbage Collection (tuning)
 	    - Volatile Keyword
 	    - Equals vs Hashcode
-	    - Spring Boot Lifecyle
+	    - Spring Boot Lifecycle
 	    - 
 2. Production & Debugging Scenarios:
 	1. Out Of Memory Errors
