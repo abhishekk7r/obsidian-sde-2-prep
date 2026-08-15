@@ -102,3 +102,37 @@ if (instance == null) {
 **Mnemonic:** *Race = wrong answer. Deadlock = no answer.*
 
 ---
+
+## 3. `synchronized` Keyword
+
+- Guards **code paths**, not objects — an unsynchronized method on the same object is NOT blocked by another thread holding the lock via a synchronized method/block
+- Backed by every object's implicit **monitor** (intrinsic lock) — only one thread holds it at a time, others go to **BLOCKED**
+
+> [!danger] Trap
+> `synchronized` protects code, not the object itself. Two threads can be inside a synchronized method and a plain method **simultaneously** on the same object — no blocking, since the plain method never checks the lock.
+
+### Instance vs static synchronized
+
+| | Locks on | Scope |
+|---|---|---|
+| `synchronized` instance method / `synchronized(this)` | the instance (`this`) | per-object — different instances don't block each other |
+| `synchronized` static method / `synchronized(ClassName.class)` | the `Class` object | one per class — blocks across **all** instances |
+
+> [!danger] Trap
+> Instance-synchronized and static-synchronized methods on the same class **do not block each other** — different locks. Mixing `this` and `.class` locks to protect the *same* shared data is a bug.
+
+### Reentrancy
+- `synchronized` **is reentrant** — a thread already holding an object's monitor can re-enter other synchronized blocks/methods on the same object freely (JVM tracks a hold count)
+- Nested synchronized calls, same thread, same object → **no self-deadlock**
+- `ReentrantLock` is also reentrant (matches `synchronized` behavior) — its name refers to that guarantee, not something `synchronized` lacks. Extra features: `tryLock()`, timeouts, **fairness policy** (`new ReentrantLock(true)` — FIFO, longest-waiting thread first, prevents starvation), multiple `Condition` objects (multiple independent wait-queues vs. `synchronized`'s single wait-set), **interruptible** lock acquisition (`lockInterruptibly()` — can abort a blocked wait; `synchronized` cannot)
+
+### Exception safety
+- Lock is **always released** on exit from a synchronized block — normal or exceptional. JVM-guaranteed, acts like an implicit `finally`.
+
+### Locking on the wrong object
+- Never synchronize on `String` literals or cached boxed `Integer` (-128..127) — both are JVM-wide shared/interned objects, so you risk sharing a lock with unrelated code
+- Always use a **private, dedicated lock object**: `private final Object lock = new Object();`
+
+**Mnemonic:** *`synchronized` locks code, not objects — and it never locks the same thread out of itself.*
+
+---
