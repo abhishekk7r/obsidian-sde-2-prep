@@ -36,7 +36,7 @@ OrderService → Factory/Map → NotificationService → {Email, SMS, Slack}
 
 ## Interface vs Abstract Class
 
-||Interface|Abstract Class|
+|Interface|Abstract Class|
 |---|---|---|
 |Keyword|`implements`|`extends`|
 |Multiple?|Extends multiple interfaces|Extends only one class|
