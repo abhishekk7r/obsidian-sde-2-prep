@@ -26,7 +26,7 @@ Lenskart & Visa:
 		- RestController
 		- Different Annotations
 		- Exception handling without try-catch
-		- RestAdvieController
+		- RestAdviceController
 		- N+1 problem
 		- 
 2. Production & Debugging Scenarios:
