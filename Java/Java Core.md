@@ -261,14 +261,21 @@ String describe(Payment p) {
 |`IOException`, `SQLException`|`NullPointerException`, `ArrayIndexOutOfBoundsException`, `IllegalArgumentException`|
 |Represents recoverable external conditions|Represents programming bugs|
 
-**try-with-resources** — auto-closes any `AutoCloseable`, no manual `finally { close(); }`:
+**Hierarchy:** `Throwable` → `Exception` (checked, unless `RuntimeException`/subclass) and `Throwable` → `Error` (unchecked, JVM-level failure — `OutOfMemoryError`, `StackOverflowError` — never meant to be caught/recovered from)
+
+**try-with-resources** — needs `AutoCloseable`/`Closeable`, auto-closes, no manual `finally { close(); }`:
 ```java
 try (BufferedReader br = new BufferedReader(new FileReader(path))) {
     return br.readLine();
 } // br.close() called automatically, even on exception
 ```
+- Multiple resources → closed in **reverse order of declaration** (matters when one depends on another, e.g. statement before connection)
+
+> [!danger] Trap — suppressed exceptions
+> If both try block **and** `close()` throw, the try block's exception propagates as primary — close()'s exception is **suppressed**, not lost, retrievable via `e.getSuppressed()`.
 
 **Custom exceptions:** extend `Exception` (checked) or `RuntimeException` (unchecked) depending on whether callers should be forced to handle it.
+- Always provide: no-arg ctor, `(String message)` ctor, `(String message, Throwable cause)` ctor — the cause-chain ctor is what preserves the original stack trace on wrap-and-rethrow
 
 > [!warning] Trap — multi-catch order
 > ```java
@@ -276,6 +283,19 @@ try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 > catch (FileNotFoundException e) {} // unreachable — compile error
 > ```
 > Subclass exceptions must be caught **before** their superclass, or the later catch block is unreachable.
+
+> [!danger] Trap — losing the cause chain
+> Catching a checked exception and throwing a new unchecked one *without* passing the original as `cause` destroys the root-cause stack trace — production logs show only the wrapper, not why it actually failed. Always `throw new MyException(msg, originalException)`.
+
+> [!danger] Trap — overriding and checked exceptions
+> A subclass method can throw a **narrower** checked exception (or none) than the parent declares, or **any** unchecked exception — but never a **broader/new checked** one (breaks callers relying on the parent's contract).
+
+> [!warning] Trap — catching too broad
+> `catch (Throwable t)` also catches `Error` (`OutOfMemoryError`, `StackOverflowError`) — JVM-level failures your code has no business "recovering" from. Never catch `Throwable` in application code; catch the most specific type you can actually handle.
+
+**Exception translation/chaining:** catch a low-level exception (`SQLException`) and rethrow as a domain-specific one (`UserRepositoryException`), always passing the original as `cause` — decouples layers while keeping full debuggability.
+
+**Mnemonic:** "Catch narrow, throw with cause, never touch Throwable."
 
 ---
 
