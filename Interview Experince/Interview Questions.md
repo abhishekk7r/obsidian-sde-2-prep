@@ -39,8 +39,9 @@ ___
 1. Data Structure & Algo
 	- [[Max Flip to make Domino Numerator = Target Sum]]
 	- Longest Consecutive Subsequnce
+___
 
-2. System Design
+1. System Design
 	 1. HLD
 		- Design the notifcation system
 		- Design the Vending Machine
