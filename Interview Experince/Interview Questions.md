@@ -40,4 +40,5 @@ Lenskart & Visa:
 
 4. System Design
 	 1. HLD
-	 2. 
+		- Design the notifcation system
+		- Design the ATM
