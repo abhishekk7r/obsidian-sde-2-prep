@@ -149,17 +149,27 @@ constructor body (instance init runs after super(), before rest of ctor)
 
 ## Autoboxing & Integer Cache
 
-- Autoboxing = automatic primitive ↔ wrapper conversion (`int` ↔ `Integer`)
-- **Integer cache:** JVM caches boxed `Integer` values in range **-128 to 127**
+- Autoboxing = automatic primitive ↔ wrapper conversion (`int` ↔ `Integer`), via `Integer.valueOf()` — not `new Integer()`
+- **Integer cache:** JVM caches boxed `Integer` values in range **-128 to 127**, returned by `valueOf()`. Range tunable up via `-XX:AutoBoxCacheMax`, not down
 
 > [!danger] Classic trap
 > ```java
 > Integer a = 127, b = 127;
-> a == b        // true  — both pulled from cache
+> a == b        // true  — both pulled from cache via valueOf()
 > Integer x = 200, y = 200;
 > x == y        // false — outside cache range, different objects
 > ```
 > **Fix:** always use `.equals()` for wrapper comparisons, never `==`.
+
+> [!danger] Trap — `new Integer()` bypasses the cache entirely
+> ```java
+> Integer a = new Integer(127);   // forces new object, skips cache
+> Integer b = 127;                // valueOf() → cached object
+> a == b   // false — even though both are within cache range
+> ```
+> `Integer(int)` constructor is deprecated since Java 9 for exactly this reason.
+
+> [!tip] Mnemonic: "`new` says no to the cache."
 
 ---
 
