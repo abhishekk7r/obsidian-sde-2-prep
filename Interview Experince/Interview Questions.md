@@ -52,4 +52,4 @@ ___
 Personal Notes:
 
 1. Question regarding resume, especially on Java 21 
-2.  questions regarding what are the most important problems that you have faced while working on it and how to explain RFE in such a way that it is a deep engineering project rather than just a migration 
+2. Questions regarding what are the most important problems that you have faced while working on it and how to explain RFE in such a way that it is a deep engineering project rather than just a migration 
