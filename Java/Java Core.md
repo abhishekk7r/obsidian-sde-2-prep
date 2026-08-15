@@ -2,6 +2,18 @@
 
 ---
 
+## JVM / JRE / JDK
+
+| |Contains|Use case|
+|---|---|---|
+|**JVM**|Runs bytecode → machine code. Platform-dependent (bytecode itself is not). Includes JIT compiler.|Executes the program|
+|**JRE**|JVM + class libraries|Enough to just *run* a Java program|
+|**JDK**|JRE + dev tools (compiler, debugger, etc.)|Needed to *build* Java programs|
+
+> [!tip] JDK ⊃ JRE ⊃ JVM — each layer wraps the previous one
+
+---
+
 ## OOP — 4 Pillars
 
 |Pillar|Meaning|Mnemonic|
@@ -10,28 +22,6 @@
 |Abstraction|Hide implementation details|**hide**|
 |Inheritance|`IS-A` relationship|**reuse**|
 |Polymorphism|Same interface, different implementations|**substitute**|
-
----
-
-## Composition Over Inheritance
-
-- Prefer **HAS-A** > `extends` when possible → lower coupling, easier testing/change
-- Inheritance → only for genuine **IS-A**
-
-**Example — Notification flow**
-
-```
-OrderService → Factory/Map → NotificationService → {Email, SMS, Slack}
-```
-
-- **Interface** = contract
-- **Strategy** = Email/SMS/Slack are interchangeable behaviors
-- **Factory** = selects implementation
-- **DI** = supplies dependency to `OrderService`
-- **DIP** = business logic depends on interface, not concrete class
-
-> [!tip] Chain
-> Interface → Strategy → Factory selects → DI provides
 
 ---
 
@@ -60,6 +50,28 @@ OrderService → Factory/Map → NotificationService → {Email, SMS, Slack}
 
 ---
 
+## Composition Over Inheritance
+
+- Prefer **HAS-A** > `extends` when possible → lower coupling, easier testing/change
+- Inheritance → only for genuine **IS-A**
+
+**Example — Notification flow**
+
+```
+OrderService → Factory/Map → NotificationService → {Email, SMS, Slack}
+```
+
+- **Interface** = contract
+- **Strategy** = Email/SMS/Slack are interchangeable behaviors
+- **Factory** = selects implementation
+- **DI** = supplies dependency to `OrderService`
+- **DIP** = business logic depends on interface, not concrete class
+
+> [!tip] Chain
+> Interface → Strategy → Factory selects → DI provides
+
+---
+
 ## Overloading vs Overriding
 
 |Overloading|Overriding|
@@ -79,6 +91,53 @@ OrderService → Factory/Map → NotificationService → {Email, SMS, Slack}
 > - Override can throw same/narrower/no checked exception — never new/broader
 > - Fields are **not polymorphic** — resolved by reference type (hiding, not overriding)
 > - Constructors are never overridden
+
+---
+
+## Static Keyword & Initialization Order
+
+- `static` field/method belongs to the **class**, not an instance — shared across all objects
+- `static` block runs **once**, at class-load time, before `main()` / before first instantiation
+
+**Init order (per class load, then per instance):**
+```
+static fields/blocks (once, class load)
+      ↓
+instance fields/blocks (every instantiation)
+      ↓
+constructor
+```
+
+> [!warning] Trap
+> Can't access instance members directly from a static context (`static void main` can't touch instance fields without an object reference) — no `this` exists in static scope.
+
+---
+
+## final vs finally vs finalize
+
+|Keyword|What it does|
+|---|---|
+|`final`|Variable → constant (no reassignment). Method → can't override. Class → can't extend|
+|`finally`|Block that **always** runs after try/catch (cleanup) — skipped only on `System.exit()` or JVM crash|
+|`finalize()`|Deprecated GC hook, called before object collection — **unreliable, never rely on it** for cleanup|
+
+> [!tip] Prefer try-with-resources over `finalize()` for cleanup — deterministic vs "whenever GC feels like it"
+
+---
+
+## Autoboxing & Integer Cache
+
+- Autoboxing = automatic primitive ↔ wrapper conversion (`int` ↔ `Integer`)
+- **Integer cache:** JVM caches boxed `Integer` values in range **-128 to 127**
+
+> [!danger] Classic trap
+> ```java
+> Integer a = 127, b = 127;
+> a == b        // true  — both pulled from cache
+> Integer x = 200, y = 200;
+> x == y        // false — outside cache range, different objects
+> ```
+> **Fix:** always use `.equals()` for wrapper comparisons, never `==`.
 
 ---
 
@@ -122,15 +181,69 @@ OrderService → Factory/Map → NotificationService → {Email, SMS, Slack}
 
 ---
 
-## JVM / JRE / JDK
+## var — Local Type Inference (Java 10+)
 
-| |Contains|Use case|
-|---|---|---|
-|**JVM**|Runs bytecode → machine code. Platform-dependent (bytecode itself is not). Includes JIT compiler.|Executes the program|
-|**JRE**|JVM + class libraries|Enough to just *run* a Java program|
-|**JDK**|JRE + dev tools (compiler, debugger, etc.)|Needed to *build* Java programs|
+```java
+var list = new ArrayList<String>(); // inferred as ArrayList<String>
+```
 
-> [!tip] JDK ⊃ JRE ⊃ JVM — each layer wraps the previous one
+- **Statically typed at compile time** — not dynamic typing, just less typing
+- Only for **local variables with an initializer** — not fields, method params, return types, or bare `var x;`
+- Can't infer from `null` alone (`var x = null;` → compile error)
+
+---
+
+## Switch Expressions & Pattern Matching (Java 14 / 21)
+
+**Switch expression** (Java 14) — returns a value, arrow syntax, exhaustive:
+```java
+int numLetters = switch (day) {
+    case MON, FRI, SUN -> 6;
+    case TUE -> 3;
+    default -> {
+        yield 0;
+    }
+};
+```
+
+**Pattern matching for switch** (Java 21) — matches on type, deconstructs records directly:
+```java
+String describe(Payment p) {
+    return switch (p) {
+        case CardPayment c -> "Card: " + c.cardNumber();
+        case UpiPayment u  -> "UPI: " + u.upiId();
+    };
+}
+```
+
+> [!tip] Why this pairs with sealed interfaces
+> Because `Payment` is `sealed` with only `CardPayment`/`UpiPayment` permitted, the compiler knows the switch is **exhaustive** — no `default` needed. Add a new permitted type later → compiler forces you to handle it here. This combo (sealed + records + pattern-matching switch) is the modern Java idiom for closed variant modeling.
+
+---
+
+## Exception Handling
+
+|Checked|Unchecked (Runtime)|
+|---|---|
+|Enforced at compile time — must catch or declare `throws`|Not enforced — compiler doesn't check|
+|`IOException`, `SQLException`|`NullPointerException`, `ArrayIndexOutOfBoundsException`, `IllegalArgumentException`|
+|Represents recoverable external conditions|Represents programming bugs|
+
+**try-with-resources** — auto-closes any `AutoCloseable`, no manual `finally { close(); }`:
+```java
+try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+    return br.readLine();
+} // br.close() called automatically, even on exception
+```
+
+**Custom exceptions:** extend `Exception` (checked) or `RuntimeException` (unchecked) depending on whether callers should be forced to handle it.
+
+> [!warning] Trap — multi-catch order
+> ```java
+> catch (IOException e) {}
+> catch (FileNotFoundException e) {} // unreachable — compile error
+> ```
+> Subclass exceptions must be caught **before** their superclass, or the later catch block is unreachable.
 
 ---
 
@@ -180,7 +293,7 @@ record UpiPayment(String upiId) implements Payment {}
 
 - `permits` = closed, fixed set of allowed implementers (compile error if an unpermitted class tries)
 - Every permitted subtype must itself be **`final`**, **`sealed`**, or **`non-sealed`**
-- Records are implicitly `final` → ideal leaf implementations of a sealed hierarchy (common combo for modeling closed sets of immutable variants + pattern matching)
+- Records are implicitly `final` → ideal leaf implementations of a sealed hierarchy (common combo for modeling closed sets of immutable variants + pattern matching — see above)
 
 > [!warning] Sealed ≠ immutable
 > Sealed only controls the **inheritance hierarchy** (who can implement it) — it says nothing about whether instances are mutable. That's a separate property (records get it from being records, not from being sealed).
