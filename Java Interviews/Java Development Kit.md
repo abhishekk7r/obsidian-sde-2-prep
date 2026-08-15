@@ -12,3 +12,4 @@
 - It includes **JVM + Class Libraries**
 
 ## JDK — Java Development Kit
+- **Creates, builds, and runs** Java programs by bundling development tools with the runtime environment.
