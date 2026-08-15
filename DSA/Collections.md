@@ -1,6 +1,5 @@
 # Collections — Fast Revision
 
----- `put()`: key → `hashCode()` → HashMap spreads it (`hash ^ (hash >>> 16)`) to mix high bits into low bits → bucket index = `hash & (capacity - 1)`
 - Collision → new `Node` appended to that bucket's linked list (`equals()` decides key-match/overwrite vs new chained entry)
 - Resize: triggers when `size > capacity * loadFactor` (default load factor **0.75**) → capacity **doubles** → nearly every entry **rehashed** (bucket index depends on capacity) — O(n) operation, not a cheap copy
 
