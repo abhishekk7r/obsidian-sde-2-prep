@@ -37,6 +37,7 @@ Email SMS Slack
 
 > **Interface → Strategy → Factory selects → DI provides**
 
+___
 
 ## Interface vs Abstract Class
 
