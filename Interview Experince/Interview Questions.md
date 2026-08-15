@@ -19,6 +19,7 @@ Lenskart & Visa:
 	    - Concurrency - Related Question
 	    - Interface & Abstract Classes
 	    - Volatile & Atomic Keyword
+	    - Java 21 Realted Features(Heavy on this)
 	3. Spring Boot
 		- Transactional 
 		- Controller 
@@ -26,6 +27,7 @@ Lenskart & Visa:
 		- Different Annotations
 		- Exception handling without try-catch
 		- RestAvdiceController
+		- N+1 problem
 		- 
 2. Production & Debugging Scenarios:
 	1. [[Production Debugging — OOM after an old commit]]
