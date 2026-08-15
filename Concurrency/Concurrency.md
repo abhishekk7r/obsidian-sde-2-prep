@@ -52,3 +52,53 @@
 Not atomic — it's **Read → Modify (increment) → Write**. Two threads can both read the same stale value, increment locally, and the second write clobbers the first → lost update.
 
 ---
+
+## 2. Race Conditions & Critical Sections
+
+- **Critical section** — code accessing **shared mutable state**; protect via mutual exclusion (`synchronized`, locks, atomics) or by removing shared mutability (immutability)
+- **Race condition** — correctness depends on unpredictable thread interleaving/timing. Broader concept.
+- **Data race** — specific: same memory location, ≥1 write, no synchronization/happens-before order between accesses. Undefined behavior per JMM.
+
+> [!tip] Distinction
+> Every data race is a race condition. Not every race condition is a data race — can happen even with synchronization if the *logic* itself is order-dependent (e.g. two separately-synchronized calls used together).
+
+### Check-then-act (TOCTOU)
+- Classic race: `if (!map.containsKey(k)) map.put(k, v);` — two threads can both pass the check before either puts → lost/duplicate insert
+- Fix: atomic compound methods — `putIfAbsent()`, `computeIfAbsent()`
+
+### `volatile` ≠ atomicity
+- `volatile` = visibility (fresh reads) + ordering (no reordering around it) — **NOT atomicity**
+- `i++` on a volatile int is still Read→Modify→Write, still races. Use `AtomicInteger` for atomic increments.
+
+### Broken double-checked locking (lazy singleton)
+```java
+if (instance == null) {
+    synchronized(this) {
+        if (instance == null) {      // inner check required — else two threads both run init
+            instance = new Singleton();
+        }
+    }
+}
+```
+- Missing inner check → multiple threads pass outer check, both initialize
+- Flag/reference **must be `volatile`** — else instruction reordering can expose a half-constructed object to another thread (classic pre-fix JMM gotcha)
+
+### Read-only data
+- No writers → no race, regardless of thread count
+
+### Synchronized methods ≠ thread-safe class
+- Each method atomic individually; a **sequence** of two synchronized calls is not atomic as a unit
+- Example: `Vector`/`Hashtable` — thread-safe per-method, but `if (!v.contains(x)) v.add(x)` still races
+
+### Race condition vs Deadlock
+
+| | Race condition | Deadlock |
+|---|---|---|
+| Symptom | Wrong/inconsistent data, intermittent | Program hangs, no progress |
+| Reproducibility | Flaky, timing-dependent | Often reproducible under load |
+| Cause | Missing/incorrect synchronization | Circular wait on locks |
+| Fix | Proper synchronization | Lock ordering, `tryLock` with timeout |
+
+**Mnemonic:** *Race = wrong answer. Deadlock = no answer.*
+
+---
