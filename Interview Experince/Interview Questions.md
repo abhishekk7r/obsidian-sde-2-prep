@@ -20,7 +20,7 @@ Lenskart & Visa:
 	    - Interface & Abstract Classes
 	    - Volatile & Atomic Keyword
 	3. Spring Boot
-		- Trans
+		- T
 2. Production & Debugging Scenarios:
 	1. [[Production Debugging — OOM after an old commit]]
 	2. How to trace and RCA (logging, metric, recent deployment, transient errors)
