@@ -1,5 +1,3 @@
-# Java OOP & Design Patterns — Quick Revision
-
 ## Interface vs Abstract Class
 
 - **Interface:** Contract/capability → `implements`
