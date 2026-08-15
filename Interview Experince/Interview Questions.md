@@ -34,12 +34,13 @@ ___
 1. Production & Debugging Scenarios:
 	1. [[Production Debugging — OOM after an old commit]]
 	2. How to trace and RCA (logging, metric, recent deployment, transient errors)
+___
 
-2. Data Structure & Algo
+1. Data Structure & Algo
 	- [[Max Flip to make Domino Numerator = Target Sum]]
 	- Longest Consecutive Subsequnce
 
-3. System Design
+2. System Design
 	 1. HLD
 		- Design the notifcation system
 		- Design the Vending Machine
