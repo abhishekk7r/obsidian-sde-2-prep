@@ -83,3 +83,54 @@ ___
 - Fields are NOT polymorphic — resolved by reference type (field hiding, not overriding)
 - Constructors are never overridden (not inherited)
 ---
+# equals()/hashCode() + String Immutability — Quick Revision
+
+## 🔑 THE ONE RULE TO KNOW COLD
+equals() true  →  hashCode() MUST match   (mandatory)
+hashCode() match → equals() MAY be false  (hash collision — legal, just slower)
+
+---
+
+## TRAP 1 — Override equals() only, skip hashCode()
+Symptom: HashSet allows "duplicate" equal elements. contains()/get() silently fail.
+Why: equal objects → different default hashCode → different buckets → never compared via equals().
+Fix: Always override BOTH. Use Objects.hash(fields) or generate via IDE/Lombok.
+
+## TRAP 2 — Mutate a field used in equals()/hashCode() AFTER using object as a key
+Symptom: get(key) returns null even though the entry still exists (shows up in iteration).
+Why: Entry sits in the bucket from INSERT time. Mutating the field changes the hash,
+     so get() now searches a DIFFERENT bucket than where the entry actually lives.
+Fix: Never mutate fields involved in equals()/hashCode() while object is a map key /
+     set element. Prefer immutable keys.
+
+## TRAP 3 — Hash collision ≠ contract violation
+Two UNEQUAL objects CAN share a hashCode → totally legal (collision, O(1)→O(n) cost).
+Two EQUAL objects must ALWAYS share a hashCode → mandatory, violating this = bug.
+Don't confuse the two directions.
+
+---
+
+## String Immutability & Pool
+
+| Comparison                          | == (reference) | .equals() (value) |
+|--------------------------------------|:---:|:---:|
+| "abc" vs "abc" (both literals)       | true  | true |
+| "abc" vs new String("abc")           | false | true |
+| new String("abc") vs new String("abc") | false | true |
+| new String("abc").intern() vs "abc"  | true  | true |
+
+- String pool = part of the main HEAP since Java 7 (was PermGen before — common wrong answer).
+- Literals → pool reference automatically. new String(...) → separate heap object, NOT pooled.
+- .intern() → looks up pool for equal value; returns pooled ref if found, else adds & returns.
+- Any "modifying" method (concat, +, replace...) returns a NEW String — original never changes.
+
+## Why immutability → safe pooling
+Pooled strings are SHARED BY REFERENCE across the whole JVM.
+If String were mutable → changing one reference would corrupt every other holder of that
+pooled value. Immutability = guarantee that can never happen.
+→ StringBuilder is deliberately mutable, so it CANNOT be pooled/shared this way.
+
+## Why String is a great HashMap key
+Immutable → hashCode() can never change after construction (JVM even CACHES the
+computed hash on first call) → immune to Trap 2 → equal strings always hash the
+same, forever.
