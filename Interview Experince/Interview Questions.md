@@ -25,7 +25,8 @@ Lenskart & Visa:
 		- RestController
 		- Different Annotations
 		- Exception handling without try-catch
-		- RestAvdice
+		- RestAvdiceController
+		- 
 2. Production & Debugging Scenarios:
 	1. [[Production Debugging — OOM after an old commit]]
 	2. How to trace and RCA (logging, metric, recent deployment, transient errors)
