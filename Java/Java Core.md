@@ -334,4 +334,3 @@ record UpiPayment(String upiId) implements Payment {}
 > Sealed interface = interface + controlled inheritance hierarchy. Finalized in Java 17 (records: 16→17).
 
 
-![[Pasted image 20260816004932.png]]
