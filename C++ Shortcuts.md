@@ -37,8 +37,8 @@ st.count(x);
 ## 7. Binary Search (Lower Bound)
 ```cpp
 auto it = lower_bound(v.begin(), v.end(), x);
-`lower_bound` = ≥, `upper_bound` = >.
 ```
+`lower_bound` = ≥, `upper_bound` = >.
 
 ## 8. Stack Operations
 ```cpp
