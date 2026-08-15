@@ -49,3 +49,6 @@ ___
 ___ 
 
 
+Personal Notes:
+
+1. 
