@@ -1,28 +1,5 @@
 # Collections — Fast Revision
 
-- Collision → new `Node` appended to that bucket's linked list (`equals()` decides key-match/overwrite vs new chained entry)
-- Resize: triggers when `size > capacity * loadFactor` (default load factor **0.75**) → capacity **doubles** → nearly every entry **rehashed** (bucket index depends on capacity) — O(n) operation, not a cheap copy
-
-**Treeification (Java 8+):**
-- Bucket → red-black tree at **8** entries (`TREEIFY_THRESHOLD`), tree → back to list at **6** (`UNTREEIFY_THRESHOLD`) — gap is deliberate hysteresis, prevents thrashing at the boundary
-- Needs `Comparable`/`Comparator` — tree requires total ordering for left/right placement, `equals()`/`hashCode()` alone can't do that. Falls back to class-name + `identityHashCode()` if keys aren't `Comparable`
-
-|Time complexity|Pre-Java-8|Java 8+ (treeified)|
-|---|---|---|
-|`get()` worst case|O(n) — all keys collide into one bucket|O(log n) per bucket|
-
-> [!danger] Trap — why treeification exists
-> Pre-Java-8 O(n) worst case was a real **DoS vector**: attacker crafts keys with colliding hash codes (e.g. HTTP params), forces one bucket to hold everything, degrades every op to O(n). Treeification caps worst case at O(log n), closing the attack.
-
-> [!tip] Why power-of-2 capacity: `capacity - 1` is a clean bitmask → `hash & (capacity-1)` ≡ `hash % capacity` but as fast bitwise AND
-
-> [!danger] Trap — HashMap is NOT thread-safe
-> Concurrent `put()`s → no exception, **silent** failure: lost writes, corrupted bucket structure, Java 7 had a famous **infinite loop on concurrent resize** (100% CPU hang in prod). `ConcurrentModificationException` is a *different*, narrower issue — from iterating while structurally modifying (fail-fast iterator), not concurrency per se.
-> **Fix:** `ConcurrentHashMap` — bucket-level locking (CAS + synchronized on bin heads), no global lock.
-
-**Mnemonic:** "8 up, 6 down; power-of-2 for speed; never trust HashMap with threads."
-
-
 ## ArrayDeque vs LinkedList
 
 |ArrayDeque|LinkedList|
@@ -99,6 +76,33 @@ class LRUCache<K,V> extends LinkedHashMap<K,V> {
 - 3rd ctor arg `true` = access-order (get/put → moves entry to MRU end). Default `false` = insertion-order
 - **Must override `removeEldestEntry`** — without it, map never evicts, grows unbounded
 - C++ has no equivalent — manual: `unordered_map<K, list<pair<K,V>>::iterator> + list<pair<K,V>>`
+
+---
+
+## HashMap Internals — Buckets, Resize, Treeification
+
+- `put()`: key → `hashCode()` → HashMap spreads it (`hash ^ (hash >>> 16)`) to mix high bits into low bits → bucket index = `hash & (capacity - 1)`
+- Collision → new `Node` appended to that bucket's linked list (`equals()` decides key-match/overwrite vs new chained entry)
+- Resize: triggers when `size > capacity * loadFactor` (default load factor **0.75**) → capacity **doubles** → nearly every entry **rehashed** (bucket index depends on capacity) — O(n) operation, not a cheap copy
+
+**Treeification (Java 8+):**
+- Bucket → red-black tree at **8** entries (`TREEIFY_THRESHOLD`), tree → back to list at **6** (`UNTREEIFY_THRESHOLD`) — gap is deliberate hysteresis, prevents thrashing at the boundary
+- Needs `Comparable`/`Comparator` — tree requires total ordering for left/right placement, `equals()`/`hashCode()` alone can't do that. Falls back to class-name + `identityHashCode()` if keys aren't `Comparable`
+
+|Time complexity|Pre-Java-8|Java 8+ (treeified)|
+|---|---|---|
+|`get()` worst case|O(n) — all keys collide into one bucket|O(log n) per bucket|
+
+> [!danger] Trap — why treeification exists
+> Pre-Java-8 O(n) worst case was a real **DoS vector**: attacker crafts keys with colliding hash codes (e.g. HTTP params), forces one bucket to hold everything, degrades every op to O(n). Treeification caps worst case at O(log n), closing the attack.
+
+> [!tip] Why power-of-2 capacity: `capacity - 1` is a clean bitmask → `hash & (capacity-1)` ≡ `hash % capacity` but as fast bitwise AND
+
+> [!danger] Trap — HashMap is NOT thread-safe
+> Concurrent `put()`s → no exception, **silent** failure: lost writes, corrupted bucket structure, Java 7 had a famous **infinite loop on concurrent resize** (100% CPU hang in prod). `ConcurrentModificationException` is a *different*, narrower issue — from iterating while structurally modifying (fail-fast iterator), not concurrency per se.
+> **Fix:** `ConcurrentHashMap` — bucket-level locking (CAS + synchronized on bin heads), no global lock.
+
+**Mnemonic:** "8 up, 6 down; power-of-2 for speed; never trust HashMap with threads."
 
 ---
 
