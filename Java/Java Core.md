@@ -98,18 +98,27 @@ OrderService → Factory/Map → NotificationService → {Email, SMS, Slack}
 
 - `static` field/method belongs to the **class**, not an instance — shared across all objects
 - `static` block runs **once**, at class-load time, before `main()` / before first instantiation
+- Static members live in the **method area** (Metaspace, Java 8+; was PermGen before) — not stack, not heap-per-object
 
 **Init order (per class load, then per instance):**
 ```
-static fields/blocks (once, class load)
+static fields/blocks (once, class load, textual top-to-bottom order)
       ↓
-instance fields/blocks (every instantiation)
+instance fields/blocks (every instantiation, textual order)
       ↓
-constructor
+constructor body (instance init runs after super(), before rest of ctor)
 ```
+
+**Nested classes don't cascade init:**
+- A static nested class's own static block only runs when *it* is first actively used — outer class loading does **not** trigger it
 
 > [!warning] Trap
 > Can't access instance members directly from a static context (`static void main` can't touch instance fields without an object reference) — no `this` exists in static scope.
+
+> [!danger] Trap — static init failure is permanent
+> If a static block throws, JVM wraps it as `ExceptionInInitializerError` and the class is marked erroneous for the **rest of the JVM run**. Every later `new` on it throws `NoClassDefFoundError` — it does not retry the static block.
+
+> [!tip] Mnemonic: "Load once, poison forever."
 
 ---
 
