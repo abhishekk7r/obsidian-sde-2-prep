@@ -332,3 +332,4 @@ record UpiPayment(String upiId) implements Payment {}
 
 > [!tip] Mental model
 > Sealed interface = interface + controlled inheritance hierarchy. Finalized in Java 17 (records: 16→17).
+> 
