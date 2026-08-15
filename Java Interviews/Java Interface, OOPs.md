@@ -100,8 +100,7 @@ Fix: Always override BOTH. Use Objects.hash(fields) or generate via IDE/Lombok.
 Symptom: get(key) returns null even though the entry still exists (shows up in iteration).
 Why: Entry sits in the bucket from INSERT time. Mutating the field changes the hash,
      so get() now searches a DIFFERENT bucket than where the entry actually lives.
-Fix: Never mutate fields involved in equals()/hashCode() while object is a map key /
-     set element. Prefer immutable keys.
+Fix: Never mutate fields involved in equals()/hashCode() while object is a map key / set element. Prefer immutable keys.
 
 ## TRAP 3 — Hash collision ≠ contract violation
 Two UNEQUAL objects CAN share a hashCode → totally legal (collision, O(1)→O(n) cost).
