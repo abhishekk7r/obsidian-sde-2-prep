@@ -74,7 +74,7 @@ ___
 ### Rules / Traps
 - **Overload resolution priority:** exact match > widening > autoboxing > varargs
 - **Overloading with `null` + ambiguous types** (String vs StringBuilder) → compile error; needs cast
-- Return type ALONE can't distinguish overloads
+- **Return type ALONE can't distinguish overloads**
 - Static methods → **hidden**, not overridden. Resolved by reference type, not object type
 - Private methods → not inherited/visible → "same signature" in subclass = new method, not override
 - Covariant return types ARE allowed in overriding (subtype return ok)
