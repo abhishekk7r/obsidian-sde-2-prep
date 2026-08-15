@@ -72,7 +72,7 @@ ___
 **Overriding** — same signature, subclass redefines parent method, resolved at runtime (dynamic dispatch). Needs inheritance + @Override.
 
 ### Rules / Traps
-- Overload resolution priority: exact match > widening > autoboxing > varargs
+- **Overload resolution priority:** exact match > widening > autoboxing > varargs
 - Overloading with `null` + ambiguous types (String vs StringBuilder) → compile error; needs cast
 - Return type ALONE can't distinguish overloads
 - Static methods → **hidden**, not overridden. Resolved by reference type, not object type
