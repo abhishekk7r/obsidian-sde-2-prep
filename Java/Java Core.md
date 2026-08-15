@@ -334,3 +334,68 @@ record UpiPayment(String upiId) implements Payment {}
 > Sealed interface = interface + controlled inheritance hierarchy. Finalized in Java 17 (records: 16→17).
 
 
+
+## Streams API — map / filter / reduce / collect
+
+- Stream = pipeline over a source, **not** a data structure — lazy, single-use
+- **Intermediate ops** (`map`, `filter`, `sorted`, `distinct`, `flatMap`) → return a Stream, don't execute anything
+- **Terminal ops** (`collect`, `forEach`, `reduce`, `count`, `findFirst`) → trigger execution, consume the stream
+
+| Stateless (map, filter) | Stateful (sorted, distinct) |
+|---|---|
+| Processes + emits each element immediately | Must buffer **entire** stream before emitting anything |
+| `filter().findFirst()` can short-circuit | `sorted().findFirst()` still processes everything |
+
+**map vs flatMap**
+```java
+// map: List<List<String>> -> Stream<Stream<String>>   (wrong shape, still nested)
+nested.stream().map(List::stream);
+// flatMap: List<List<String>> -> Stream<String>        (flattened)
+nested.stream().flatMap(List::stream).collect(Collectors.toList());
+```
+
+**reduce() — 2-arg vs 3-arg**
+```java
+int sum = list.stream().reduce(0, Integer::sum);                    // 2-arg: identity, accumulator
+int len = list.parallelStream().reduce(0,
+    (acc, s) -> acc + s.length(),   // accumulator
+    (a, b) -> a + b);               // combiner — merges partial results from different threads
+```
+- 3-arg needed when: parallel stream (combiner merges thread-local partials), or accumulator's output type ≠ input type
+
+**Primitive streams** — `IntStream`/`LongStream`/`DoubleStream` avoid autoboxing, add `sum()`/`average()`/`summaryStatistics()`
+```java
+int total = nested.stream().flatMap(List::stream).mapToInt(Integer::intValue).sum();
+```
+
+**Common Collectors**
+
+| Collector | Does |
+|---|---|
+| `toList()` / `toSet()` / `toMap()` | Standard collections |
+| `joining(delim)` | Concatenate strings |
+| `groupingBy(classifier)` | `Map<K, List<T>>` — like SQL GROUP BY |
+| `groupingBy(classifier, downstream)` | e.g. `groupingBy(Employee::getDept, averagingDouble(Employee::getSalary))` |
+| `partitioningBy(predicate)` | Always `Map<Boolean, List<T>>` |
+| `counting()` | Group sizes, usually downstream of groupingBy |
+
+> [!warning] Trap — stream reuse
+> A stream is a single-use wrapper over a spliterator, not a container. Once a terminal op runs, the spliterator is exhausted — calling another op throws `IllegalStateException`. Same reason `sorted()` can't emit early: it has no "rewind," only forward traversal.
+
+> [!danger] Trap — reduce() needs associativity
+> ```java
+> list.stream().reduce(0, (a, b) -> a - b); // fine sequential, WRONG if parallelized
+> ```
+> Non-associative accumulator/combiner (e.g. subtraction) gives different results depending on how the stream is split — parallel streams may group/combine in any order.
+
+> [!warning] Trap — parallelStream() with shared mutable state
+> ```java
+> List<String> results = new ArrayList<>();
+> list.parallelStream().forEach(results::add); // race condition — not thread-safe
+> ```
+> Lambdas passed to a parallel stream must be stateless, non-interfering, and (for reduction) associative.
+
+> [!tip] Mnemonic
+> Stateless = pass-through. Stateful = buffer-then-burst. Reduce needs order not to matter.
+
+---
