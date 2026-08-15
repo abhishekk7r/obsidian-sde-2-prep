@@ -28,7 +28,7 @@ Lenskart & Visa:
 		- Exception handling without try-catch
 		- RestAdviceController
 		- N+1 problem
-		- 
+		- IOC/DI
 2. Production & Debugging Scenarios:
 	1. [[Production Debugging — OOM after an old commit]]
 	2. How to trace and RCA (logging, metric, recent deployment, transient errors)
