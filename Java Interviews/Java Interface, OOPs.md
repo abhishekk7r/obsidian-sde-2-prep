@@ -59,7 +59,7 @@ OrderService → Factory/Map → NotificationService → {Email, SMS, Slack}
 
 ## Overloading vs Overriding
 
-||Overloading|Overriding|
+|Overloading|Overriding|
 |---|---|---|
 |Signature|Same name, diff params|Same signature|
 |Binding|Compile-time (static)|Runtime (dynamic dispatch)|
