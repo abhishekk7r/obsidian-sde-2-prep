@@ -160,34 +160,33 @@ record UpiPayment(String upiId) implements Payment {}
 1. **What is a Record?** → A special class designed for concise, immutable data carriers with minimal boilerplate.
 2. **Why were Records introduced?** → To eliminate boilerplate in data-centric classes.
 3. **What does Java automatically provide for a Record?** → Canonical constructor, accessors, `equals()`, `hashCode()`, and `toString()`.
-4. **When were Records introduced?** → Finalized in Java 16; available in Java 17.
-5. **Are Records immutable?** → Shallowly immutable; components are final, but referenced objects can still be mutable.
-6. **What are Record accessors?** → Methods named after components, e.g. `user.name()`, not `user.getName()`.
-7. **What is a canonical constructor?** → A constructor whose parameters correspond exactly to all Record components.
-8. **What is a compact constructor?** → A concise canonical constructor mainly used for validation or normalization.
-9. **Can Records have additional constructors?** → Yes, but they must ultimately delegate to the canonical constructor.
-10. **Can Records have methods?** → Yes, including instance and static methods.
-11. **Can Records implement interfaces?** → Yes.
-12. **Can Records extend another class?** → No; a Record already extends `java.lang.Record`.
-13. **Can a Record be extended?** → No; Records are implicitly `final`.
-14. **Can Records have additional instance fields?** → No; instance state is defined by the Record components.
-15. **Can Records have static fields?** → Yes.
-16. **Can Records be generic?** → Yes, e.g. `record Pair<T, U>(T first, U second) {}`.
-17. **How does** `**equals()**` **work in Records?** → It compares the Record's component values.
-18. **Difference between** `**==**` **and** `**equals()**` **for Records?** → `==` compares references; `equals()` compares component values.
-19. **Are Records deeply immutable?** → No; they provide only shallow immutability.
-20. **Can a Record contain a mutable** `**List**` **or** `**Map**`**?** → Yes, but the referenced collection can still be modified.
-21. **How can you make a collection inside a Record safely immutable?** → Use a defensive copy such as `List.copyOf()`.
-22. **Can a Record be abstract?** → No.
-23. **Can a Record have setters?** → Not meaningful for components because their fields are final.
-24. **Is a Record just syntactic sugar?** → No; it also has specific language/JVM semantics and Record metadata.
-25. **Can you override** `**equals()**`**,** `**hashCode()**`**, and** `**toString()**`**?** → Yes.
-26. **Can Record components have annotations?** → Yes; commonly used for validation in Spring Boot.
-27. **Why are Records useful in Spring Boot?** → They are ideal for immutable request/response DTOs, events, projections, and value objects.
-28. **Can Jackson deserialize Records?** → Yes; it can use the canonical constructor.
-29. **Should Records generally be used as JPA entities?** → No; JPA entities have lifecycle, proxy, and persistence requirements better suited to normal classes.
-30. **Record vs Lombok** `**@Data**`**?** → `@Data` typically creates a mutable class; a Record is designed as a final data carrier.
-31. **Record vs normal class?** → Use a Record for immutable data-centric objects; use a class when you need mutation, inheritance, or complex lifecycle.
+4. **Are Records immutable?** → Shallowly immutable; components are final, but referenced objects can still be mutable.
+5. **What are Record accessors?** → Methods named after components, e.g. `user.name()`, not `user.getName()`.
+6. **What is a canonical constructor?** → A constructor whose parameters correspond exactly to all Record components.
+7. **What is a compact constructor?** → A concise canonical constructor mainly used for validation or normalization.
+8. **Can Records have additional constructors?** → Yes, but they must ultimately delegate to the canonical constructor.
+9. **Can Records have methods?** → Yes, including instance and static methods.
+10. **Can Records implement interfaces?** → Yes.
+11. **Can Records extend another class?** → No; a Record already extends `java.lang.Record`.
+12. **Can a Record be extended?** → No; Records are implicitly `final`.
+13. **Can Records have additional instance fields?** → No; instance state is defined by the Record components.
+14. **Can Records have static fields?** → Yes.
+15. **Can Records be generic?** → Yes, e.g. `record Pair<T, U>(T first, U second) {}`.
+16. **How does** `**equals()**` **work in Records?** → It compares the Record's component values.
+17. **Difference between** `**==**` **and** `**equals()**` **for Records?** → `==` compares references; `equals()` compares component values.
+18. **Are Records deeply immutable?** → No; they provide only shallow immutability.
+19. **Can a Record contain a mutable** `**List**` **or** `**Map**`**?** → Yes, but the referenced collection can still be modified.
+20. **How can you make a collection inside a Record safely immutable?** → Use a defensive copy such as `List.copyOf()`.
+21. **Can a Record be abstract?** → No.
+22. **Can a Record have setters?** → Not meaningful for components because their fields are final.
+23. **Is a Record just syntactic sugar?** → No; it also has specific language/JVM semantics and Record metadata.
+24. **Can you override** `**equals()**`**,** `**hashCode()**`**, and** `**toString()**`**?** → Yes.
+25. **Can Record components have annotations?** → Yes; commonly used for validation in Spring Boot.
+26. **Why are Records useful in Spring Boot?** → They are ideal for immutable request/response DTOs, events, projections, and value objects.
+27. **Can Jackson deserialize Records?** → Yes; it can use the canonical constructor.
+28. **Should Records generally be used as JPA entities?** → No; JPA entities have lifecycle, proxy, and persistence requirements better suited to normal classes.
+29. **Record vs Lombok** `**@Data**`**?** → `@Data` typically creates a mutable class; a Record is designed as a final data carrier.
+30. **Record vs normal class?** → Use a Record for immutable data-centric objects; use a class when you need mutation, inheritance, or complex lifecycle.
 
 ### Important Traps
 
