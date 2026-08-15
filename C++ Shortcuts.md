@@ -38,6 +38,7 @@ st.count(x);
 ```cpp
 auto it = lower_bound(v.begin(), v.end(), x);
 ```
+
 `lower_bound` = ≥, `upper_bound` = >.
 
 ## 8. Stack Operations
