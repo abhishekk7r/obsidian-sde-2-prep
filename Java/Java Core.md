@@ -128,9 +128,22 @@ constructor body (instance init runs after super(), before rest of ctor)
 |---|---|
 |`final`|Variable → constant (no reassignment). Method → can't override. Class → can't extend|
 |`finally`|Block that **always** runs after try/catch (cleanup) — skipped only on `System.exit()` or JVM crash|
-|`finalize()`|Deprecated GC hook, called before object collection — **unreliable, never rely on it** for cleanup|
+|`finalize()`|Deprecated (Java 9+) GC hook, called before object collection — **unreliable, never rely on it** for cleanup|
 
-> [!tip] Prefer try-with-resources over `finalize()` for cleanup — deterministic vs "whenever GC feels like it"
+> [!tip] Prefer try-with-resources / `Cleaner` over `finalize()` — deterministic vs "whenever GC feels like it"
+
+**Why `finalize()` is dead:** no guarantee it ever runs or when; runs on a random GC thread (race conditions); object can "resurrect" itself by re-adding a reference; real perf overhead on collection.
+
+> [!danger] Trap — `finally` + `return` in `try`
+> `finally` always runs, even after a `try` `return`. But the `try`'s return value is **captured before `finally` runs** — so a `finally` that reassigns a local primitive doesn't change what's returned. A `finally` with its **own `return`** silently overrides the `try`'s return — legal, but a bug magnet.
+> ```java
+> int f() {
+>   try { return 1; }
+>   finally { return 2; }   // returns 2 — try's return is discarded
+> }
+> ```
+
+> [!tip] Mnemonic: "finally always fires; last return wins."
 
 ---
 
