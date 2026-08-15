@@ -51,6 +51,8 @@ ___
 > **Interface = WHAT**  
 > **Abstract class = WHAT + shared HOW**
 
+---
+
 ## Abstract vs Virtual
 
 - **Abstract method:** No implementation; concrete subclass must implement.
