@@ -18,7 +18,9 @@ Lenskart & Visa:
 	    - Spring Boot Lifecycle
 	    - Concurrency - Related Question
 	    - Interface & Abstract Classes
-	    - Volatile & Atomic Keywords
+	    - Volatile & Atomic Keyword
+	3. Spring Boot
+		-
 2. Production & Debugging Scenarios:
 	1. [[Production Debugging — OOM after an old commit]]
 	2. How to trace and RCA (logging, metric, recent deployment, transient errors)
