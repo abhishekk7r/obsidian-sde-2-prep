@@ -51,4 +51,5 @@ ___
 
 Personal Notes:
 
-1. 
+1. Question regarding resume, especially on Java 21 
+2. 
