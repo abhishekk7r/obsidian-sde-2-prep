@@ -11,6 +11,8 @@
 > **Inheritance = reuse**  
 > **Polymorphism = substitute**
 
+---
+
 ## Composition Over Inheritance
 
 - Prefer **HAS-A** over inheritance when possible.
