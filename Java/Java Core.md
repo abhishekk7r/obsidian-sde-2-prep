@@ -399,3 +399,36 @@ int total = nested.stream().flatMap(List::stream).mapToInt(Integer::intValue).su
 > Stateless = pass-through. Stateful = buffer-then-burst. Reduce needs order not to matter.
 
 ---
+
+## Generics — bounded types & wildcards
+
+- Generics are **compile-time only** — type safety without casts, checked by compiler
+
+**Bounded type param:** `<T extends Comparable<T>>` restricts T to types implementing `Comparable`. Loosened form `<T extends Comparable<? super T>>` also accepts subclasses that inherit `compareTo` from a parent (e.g. `Dog extends Animal implements Comparable<Animal>` — `Dog` fails the strict bound, passes the loose one). JDK uses this in `Collections.max()`.
+
+**Wildcards (PECS — Producer Extends, Consumer Super):**
+
+| Form | Meaning | Use when |
+|---|---|---|
+| `List<?>` | Unknown type | Only need `size()`/`isEmpty()`, no type-specific ops |
+| `List<? extends T>` | Producer, read-only | Only reading T out |
+| `List<? super T>` | Consumer, write-only (beyond Object) | Only writing T in |
+
+**Type erasure** — generic type info removed after compile; `List<String>` and `List<Integer>` are both just `List` (`ArrayList.class`) at runtime.
+
+Consequences:
+```java
+list instanceof List<String>   // compile error — erased, can't check
+T[] arr = new T[10];           // compile error — JVM doesn't know T at runtime
+```
+Workaround for generic arrays:
+```java
+@SuppressWarnings("unchecked")
+T[] arr = (T[]) new Object[10];               // unsafe but common
+T[] arr = (T[]) Array.newInstance(clazz, 10); // cleaner, needs Class<T> token
+```
+
+> [!tip] Mnemonic
+> PECS: Producer Extends, Consumer Super. Erasure = compiler's safety net, gone by runtime.
+
+---
