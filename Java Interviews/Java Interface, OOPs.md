@@ -112,7 +112,7 @@ OrderService → Factory/Map → NotificationService → {Email, SMS, Slack}
 
 **ArrayDeque vs LinkedList**
 
-||ArrayDeque|LinkedList|
+|ArrayDeque|LinkedList|
 |---|---|---|
 |Backing|Circular resizable array|Doubly-linked nodes|
 |Nulls|❌ not allowed|✅ allowed|
