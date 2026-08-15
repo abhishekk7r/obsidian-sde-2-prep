@@ -82,3 +82,4 @@ ___
 - Overriding method can throw same/narrower/no checked exception, never new/broader checked one
 - Fields are NOT polymorphic — resolved by reference type (field hiding, not overriding)
 - Constructors are never overridden (not inherited)
+---
