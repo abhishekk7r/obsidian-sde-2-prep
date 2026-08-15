@@ -41,4 +41,4 @@ Lenskart & Visa:
 4. System Design
 	 1. HLD
 		- Design the notifcation system
-		- Design the Vendi
+		- Design the Vending Machine
