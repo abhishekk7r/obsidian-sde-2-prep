@@ -332,4 +332,30 @@ record UpiPayment(String upiId) implements Payment {}
 
 > [!tip] Mental model
 > Sealed interface = interface + controlled inheritance hierarchy. Finalized in Java 17 (records: 16→17).
-> 
+
+
+Let's continue Moody's Java interview prep. Use this flow per topic:
+
+1. Concept check — ask me a few questions to test if I actually understand [TOPIC].
+2. I answer; you judge whether my understanding is solid.
+3. Edge cases — once I've shown I understand the basics, give me the top 5 edge-case questions most likely to come up in the Moody's interview for this topic. Post only the questions first — no answers yet.
+4. My attempt — I answer all 5.
+5. Review — you review my answers, tell me what's right/wrong/incomplete.
+6. Answer key — give me the full correct answers for all 5.
+7. Obsidian note — write the note directly into my connected Obsidian vault (via MCP), short, precise, dense enough for a fast revision pass, no fluff, matching the formatting already used in my vault (fragment bullets not full sentences, comparison tables, Obsidian callouts for traps/gotchas, mnemonic one-liners).
+
+Move quickly — don't linger on a round longer than needed, I want to leave enough time for Concurrency and Spring Boot before the interview.
+
+Context: Obsidian vault connected via MCP (folders: DSA/, Java/, Concurrency/, HLD/, LLD/, Spring Boot/, System Design/, Production Debugging/, Company Interview Logs/, plus C++ Shortcuts.md at root).
+
+Progress so far — Rounds 1, 3, and 4 done and written to the vault (Round 4 — HashMap internals — went into DSA/Collections.md, not Java Core.md, since it fit better there). Round 2 (var, Switch Expressions/Pattern Matching) was cut short at my request — no edge cases or vault note written yet, so treat it as not done if we circle back.
+
+Remaining rounds:
+- Round 5 — Streams API basics (map/filter/reduce/collect) — I want to be able to write idiomatic Java 8+ solutions when it's cleaner than a loop
+- Round 6 — Generics basics (bounded types, wildcards) — in case it comes up in code review
+
+Both of these should get appended into Java/Java Core.md in the right place, unless you think either genuinely belongs elsewhere.
+
+After Round 5 and 6 are done, move to Concurrency/ — I already have Process vs Thread.md, Race Condition.md, Semaphores.md, Synchronised Keyword.md in that folder — same reformat-and-battle-test treatment those need too. Then likely Spring Boot and HLD after that.
+
+Start with Round 5.
