@@ -324,3 +324,70 @@ Reasons:
 
 > [!warning] No
 > `ConcurrentHashMap` only protects its own internal state via fine-grained locking/CAS. It does **not** throw on concurrent modification the way a fail-fast `HashMap` iterator does (that's `ConcurrentModificationException`, unrelated). If your own code takes multiple external locks — including `synchronized` on a `ConcurrentHashMap` instance combined with other locks — in inconsistent order, deadlock is still fully possible.
+# 8. Thread Pools & ExecutorService
+
+![[jvm-os-thread-mapping.svg]]
+
+- Every `java.lang.Thread` maps **1:1 to a native OS thread** on HotSpot — JVM asks OS for a real kernel thread, OS scheduler time-slices across CPU cores
+- Thread creation is expensive precisely because it's an **OS-level cost**, not just JVM
+- No hard JVM cap on thread count, but bounded by: stack memory per thread (~512KB–1MB, tunable via `-Xss`), OS thread limits (`ulimit -u`), and context-switch overhead long before either wall is hit
+
+> [!tip] Mnemonic
+> Classic `Thread` = always 1:1 with the OS. (Virtual threads break this — covered separately.)
+
+## `Executors` factory methods
+
+| Method | Threads | Queue | Use case |
+|---|---|---|---|
+| `newFixedThreadPool(n)` | Fixed at n | Unbounded `LinkedBlockingQueue` | Steady predictable load; risk: unbounded queue growth → OOM under sustained backlog |
+| `newCachedThreadPool()` | Unbounded, on demand | `SynchronousQueue` (direct hand-off) | Many short-lived bursty tasks; risk: unbounded thread creation |
+| `newSingleThreadExecutor()` | Exactly 1 | Unbounded | Strict sequential/ordered execution |
+| `newScheduledThreadPool(n)` | Fixed at n | — | Delayed/periodic tasks |
+
+![[cached-thread-pool-dynamics.svg]]
+
+> [!warning] Interview trap
+> Most `Executors.new*` factories use unbounded queues or unbounded thread creation — production code often constructs `ThreadPoolExecutor` directly with explicit bounds instead.
+
+## `ThreadPoolExecutor` core parameters
+
+| Parameter | Role |
+|---|---|
+| `corePoolSize` | Threads kept alive even when idle (unless `allowCoreThreadTimeOut(true)`) |
+| `maximumPoolSize` | Hard ceiling on total threads |
+| `keepAliveTime` | How long a thread beyond core sits idle before termination |
+| `workQueue` | Where tasks wait when core threads are busy |
+
+**Submission order (memorize this exactly):**
+1. Threads < `corePoolSize` → **spawn new thread**, even if other core threads are idle
+2. Core threads busy → **queue the task**
+3. Queue full **and** threads < `maximumPoolSize` → **spawn thread beyond core**, up to max
+4. Queue full **and** at max → **reject**
+
+> [!danger] Common mistake
+> The pool only grows past `corePoolSize` **after the queue is full** — not immediately on the next task. Trace this order exactly when walking through a scenario.
+
+## Rejection policies
+
+| Policy | Behavior |
+|---|---|
+| `AbortPolicy` (default) | Throws `RejectedExecutionException` |
+| `CallerRunsPolicy` | Submitting thread runs the task itself — natural backpressure |
+| `DiscardPolicy` | Silently drops the task |
+| `DiscardOldestPolicy` | Drops oldest queued task, retries submit |
+
+> [!tip] Why `CallerRunsPolicy` is a common production default
+> Converts overload into backpressure — slows the producer instead of failing/dropping. Downside: blocks the caller thread doing pool work, degrading its own throughput if it happens often.
+
+## `shutdown()` vs `shutdownNow()`
+
+| | `shutdown()` | `shutdownNow()` |
+|---|---|---|
+| Behavior | Graceful — stops new tasks, lets queued + running finish | Aggressive — interrupts running tasks, returns unstarted queued tasks |
+| Guarantee | All in-flight work completes | None — task must cooperate with interrupt |
+
+> [!warning] `awaitTermination(timeout, unit)` after `shutdown()`
+> Blocks the caller up to `timeout` waiting for termination. Returns `true` if finished in time, `false` if tasks are still running — and in the `false` case, **nothing is forcibly stopped**; tasks keep running in the background. Common idiom: call `shutdownNow()` as a fallback when `awaitTermination` returns `false`.
+
+> [!tip] Mnemonic
+> `shutdown()` finishes the queue. `shutdownNow()` tries to cut the line and interrupt whoever's talking.
