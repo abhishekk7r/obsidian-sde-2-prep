@@ -262,3 +262,65 @@ Reasons:
 **Mnemonic:** *volatile = fresh reads, not safe writes.*
 
 ---
+# 7. Deadlock, Livelock & Starvation
+
+![[deadlock-livelock-starvation.svg]]
+
+- **Deadlock** — threads **blocked** forever, each holding a resource the other needs
+- **Livelock** — threads **active**, keep changing state in response to each other, never progress
+- **Starvation** — a thread perpetually denied CPU/resource access due to scheduling unfairness (no blocking, no looping — just bad luck)
+
+> [!tip] Mnemonic
+> Deadlock = frozen. Livelock = spinning. Starvation = ignored.
+
+## Coffman conditions (all 4 required for deadlock)
+
+| Condition | Meaning |
+|---|---|
+| Mutual exclusion | Resource held by only one thread at a time |
+| Hold and wait | Thread holds one resource while waiting for another |
+| No preemption | Resource can't be forcibly taken, only voluntarily released |
+| Circular wait | Cycle of threads each waiting on the next |
+
+> [!danger] Classic deadlock trap
+> `transfer(A, B)` and `transfer(B, A)` both doing `synchronized(from) { synchronized(to) { ... } }` called concurrently in opposite directions → circular wait → deadlock, even though the code "looks fine" in isolation.
+
+## Fix: lock ordering
+
+![[lock-ordering-fix.svg]]
+
+- Always acquire locks in a **fixed, consistent order** (e.g. by account ID/hashcode), regardless of operation direction
+- Structurally kills circular wait — no thread ever holds one lock while blocked on the other's held lock
+- Alternative: `tryLock()` + timeout + backoff — works, but more complex and can itself livelock without jitter
+
+## Deadlock vs livelock vs starvation
+
+| | State | Root cause | Fix |
+|---|---|---|---|
+| Deadlock | Blocked | Circular wait on held locks | Lock ordering, `tryLock` + timeout |
+| Livelock | Active, no progress | Threads keep reacting to each other's state changes | Randomized backoff (jitter) |
+| Starvation | Some threads never scheduled | Unfair scheduling/lock granting | Fair locks (`ReentrantLock(true)`) |
+
+## Self-deadlock
+
+> [!warning] A single thread CAN deadlock itself
+> - `Thread.currentThread().join()` — thread waits on itself to finish, which can never happen
+> - Recursive acquisition of a **non-reentrant** lock — thread already holds it, tries again, blocks waiting on its own release
+> - `synchronized` and `ReentrantLock` are both **reentrant** by design specifically to prevent this — hold-count increments instead of blocking. This is why people wrongly assume self-deadlock is impossible.
+
+## Priority vs fairness — don't mix these up
+
+| | Thread priority | Lock fairness |
+|---|---|---|
+| Controls | Scheduling hint — which thread gets CPU time | Which waiting thread gets a contended lock next |
+| Mechanism | `Thread.setPriority()` — advisory, platform-dependent, often ignored | `new ReentrantLock(true)` — FIFO wait queue |
+| Solves | Nothing reliably guaranteed | Starvation on that lock |
+| Cost | N/A | Throughput hit — no barging, more bookkeeping |
+
+> [!tip] Mnemonic
+> Priority is a suggestion to the scheduler. Fairness is a promise from the lock.
+
+## Does `ConcurrentHashMap` prevent deadlock?
+
+> [!warning] No
+> `ConcurrentHashMap` only protects its own internal state via fine-grained locking/CAS. It does **not** throw on concurrent modification the way a fail-fast `HashMap` iterator does (that's `ConcurrentModificationException`, unrelated). If your own code takes multiple external locks — including `synchronized` on a `ConcurrentHashMap` instance combined with other locks — in inconsistent order, deadlock is still fully possible.
