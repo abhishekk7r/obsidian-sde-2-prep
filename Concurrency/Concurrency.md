@@ -223,3 +223,43 @@ Reasons:
 **Mnemonic:** *Check with `while`, not `if` — the world can change while you slept.*
 
 ---
+
+## 6. `volatile`
+
+![[volatile-visibility.svg]]
+
+- Guarantees **visibility** (every read sees the latest write, no stale CPU-cache copies) and **ordering** (happens-before — no reordering across a volatile write/read boundary)
+- Does **NOT** guarantee atomicity for compound operations
+
+> [!danger] Trap — classic stop-flag bug
+> ```java
+> private boolean running = true;   // NOT volatile
+> public void run() { while (running) { /* work */ } }
+> public void shutdown() { running = false; }
+> ```
+> JIT may cache `running` in a register inside the loop — worker thread may **never** see the update, loops forever. Fix: `volatile boolean running`.
+
+### What volatile does and doesn't cover
+
+| Scenario | Safe with volatile alone? |
+|---|---|
+| Single read/write of the field | Yes — atomic, no tearing |
+| Compound op (`i++`, `x = !x`) | **No** — still Read-Modify-Write, still races |
+| Mutations on a referenced object (`volatile List`, then `list.add()`) | **No** — reference is fresh, object mutations aren't covered |
+| `long`/`double` read/write | Yes — `volatile` specifically fixes **word tearing** (64-bit split into two 32-bit ops on some JVMs without it) |
+
+### `volatile` vs `synchronized`
+- `synchronized` also establishes happens-before → gives visibility too, without needing `volatile`, as long as *all* access to that field goes through the synchronized block/method consistently
+- `volatile` = visibility + ordering only, no mutual exclusion
+- `synchronized` = visibility + ordering + mutual exclusion, but costs more (blocking)
+
+### Classic correct use cases
+- Single flag, one writer, many readers, no compound logic (stop-flag pattern above)
+- Double-checked locking singleton — instance reference must be `volatile` (visibility + ordering, prevents exposing a half-constructed object)
+
+### Does `volatile` make the whole class thread-safe?
+- No — scoped to that one field only. Other fields and any compound/multi-step logic remain unprotected.
+
+**Mnemonic:** *volatile = fresh reads, not safe writes.*
+
+---
