@@ -391,3 +391,55 @@ Reasons:
 
 > [!tip] Mnemonic
 > `shutdown()` finishes the queue. `shutdownNow()` tries to cut the line and interrupt whoever's talking.
+# 9. Virtual Threads & Java 17-21 Features
+
+![[virtual-vs-platform-threads.svg]]
+
+- Solves: platform threads are 1:1 with OS threads (expensive, capped at low thousands) — virtual threads let you write plain **blocking, sequential-style code** at massive scale (millions) without going reactive/async
+- Virtual threads are **M:N** — many share a small pool of carrier platform threads
+- On a blocking call, JVM **unmounts** the virtual thread from its carrier, freeing the carrier for other work; remounts (possibly on a different carrier) once unblocked
+- Stack lives on the heap, grows/shrinks dynamically — not a fixed OS stack
+
+## Platform vs virtual threads
+
+| | Platform thread | Virtual thread |
+|---|---|---|
+| OS mapping | 1:1 | M:N via carrier threads |
+| Stack | Fixed OS stack (~1MB) | Small, heap-based, dynamic |
+| Cost to create | Expensive | Cheap — millions feasible |
+| On blocking I/O | Carrier OS thread blocks too | Unmounts, carrier freed |
+| Creation | `new Thread()` | `Thread.ofVirtual().start(...)`, `Executors.newVirtualThreadPerTaskExecutor()` |
+
+```java
+Thread vt = Thread.ofVirtual().start(() -> doWork());
+
+try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+    executor.submit(() -> doWork());
+}
+```
+
+> [!danger] Pinning
+> A virtual thread **cannot unmount** inside a `synchronized` block/method or during certain native calls (Java 21) — stays pinned to its carrier, blocking it like a platform thread. Prefer `ReentrantLock` over `synchronized` in virtual-thread-heavy code.
+
+> [!tip] Mnemonic
+> Unmount on block, pin on `synchronized`.
+
+## Structured concurrency (JEP 453, preview)
+
+- Treats a group of subtasks in separate threads as **one unit of work with one lifetime** — if one fails, siblings are auto-cancelled, nothing leaks past the parent's scope
+
+```java
+try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
+    var user = scope.fork(() -> fetchUser());
+    var order = scope.fork(() -> fetchOrder());
+    scope.join().throwIfFailed();
+}
+```
+
+## Java 17-21 grab-bag
+
+| Feature | Version | One-liner |
+|---|---|---|
+| Record patterns | 21 | Deconstruct records in `instanceof`/`switch`: `if (obj instanceof Point(int x, int y))` |
+| Sequenced Collections | 21 | `SequencedCollection`/`SequencedSet`/`SequencedMap` — uniform `getFirst()`, `getLast()`, `reversed()` |
+| Pattern matching for switch, Records, Sealed interfaces | 17/21 | Already covered in Java/Java Core.md |
