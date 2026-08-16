@@ -187,3 +187,39 @@ try {
 **Mnemonic:** *Lock outside try, unlock inside finally — or you leak it forever.*
 
 ---
+
+## 5. wait() / notify() / notifyAll()
+
+- Both `wait()` and `notify()`/`notifyAll()` require holding the **same object's monitor** (inside `synchronized(obj)`) — else `IllegalMonitorStateException`
+- `notify()` wakes exactly **one** waiting thread (unspecified which) — `notifyAll()` wakes all, needed when multiple *kinds* of waiters exist (e.g. producers vs consumers) so the right kind actually gets a turn
+
+### Always use `while`, never `if`, around `wait()`
+```java
+synchronized void consume() {
+    while (queue.isEmpty()) {     // NOT if
+        wait();
+    }
+    Object item = queue.remove(); // safe — re-verified right before use
+}
+```
+Reasons:
+1. **Spurious wakeups** — JVM spec permits waking without any `notify()` at all
+2. `notifyAll()` wakes everyone, but only some may have their condition actually satisfied
+3. **Stale state race** — between wake and lock re-acquisition, another thread may have already consumed the resource
+
+> [!danger] Trap — concrete failure with `if`
+> Two consumers both find queue empty → both `wait()`. Producer adds ONE item, calls `notifyAll()`. Consumer A wakes first, takes the item. Consumer B wakes next — with `if`, B skips re-checking and calls `remove()` on now-empty queue → crash/bad state. `while` forces B to recheck and go back to `wait()`.
+
+### Edge cases
+
+| Scenario | Behavior |
+|---|---|
+| `notify()` with no thread waiting | Signal is **lost** — not queued for a future `wait()` |
+| `Thread.sleep()` polling loop vs `wait()`/`notify()` | Polling = busy-wait, wastes CPU, adds latency (reacts only on next tick). `wait()` = zero CPU while parked, reacts instantly |
+| `notify()` called, then more work before unlocking | **Not a deadlock** — just delayed handoff; woken thread blocks re-acquiring lock until notifier releases |
+| Order threads re-acquire lock after `notifyAll()` | **Not guaranteed FIFO** — unspecified, JVM-scheduler dependent |
+| Thread interrupted while in `wait()` | `wait()` throws `InterruptedException` immediately (after re-acquiring lock) — standard way to cancel a waiting thread |
+
+**Mnemonic:** *Check with `while`, not `if` — the world can change while you slept.*
+
+---
