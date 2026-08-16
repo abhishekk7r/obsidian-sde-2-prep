@@ -506,3 +506,38 @@ do {
 
 > [!tip] Mnemonic
 > One CAS, one location. Multiple variables together → wrap in one object, or use a lock.
+# 11. Concurrent Collections
+
+## `ConcurrentHashMap` (CHM)
+
+- Thread safety via **bucket-level locking** — not one global lock over the map
+- **Java 8 rewrite:** pre-8 used fixed **segment-based locking** (default 16 `Segment`s, each a mini-hashmap with its own lock — cap of 16 concurrent writers). Java 8 removed segments entirely, moved to **per-bin locking** (`synchronized` on just the first node of a bucket for writes, CAS for inserts into empty bins — lock-free in the common case), plus **treeification**: buckets with >8 collisions convert linked list → red-black tree, capping worst-case lookup at O(log n)
+- **Iteration:** iterator is **weakly consistent** — reflects the state at creation, may or may not show concurrent modifications, but **never throws `ConcurrentModificationException`** (unlike plain `HashMap`'s fail-fast iterator, which throws via `modCount` checks)
+
+> [!warning] `size()` is an estimate, not a guarantee
+> `ConcurrentHashMap.size()` does **not** lock the whole map or take a copy — it sums per-bucket counts that can still be changing mid-call. It's documented as best-effort under concurrent modification, not a precise point-in-time count.
+
+> [!tip] `putIfAbsent()` is atomic
+> Only one thread can ever succeed in inserting for a given key. The winner gets `null` back; every other concurrent caller sees the already-present value and its call is a no-op — it never overwrites. This is exactly why `putIfAbsent` exists over manual `if (!containsKey) put(...)`, which has a race window.
+
+## `CopyOnWriteArrayList`
+
+- Every **write** (`add`/`remove`/`set`) copies the **entire underlying array**, then atomically swaps the reference
+- Reads never lock — just read the current array reference, no synchronization needed
+- **Iterators are bound to the array snapshot at creation time** — a concurrent `add()` swaps in a brand-new array; an iterator already in progress keeps walking the old one and never sees the new element (fail-safe, never throws CME)
+
+| | Cost |
+|---|---|
+| Reads | Fast, lock-free |
+| Writes | O(n) — full array copy every time |
+
+> [!tip] Mnemonic
+> Copy-On-Write: writers pay the cost so readers never have to. Good for read-heavy/write-rare (e.g. listener lists); bad for write-heavy workloads.
+
+## `ConcurrentHashMap` / `CopyOnWriteArrayList` vs `Collections.synchronizedX(...)`
+
+| | `synchronizedMap`/`synchronizedList` | `ConcurrentHashMap` / `CopyOnWriteArrayList` |
+|---|---|---|
+| Locking | Whole collection locked on every op | Fine-grained (bucket-level) or none (COW reads) |
+| Consistency | Strongly consistent | Weakly consistent iteration (CHM) / snapshot iteration (COW) |
+| Best for | Need strict read+write consistency together | High-concurrency reads, or scale-out writes |
