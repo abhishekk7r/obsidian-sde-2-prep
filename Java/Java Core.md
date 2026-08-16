@@ -74,11 +74,11 @@ OrderService → Factory/Map → NotificationService → {Email, SMS, Slack}
 
 ## Overloading vs Overriding
 
-|Overloading|Overriding|
-|---|---|---|
-|Signature|Same name, diff params|Same signature|
-|Binding|Compile-time (static)|Runtime (dynamic dispatch)|
-|Needs|Same class OK|Inheritance + `@Override`|
+| Overloading | Overriding             |                            |
+| ----------- | ---------------------- | -------------------------- |
+| Signature   | Same name, diff params | Same signature             |
+| Binding     | Compile-time (static)  | Runtime (dynamic dispatch) |
+| Needs       | Same class OK          | Inheritance + `@Override`  |
 
 > [!warning] Traps
 > - Resolution priority: **exact match > widening > autoboxing > varargs**
