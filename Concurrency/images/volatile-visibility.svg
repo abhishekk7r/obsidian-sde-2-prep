@@ -1,0 +1,44 @@
+<svg width="680" height="340" viewBox="0 0 680 340" xmlns="http://www.w3.org/2000/svg">
+<title>How volatile affects visibility between threads</title>
+<desc>Without volatile, thread B never sees thread A's update. With volatile, the write is flushed to main memory immediately and thread B sees it right away.</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<text x="340" y="32" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#3d3d3a">Without volatile</text>
+
+<rect x="40" y="50" width="160" height="70" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="120" y="72" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#2C2C2A">Thread A</text>
+<text x="120" y="95" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#444441">writes false</text>
+
+<rect x="260" y="50" width="160" height="70" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="340" y="72" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#2C2C2A">Main memory</text>
+<text x="340" y="95" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#444441">still true</text>
+
+<rect x="480" y="50" width="160" height="70" rx="8" fill="#FCEBEB" stroke="#A32D2D" stroke-width="0.5"/>
+<text x="560" y="72" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#501313">Thread B</text>
+<text x="560" y="95" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#791F1F">still sees true</text>
+
+<line x1="200" y1="85" x2="260" y2="85" stroke="#A32D2D" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+<line x1="420" y1="85" x2="480" y2="85" stroke="#A32D2D" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+
+<text x="340" y="140" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#444441">Thread B loops forever — never sees the update</text>
+
+<text x="340" y="192" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#3d3d3a">With volatile</text>
+
+<rect x="40" y="210" width="160" height="70" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="120" y="232" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#2C2C2A">Thread A</text>
+<text x="120" y="255" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#444441">writes false</text>
+
+<rect x="260" y="210" width="160" height="70" rx="8" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
+<text x="340" y="232" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#173404">Main memory</text>
+<text x="340" y="255" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#27500A">flushed now</text>
+
+<rect x="480" y="210" width="160" height="70" rx="8" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
+<text x="560" y="232" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#173404">Thread B</text>
+<text x="560" y="255" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#27500A">exits loop</text>
+
+<line x1="200" y1="245" x2="260" y2="245" stroke="#3B6D11" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="420" y1="245" x2="480" y2="245" stroke="#3B6D11" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<text x="340" y="300" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#444441">Thread B sees the write immediately — loop exits</text>
+</svg>
