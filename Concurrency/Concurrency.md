@@ -445,67 +445,36 @@ try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
 | Pattern matching for switch, Records, Sealed interfaces | 17/21 | Already covered in Java/Java Core.md |
 # 10. Atomic Classes & CAS
 
-- **CAS (compare-and-swap)** — a single atomic CPU instruction: read current value, compare to expected, swap in new value if they match, else no-op. All three steps happen as one indivisible hardware operation — no thread can interleave between read and write
-- This is what "lock-free" means: no mutex, no thread ever blocked/parked — a failed CAS just means the thread loops and retries with fresh data
+![[cas-retry-loop.svg]]
 
-```java
-// Conceptually what incrementAndGet() does
-int current;
-int next;
-do {
-    current = get();
-    next = current + 1;
-} while (!compareAndSet(current, next)); // retries on failure, never throws/blocks
-```
+- **CAS** — atomic CPU instruction: read → compare to expected → swap if match, else no-op. Never blocks; failure just retries
+- "Lock-free" = thread stays runnable on failure, just loops — never parked like a blocked lock-waiter
 
-> [!tip] Mnemonic
-> Lock = blocked and parked by the OS. CAS failure = still runnable, just loops and retries.
-
-## `volatile` vs `AtomicInteger`
+**`volatile` vs `AtomicInteger`:**
 
 | | `volatile int` | `AtomicInteger` |
 |---|---|---|
-| Guarantees | Visibility only — every read sees latest write | Visibility **and** atomicity of read-modify-write |
-| Safe `i++`? | No — three separate steps can interleave | Yes — CAS loop makes the whole operation atomic |
+| Guarantees | Visibility only | Visibility + atomicity |
+| Safe `i++`? | No | Yes (CAS loop) |
 
-## `compareAndSet(expected, newValue)`
+- `compareAndSet(expected, new)` → returns `true`/`false`; manual retry = `while(!cas(current, current+1)) current = get();`
 
-- Returns `true` on success, `false` if current value didn't match `expected`
-- Manual retry pattern:
-```java
-int current;
-do {
-    current = atomicVar.get();
-} while (!atomicVar.compareAndSet(current, current + 1));
-```
+> [!warning] CAS ≠ always faster than locking
+> Extreme contention → repeated failed retries burn CPU + bounce cache lines. Locks park failed threads (no CPU cost while waiting). Low/moderate contention → CAS wins clearly.
 
-## CAS under very high contention
+![[longadder-striping.svg]]
 
-> [!warning] CAS is not always faster than locking
-> At **extreme contention**, many threads repeatedly CAS-fail on the same cache line — wasted CPU cycles plus heavy cache-line bouncing across cores. A blocked thread on a lock, by contrast, is parked by the OS and burns no CPU while waiting. At low/moderate contention CAS clearly wins (no block/wake overhead); at extreme contention, locks can win.
+- `LongAdder` stripes a hot counter across cells, one per thread bucket — `sum()` aggregates on read
+- Use for write-heavy/read-rarely counters (metrics); use `AtomicLong` when you need a precise value on every read
 
-## `LongAdder` — the fix for hot counters
+> [!danger] ABA problem
+> CAS can't detect A → B → A — looks unchanged, but structure moved underneath. **Fix:** `AtomicStampedReference` — CASes on `(value, stamp)` pair, stamp increments on every update so a return-to-A is still caught. (`AtomicMarkableReference` = lighter boolean-mark variant.)
 
-- A single `AtomicLong` under high-contention counting becomes a bottleneck — every thread CASes the *same* location
-- `LongAdder` internally stripes the counter across **an array of separate cells**; each thread updates a different cell (thread-local hash), spreading contention
-- `sum()` adds all cells for the total
-- **Tradeoff:** reads are more expensive/approximate mid-update — use for write-heavy, read-rarely counters (metrics, request counts), not when you need a precise value on every read (use `AtomicLong` there instead)
-
-## The ABA problem
-
-> [!danger] CAS can be fooled by A → B → A
-> CAS only checks "is the value still what I expect" — it can't detect a value that changed and changed back before the CAS ran. Classic case: lock-free stack where the top node is popped, other nodes come and go, then a node with the same reference is pushed back — CAS sees "unchanged" and proceeds incorrectly.
-> **Fix: `AtomicStampedReference`** — CASes on a `(value, stamp)` pair; the stamp increments on every update, so even a return-to-`A` is detected via the changed stamp. (`AtomicMarkableReference` is a lighter boolean-mark variant.)
-
-## CAS across multiple variables
-
-> [!warning] CAS protects exactly one memory location — never several independent ones at once
-> If `balance` and `transactionCount` must update together atomically, CAS alone can't do it directly. Options:
-> - Combine both into a single **immutable object** and CAS the *reference* (`AtomicReference<State>`), replacing the whole state at once
-> - Fall back to `synchronized`/`ReentrantLock` around both updates
+> [!warning] CAS = one memory location, never several at once
+> Need `balance` + `transactionCount` atomic together? Wrap both in one immutable object and CAS the *reference*, or fall back to a lock.
 
 > [!tip] Mnemonic
-> One CAS, one location. Multiple variables together → wrap in one object, or use a lock.
+> One CAS, one location. Lock-free ≠ always faster. Stripe hot counters.
 # 11. Concurrent Collections
 
 ## `ConcurrentHashMap` (CHM)
