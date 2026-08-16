@@ -511,7 +511,7 @@ do {
 ## `ConcurrentHashMap` (CHM)
 
 - Thread safety via **bucket-level locking** — not one global lock over the map
-- **Java 8 rewrite:** pre-8 used fixed **segment-based locking** (default 16 `Segment`s, each a mini-hashmap with its own lock — cap of 16 concurrent writers). Java 8 removed segments entirely, moved to **per-bin locking** (`synchronized` on just the first node of a bucket for writes, CAS for inserts into empty bins — lock-free in the common case), plus **treeification**: buckets with >8 collisions convert linked list → red-black tree, capping worst-case lookup at O(log n)
+- **Java 8 rewrite:** pre-8 used fixed **segment-based locking** (default 16 `Segment`s, each a mini-hashmap with its own lock — cap of 16 concurrent writers). Java 8 removed segments entirely, moved to **per-bin locking** (`synchronized` on just the first node of a bucket for writes, CAS for So can you fix those and then we can start ahead with the next topic? inserts into empty bins — lock-free in the common case), plus **treeification**: buckets with >8 collisions convert linked list → red-black tree, capping worst-case lookup at O(log n)
 - **Iteration:** iterator is **weakly consistent** — reflects the state at creation, may or may not show concurrent modifications, but **never throws `ConcurrentModificationException`** (unlike plain `HashMap`'s fail-fast iterator, which throws via `modCount` checks)
 
 > [!warning] `size()` is an estimate, not a guarantee
