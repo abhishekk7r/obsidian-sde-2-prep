@@ -477,36 +477,35 @@ try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
 > One CAS, one location. Lock-free ≠ always faster. Stripe hot counters.
 # 11. Concurrent Collections
 
-## `ConcurrentHashMap` (CHM)
+![[chm-vs-synchronizedmap-locking.svg]]
 
-- Thread safety via **bucket-level locking** — not one global lock over the map
-- **Java 8 rewrite:** pre-8 used fixed **segment-based locking** (default 16 `Segment`s, each a mini-hashmap with its own lock — cap of 16 concurrent writers). Java 8 removed segments entirely, moved to **per-bin locking** (`synchronized` on just the first node of a bucket for writes, CAS for inserts into empty bins — lock-free in the common case), plus **treeification**: buckets with >8 collisions convert linked list → red-black tree, capping worst-case lookup at O(log n)
-- **Iteration:** iterator is **weakly consistent** — reflects the state at creation, may or may not show concurrent modifications, but **never throws `ConcurrentModificationException`** (unlike plain `HashMap`'s fail-fast iterator, which throws via `modCount` checks)
+- **CHM:** thread safety via bucket-level locking, not one global lock
+- **Java 8 rewrite:** pre-8 = fixed 16 `Segment`s (own lock each, capped concurrency). Java 8 = per-bin locking + CAS on empty bins + treeification (>8 collisions → red-black tree, O(log n) worst case)
+- **Iteration:** weakly consistent — never throws CME (unlike `HashMap`'s fail-fast iterator)
 
-> [!warning] `size()` is an estimate, not a guarantee
-> `ConcurrentHashMap.size()` does **not** lock the whole map or take a copy — it sums per-bucket counts that can still be changing mid-call. It's documented as best-effort under concurrent modification, not a precise point-in-time count.
+> [!warning] `size()` is an estimate, not exact
+> Sums per-bucket counts that can still be changing mid-call — no lock, no copy taken.
 
 > [!tip] `putIfAbsent()` is atomic
-> Only one thread can ever succeed in inserting for a given key. The winner gets `null` back; every other concurrent caller sees the already-present value and its call is a no-op — it never overwrites. This is exactly why `putIfAbsent` exists over manual `if (!containsKey) put(...)`, which has a race window.
+> Only one thread ever inserts for a given key. Losers get the existing value back — never overwrite.
 
-## `CopyOnWriteArrayList`
+![[copy-on-write-mechanism.svg]]
 
-- Every **write** (`add`/`remove`/`set`) copies the **entire underlying array**, then atomically swaps the reference
-- Reads never lock — just read the current array reference, no synchronization needed
-- **Iterators are bound to the array snapshot at creation time** — a concurrent `add()` swaps in a brand-new array; an iterator already in progress keeps walking the old one and never sees the new element (fail-safe, never throws CME)
+- **`CopyOnWriteArrayList`:** every write copies the whole array, then atomically swaps the reference
+- Reads are lock-free (just read current reference); iterators are bound to the array snapshot at creation — never see later writes, never throw CME
 
 | | Cost |
 |---|---|
 | Reads | Fast, lock-free |
-| Writes | O(n) — full array copy every time |
+| Writes | O(n) — full copy every time |
 
 > [!tip] Mnemonic
-> Copy-On-Write: writers pay the cost so readers never have to. Good for read-heavy/write-rare (e.g. listener lists); bad for write-heavy workloads.
+> Copy-On-Write: writers pay so readers never have to. Good for read-heavy/write-rare; bad for write-heavy.
 
-## `ConcurrentHashMap` / `CopyOnWriteArrayList` vs `Collections.synchronizedX(...)`
+### vs `Collections.synchronizedX(...)`
 
-| | `synchronizedMap`/`synchronizedList` | `ConcurrentHashMap` / `CopyOnWriteArrayList` |
+| | `synchronizedMap`/`synchronizedList` | CHM / COW |
 |---|---|---|
-| Locking | Whole collection locked on every op | Fine-grained (bucket-level) or none (COW reads) |
-| Consistency | Strongly consistent | Weakly consistent iteration (CHM) / snapshot iteration (COW) |
-| Best for | Need strict read+write consistency together | High-concurrency reads, or scale-out writes |
+| Locking | Whole collection, every op | Fine-grained or none |
+| Consistency | Strong | Weakly consistent / snapshot |
+| Best for | Need strict read+write consistency together | High-concurrency reads or scale-out writes |
