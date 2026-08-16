@@ -27,12 +27,12 @@
 
 ## Interface vs Abstract Class
 
-|Interface|Abstract Class|
-|---|---|---|
-|Keyword|`implements`|`extends`|
-|Multiple?|Extends multiple interfaces|Extends only one class|
-|Methods|Abstract + concrete (default)|Abstract + concrete|
-|Can implement interface without all methods?|—|✅ yes|
+|                                              | Interface                     | Abstract Class         |
+| -------------------------------------------- | ----------------------------- | ---------------------- |
+| Keyword                                      | `implements`                  | `extends`              |
+| Multiple?                                    | Extends multiple interfaces   | Extends only one class |
+| Methods                                      | Abstract + concrete (default) | Abstract + concrete    |
+| Can implement interface without all methods? | —                             | ✅ yes                  |
 
 > [!tip]
 > Interface = **WHAT** · Abstract class = **WHAT + shared HOW**
