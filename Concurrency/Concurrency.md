@@ -1,4 +1,3 @@
-Can you get diagrams of all these concepts that are there and just put it in a single image and put it in the nodes that would be there? When you attach the nodes, you should be putting this? # Concurrency
 
 ## 1. Process vs Thread
 
