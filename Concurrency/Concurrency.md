@@ -138,3 +138,52 @@ if (instance == null) {
 **Mnemonic:** *`synchronized` locks code, not objects — and never locks a thread out of itself.*
 
 ---
+
+## 4. Locks — ReentrantLock / tryLock / Fairness
+
+### Correct usage pattern
+```java
+lock.lock();          // acquire — OUTSIDE try (if lock() throws, never acquired, don't try to release)
+try {
+    // critical section
+} finally {
+    lock.unlock();     // release — INSIDE finally, guarantees release even on exception
+}
+```
+- Unlike `synchronized`, release is **manual** — forgetting `finally` leaks the lock forever
+- `unlock()` without holding the lock → `IllegalMonitorStateException`
+
+### `tryLock()`
+- Returns `boolean` — `true` if acquired, `false` if not (immediately, or `tryLock(timeout, unit)` after bounded wait)
+- Does **not** spin/busy-wait internally when given a timeout — blocks up to that bound, then gives up
+
+### Breaking deadlock with `tryLock()`
+- Classic setup: Thread A holds Lock1 wants Lock2; Thread B holds Lock2 wants Lock1 → circular wait
+- Fix: use `tryLock(timeout)` for the second lock. On failure, **release the lock already held**, back off, retry
+- Breaks circular-wait condition — no thread blocks forever holding one lock while waiting on another
+
+### `ReentrantLock` vs `synchronized` — scope
+- `synchronized` — strictly block/method-scoped, lock()/unlock() implicit and lexically paired
+- `ReentrantLock` — **no scope restriction**: can `lock()` in one method, `unlock()` in another, as long as same `Lock` object threaded through
+- Enables patterns `synchronized` can't express — e.g. **hand-over-hand locking** (lock coupling) in linked structures: acquire next node's lock before releasing current
+
+### `ReentrantReadWriteLock`
+
+| Read-heavy workload | Write-heavy workload |
+|---|---|
+| Big win — multiple readers hold read lock concurrently | No benefit — writes serialize anyway, extra overhead for nothing |
+
+> [!danger] Trap
+> Read lock = **shared** (many readers at once). Write lock = **exclusive** (blocks readers too). It's not "read then write sequentially" — it's a concurrent-access-mode split.
+
+### Fairness — precise meaning
+- `new ReentrantLock(true)` → FIFO-ish: longest-waiting thread served next
+- **Not** a hard guarantee that no thread ever waits longer than another — reduces starvation risk, doesn't eliminate all variance
+
+### Checking lock state
+- `lock.isHeldByCurrentThread()` — check without attempting to acquire
+- `lock.getHoldCount()` — how many times current thread has reentered
+
+**Mnemonic:** *Lock outside try, unlock inside finally — or you leak it forever.*
+
+---
