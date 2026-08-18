@@ -9,16 +9,16 @@
 
 ### Bean lifecycle — 8 phases
 
-| # | Phase | Detail |
-|---|---|---|
-| 1 | Instantiation | Constructor called |
-| 2 | Populate properties | Dependencies injected (setter/field) |
-| 3 | Aware callbacks | `BeanNameAware`, `BeanFactoryAware`, `ApplicationContextAware` etc. — bean gets container-level info if it implements these |
-| 4 | `BeanPostProcessor.postProcessBeforeInitialization()` | Runs for **every** bean, before init callbacks |
-| 5 | Init callbacks | `@PostConstruct` → `InitializingBean.afterPropertiesSet()` → custom `init-method`, in that order |
-| 6 | `BeanPostProcessor.postProcessAfterInitialization()` | AOP proxies (e.g. `@Transactional` proxy) typically created **here** — this is why the object your code holds may not be the raw bean |
-| 7 | Bean ready | Available for use via the container |
-| 8 | Destruction | `@PreDestroy` → `DisposableBean.destroy()` → custom `destroy-method`, on container shutdown |
+| #   | Phase                                                 | Detail                                                                                                                                |
+| --- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Instantiation                                         | Constructor called                                                                                                                    |
+| 2   | Populate properties                                   | Dependencies injected (setter/field)                                                                                                  |
+| 3   | Aware callbacks                                       | `BeanNameAware`, `BeanFactoryAware`, `ApplicationContextAware` etc. — bean gets container-level info if it implements these           |
+| 4   | `BeanPostProcessor.postProcessBeforeInitialization()` | Runs for **every** bean, before init callbacks                                                                                        |
+| 5   | Init callbacks                                        | `@PostConstruct` → `InitializingBean.afterPropertiesSet()` → custom `init-method`, in that order                                      |
+| 6   | `BeanPostProcessor.postProcessAfterInitialization()`  | AOP proxies (e.g. `@Transactional` proxy) typically created **here** — this is why the object your code holds may not be the raw bean |
+| 7   | Bean ready                                            | Available for use via the container                                                                                                   |
+| 8   | Destruction                                           | `@PreDestroy` → `DisposableBean.destroy()` → custom `destroy-method`, on container shutdown                                           |
 
 > [!danger] Trap — singleton-lifetime misconception
 > A singleton bean is constructed **once** at container startup (unless lazy) and lives for the container's entire lifetime — it does not get recreated per request/use. Corrected misconception: assuming the container "re-touches" a singleton on each injection point re-triggers some part of the lifecycle — it doesn't; steps 1-7 happen exactly once.
