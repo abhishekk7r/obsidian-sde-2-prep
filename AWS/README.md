@@ -4,7 +4,7 @@
 |---|---|---|---|---|
 | Lambda | Not covered | Done | Not covered | Done |
 | DynamoDB | Done | Done | Done | Done |
-| SQS + DLQ | Not started | Not started | Not started | Not started |
+| SQS + DLQ | Done | Done | Done | Done |
 | Bedrock | Not started | Not started | Not started | Not started |
 | CDK | Not started | Not started | Not started | Not started |
 | ALB / API Gateway | Not started | Not started | Not started | Not started |
