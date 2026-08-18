@@ -35,10 +35,19 @@
 > High-cardinality + uniform access = spread. Low cardinality OR skewed access (even on a technically-fine key) = hot. Two different causes, same symptom.
 
 ## When to use
-_Not covered yet._
+> [!warning] The core design principle
+> Design the table around **known access patterns upfront** — the opposite of RDBMS normalization + arbitrary querying. If you can't predict how you'll query it, DynamoDB is the wrong tool.
+
+- Simple, predictable access patterns (get-by-key, get-by-key-range) needing single-digit-millisecond latency at massive, elastic scale
+- Flexible/schema-less data
+- Not for complex/ad-hoc/analytical queries — no joins, no arbitrary `WHERE` across attributes without a matching index (that's Postgres/Redshift territory)
+
+> [!tip] "DynamoDB is more scalable than Postgres" — imprecise framing
+> Not a categorical NoSQL-beats-SQL claim. Postgres can scale a long way (read replicas, partitioning, connection pooling) — it just takes real operational engineering. DynamoDB's actual edge: horizontal partitioning + elasticity are **fully managed**, no manual sharding/replica topology required. Trade query flexibility for operationally-free scale, not "more scalable" in the abstract.
 
 ## How to use
-_Not covered yet._
+- Conceptual fluency is what's tested, not exact SDK syntax
+- Example: `Query` with `KeyConditionExpression` on `customerId` (partition key), sorted by `orderId` (sort key) via `ScanIndexForward=false` for most-recent-first
 
 ## When NOT to use
 _Not covered yet._
