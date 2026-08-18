@@ -3,7 +3,7 @@
 | Service | Internal implementation | When to use | How to use | When not to use |
 |---|---|---|---|---|
 | Lambda | Not covered | Done | Not covered | Done |
-| DynamoDB | Partial (partition hashing) | Not covered | Not covered | Not covered |
+| DynamoDB | Done | Done | Done | Done |
 | SQS + DLQ | Not started | Not started | Not started | Not started |
 | Bedrock | Not started | Not started | Not started | Not started |
 | CDK | Not started | Not started | Not started | Not started |
