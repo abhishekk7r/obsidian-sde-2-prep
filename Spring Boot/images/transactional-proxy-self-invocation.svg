@@ -20,10 +20,9 @@
 
 <path d="M520,100 C520,150 650,150 650,100" fill="none" stroke="#A32D2D" stroke-width="1.5" marker-end="url(#arrow)"/>
 
-<line x1="585" y1="150" x2="585" y2="173" stroke="#A32D2D" stroke-width="0.5" stroke-dasharray="4 3"/>
+<line x1="585" y1="150" x2="585" y2="183" stroke="#A32D2D" stroke-width="0.5" stroke-dasharray="4 3"/>
 
-<rect x="345" y="175" width="480" height="0" opacity="0"/>
-<rect x="345" y="175" width="480" height="55" rx="8" fill="#FCEBEB" stroke="#A32D2D" stroke-width="0.5" transform="translate(-160,0)"/>
-<text x="585" y="197" font-size="12" text-anchor="middle" fill="#791F1F">Self-invocation: this.foo() from within the same bean</text>
-<text x="585" y="215" font-size="12" text-anchor="middle" fill="#791F1F">bypasses the proxy — no transaction</text>
+<rect x="60" y="185" width="580" height="55" rx="8" fill="#FCEBEB" stroke="#A32D2D" stroke-width="0.5"/>
+<text x="350" y="207" font-size="12" text-anchor="middle" fill="#791F1F">Self-invocation: this.foo() from within the same bean</text>
+<text x="350" y="225" font-size="12" text-anchor="middle" fill="#791F1F">bypasses the proxy — no transaction</text>
 </svg>
