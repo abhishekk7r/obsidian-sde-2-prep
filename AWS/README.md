@@ -6,7 +6,7 @@
 | DynamoDB | Done | Done | Done | Done |
 | SQS + DLQ | Done | Done | Done | Done |
 | Bedrock | Done | Done | Done | Done |
-| CDK | Not started | Not started | Not started | Not started |
+| CDK | Done | Done | Done | Done |
 | ALB / API Gateway | Not started | Not started | Not started | Not started |
 | Route 53 | Not started | Not started | Not started | Not started |
 | Auto Scaling Groups | Not started | Not started | Not started | Not started |
