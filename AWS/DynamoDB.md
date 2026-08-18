@@ -50,4 +50,7 @@
 - Example: `Query` with `KeyConditionExpression` on `customerId` (partition key), sorted by `orderId` (sort key) via `ScanIndexForward=false` for most-recent-first
 
 ## When NOT to use
-_Not covered yet._
+- Need **JOINs across entities**
+- Need **ad-hoc queries** not known in advance
+- Need **multi-item ACID transactions** spanning many items
+- All three trace back to the same root cause: DynamoDB requires upfront access-pattern design; RDBMS supports normalized schema + arbitrary querying
