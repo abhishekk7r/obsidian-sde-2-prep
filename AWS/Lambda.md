@@ -16,6 +16,3 @@ _Not covered yet._
 - Anything that needs to **persistently sit in a hot traffic path** intercepting every request (e.g. a proxy/routing layer) — cold starts introduce latency variance you can't tolerate on every request
 - No persistent connection/state between invocations — wrong shape for components needing continuous state
 - Scenarios needing **immediate, stateful rollback** — Lambda's invocation model isn't built for an instant state-flip
-
-> [!danger] Trap
-> Don't confuse this with [[region-migration-project]]'s OPF proxy fleet — that component was never Lambda-based; it maps to ALB/API Gateway (see that file once covered). Lambda's anti-fit reasoning here is general, not project-specific.
