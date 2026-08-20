@@ -1,4 +1,4 @@
-### ntro (aim for 30-45 sec spoken)
+### Intro (aim for 30-45 sec spoken)
 
 > Hi, I'm Abhishek. I'm a backend engineer with about 3 years of experience. I started my career at TCS, where I worked on TCS BaNCS — a Java and Spring Boot backend for SBI General Insurance. I've been at Amazon for the last year, on the Appstore and Fire TV org.
 > 
