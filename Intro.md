@@ -17,9 +17,8 @@
 >- The problem with the config services: since it takes six hours to get the new URLs, let's say we want to rollback. It would again take at least six hours to get the updated endpoints. 
 >- We had to figure out a way to actually to rollback immediately in case of any failures. 
 >- Proxy Fleet -> Rollback -> Cross Region Latency
->- 
->- 
-> 
-> **Second, partial-state correctness.** Our data stores live in one region. If a customer writes data there and then a later request routes to a different region, that data has to already be there — otherwise they hit a broken or stale state. So we have to guarantee cross-region data replication and consistency at the state boundary. That's a much harder problem than just moving compute — compute is stateless, data isn't.
+>
+>- Second, partial-state correctness.** Our data stores live in one region. If a customer writes data there and then a later request routes to a different region, that data has to already be there — otherwise they hit a broken or stale state
+
 > 
 > **Third, region readiness validation.** You can't shift traffic to a new region on faith — you need continuous, active proof that the new region is actually correct: serving the right resources, handling real requests properly, before you trust it with production traffic.
