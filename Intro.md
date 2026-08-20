@@ -12,7 +12,7 @@
 > 
 > What makes this a genuine engineering problem rather than just an ops migration comes down to three things:
 >-  How do you ensure the set of connected services do not encure latency during?
->-  Second would be Appstore runs on physical devices so it's not like moving a backend stateless service. So,  so we typically push the end points of the new regions where the OTA (Over the Air), in a similar way that you get updates on your phone.
+>-  Second would be Appstore runs on physical devices so it's not like moving a backend stateless service. So,  so we typically push the end points of the new regions where the OTA (Over the Air), in a similar way that you get updates on your phone. COnfig Service
 >
 > **First, rollback difficulty.** Appstore runs on physical devices, so this isn't like moving a stateless backend service. We typically push endpoint updates to devices via over-the-air config — devices poll a config service and pick up new endpoints. But that propagation takes 6 to 12 hours, sometimes up to 24. So if we've already pushed new endpoints to devices and something goes wrong, we can't just instantly roll back — customers would face a real outage. We had to design a separate rollback path that doesn't depend on that slow device-side propagation.
 > 
