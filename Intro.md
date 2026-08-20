@@ -12,7 +12,7 @@
 > 
 > What makes this a genuine engineering problem rather than just an ops migration comes down to three things:
 >-  How do you ensure the set of connected services do not encure latency during?
->-  Second would be that all of seri
+>-  Second would be that all of services are connected to 
 > **First, rollback difficulty.** Appstore runs on physical devices, so this isn't like moving a stateless backend service. We typically push endpoint updates to devices via over-the-air config — devices poll a config service and pick up new endpoints. But that propagation takes 6 to 12 hours, sometimes up to 24. So if we've already pushed new endpoints to devices and something goes wrong, we can't just instantly roll back — customers would face a real outage. We had to design a separate rollback path that doesn't depend on that slow device-side propagation.
 > 
 > **Second, partial-state correctness.** Our data stores live in one region. If a customer writes data there and then a later request routes to a different region, that data has to already be there — otherwise they hit a broken or stale state. So we have to guarantee cross-region data replication and consistency at the state boundary. That's a much harder problem than just moving compute — compute is stateless, data isn't.
