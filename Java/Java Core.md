@@ -33,6 +33,7 @@
 | Multiple?                                    | Extends multiple interfaces   | Extends only one class |
 | Methods                                      | Abstract + concrete (default) | Abstract + concrete    |
 | Can implement interface without all methods? | —                             | ✅ yes                  |
+An abstract class provides a partial code implementation with state and constructors for a single inheritance tree, whereas an interface acts as a pure behavior contract supporting multiple implementation.
 
 > [!tip]
 > Interface = **WHAT** · Abstract class = **WHAT + shared HOW**
