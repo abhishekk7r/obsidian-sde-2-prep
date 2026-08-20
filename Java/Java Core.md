@@ -125,11 +125,11 @@ constructor body (instance init runs after super(), before rest of ctor)
 
 ## final vs finally vs finalize
 
-|Keyword|What it does|
-|---|---|
-|`final`|Variable → constant (no reassignment). Method → can't override. Class → can't extend|
-|`finally`|Block that **always** runs after try/catch (cleanup) — skipped only on `System.exit()` or JVM crash|
-|`finalize()`|Deprecated (Java 9+) GC hook, called before object collection — **unreliable, never rely on it** for cleanup|
+| Keyword      | What it does                                                                                                 |
+| ------------ | ------------------------------------------------------------------------------------------------------------ |
+| `final`      | Variable → constant (no reassignment). Method → can't override. Class → can't extend                         |
+| `finally`    | Block that **always** runs after try/catch (cleanup) — skipped only on `System.exit()` or JVM crash          |
+| `finalize()` | Deprecated (Java 9+) GC hook, called before object collection — **unreliable, never rely on it** for cleanup |
 
 > [!tip] Prefer try-with-resources / `Cleaner` over `finalize()` — deterministic vs "whenever GC feels like it"
 
