@@ -15,3 +15,4 @@ Design top K heavy hitter for products like youtube, shorts, music etc.
 6. For Reads of > 1 Day, `Low Latency cannot be there as the scale is huge, can be discussed in design decisions.` 
 7. Accuracy of getTopK for smaller/recent duration
 	1. Eventual consistency - approximation vs strong
+
