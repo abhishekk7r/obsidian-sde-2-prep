@@ -8,3 +8,4 @@ Design top K heavy hitter for products like youtube, shorts, music etc.
 
 **Non Functional Requirements:**
 1. Practical Views on these platforms are > 1B unique videos
+2. Events
