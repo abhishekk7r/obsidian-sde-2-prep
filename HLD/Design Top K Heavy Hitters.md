@@ -28,6 +28,8 @@ This solution won't scale because of the hash-map, due to number of users we hav
 
 Grows & Does not scale. 
 
-Min heap of size k < 1000
+Min heap of size k < 1000 is fine. 
+
+2. 
 
 
