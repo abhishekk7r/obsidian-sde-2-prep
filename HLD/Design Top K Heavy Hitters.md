@@ -22,6 +22,6 @@ Design top K heavy hitter for products like youtube, shorts, music etc.
 
 1. Using Hash-map & Min Heap
 	 - Maintain a hashmap -> {eventId, count}
-	 - Maintain a min h
+	 - Maintain a min-heap of size k
 
 
