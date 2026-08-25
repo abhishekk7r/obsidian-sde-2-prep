@@ -11,4 +11,5 @@ Design top K heavy hitter for products like youtube, shorts, music etc.
 2. Our system should be highly scalable to handle these many events
 3. High throughput system
 4. Highly available - [[Fours 9's of Availability]] 
-5. 
+5. Low Latency Reads - getTopK videos. Especially for smaller durations like 1 min, 5 mins, 60 mins. 
+6. 
