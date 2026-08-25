@@ -11,3 +11,4 @@ Design top K heavy hitter for products like youtube, shorts, music etc.
 2. Our system should be highly scalable to handle these many events
 3. High throughput system
 4. Highly available - [[Fours 9's of Availability]] 
+5. 
