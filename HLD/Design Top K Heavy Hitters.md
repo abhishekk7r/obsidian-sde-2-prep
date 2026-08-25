@@ -14,4 +14,4 @@ Design top K heavy hitter for products like youtube, shorts, music etc.
 5. Low Latency Reads (< 100 ms) - getTopK videos. Especially for smaller durations like 1 min, 5 mins, 60 mins. 
 6. For Reads of > 1 Day, `Low Latency cannot be there as the scale is huge, can be discussed in design decisions.` 
 7. Accuracy of getTopK for smaller/recent duration
-	1. Eventual consistency 
+	1. Eventual consistency - app
