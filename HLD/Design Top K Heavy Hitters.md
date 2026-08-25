@@ -21,6 +21,7 @@ Design top K heavy hitter for products like youtube, shorts, music etc.
 ### How we are maintaining the top K elements? 
 
 1. Using Hash-map & Min Heap
-	 - Maintain a hashmap -> {eventId}
+	 - Maintain a hashmap -> {eventId, count}
+	 - Main
 
 
