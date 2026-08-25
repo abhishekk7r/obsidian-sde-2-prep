@@ -20,6 +20,6 @@ Design top K heavy hitter for products like youtube, shorts, music etc.
 
 ### How we are maintaining the top K elements? 
 
-1. Using Hashmap 
+1. Using Hashmap & Min Heap
 
 
