@@ -12,5 +12,5 @@ Design top K heavy hitter for products like youtube, shorts, music etc.
 3. High throughput system
 4. Highly available - [[Fours 9's of Availability]] 
 5. Low Latency Reads (< 100 ms) - getTopK videos. Especially for smaller durations like 1 min, 5 mins, 60 mins. 
-6. For Reads of > 1 Day, Low Latency cannot be there as the scale is huge, can be discussed in design decis
+6. For Reads of > 1 Day, Low Latency cannot be there as the scale is huge, can be discussed in design decisions. 
 7. 
