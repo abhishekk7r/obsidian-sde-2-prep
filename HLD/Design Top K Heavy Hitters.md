@@ -30,6 +30,7 @@ Grows & Does not scale.
 
 Min heap of size k < 1000 is fine. 
 
-2. 
+2. Use Kafka
+	1. 
 
 
