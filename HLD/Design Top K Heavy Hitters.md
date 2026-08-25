@@ -9,4 +9,5 @@ Design top K heavy hitter for products like youtube, shorts, music etc.
 **Non Functional Requirements:**
 1. Practical Views on these platforms are > 1B unique videos, this translates to **~100 QPS.**
 2. Our system should be highly scalable to handle these many events
-3. High throughp
+3. High throughput system
+4. 
