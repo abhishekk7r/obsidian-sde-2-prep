@@ -18,5 +18,8 @@ Design top K heavy hitter for products like youtube, shorts, music etc.
 
 ----
 
-###How we are mainitni
+### How we are maintaining the top K elements? 
+
+Naive 
+
 
