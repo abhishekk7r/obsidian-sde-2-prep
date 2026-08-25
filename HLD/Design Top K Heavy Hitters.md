@@ -20,6 +20,6 @@ Design top K heavy hitter for products like youtube, shorts, music etc.
 
 ### How we are maintaining the top K elements? 
 
-Naive 
+1. For Low Sca
 
 
