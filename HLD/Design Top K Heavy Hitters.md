@@ -24,6 +24,6 @@ Design top K heavy hitter for products like youtube, shorts, music etc.
 	 - Maintain a hashmap -> {eventId, count}
 	 - Maintain a min-heap of size k
 
-This solution won't scale because of the hash-map, due to number of users we have. HashMap wo
+This solution won't scale because of the hash-map, due to number of users we have. HashMap would grow wit
 
 
