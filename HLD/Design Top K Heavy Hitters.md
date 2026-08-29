@@ -1,4 +1,6 @@
-Design top K heavy hitter for products like youtube, shorts, music etc. 
+Design top K heavy hitter for products like youtube, shorts, music etc.
+
+Excalidraw:  
 
 **Functional Requirement:**
 1. getTopK(k, time_window)
