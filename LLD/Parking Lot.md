@@ -13,4 +13,4 @@ Design the core classes and their relationships (not full production code) to su
 
 ### Requirements
 1. The Vehicle should be able to from the entry gate.
-2. Upon Entry, Each Vehicle should be proi
+2. Upon Entry, Each Vehicle should be provided wi
