@@ -83,7 +83,7 @@ class Ticket:
 	
 	+ createTicket(vehicleNumber, vehicle, parkingSpot)
 
-interface Vechile:
+interface Vehicle:
 	- type : string
 	  
 class MotorCycle implements Vehicle
