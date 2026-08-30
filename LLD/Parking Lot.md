@@ -335,3 +335,28 @@ classDiagram
 
 **Legend:** `*--` composition (owns, dies with parent) · `o--` aggregation (manages, independent lifecycle) · `..>` dependency (uses/creates) · `-->` reference · `<|..` interface implementation
 
+## Retro — Requirements → Class Design
+
+**Learnings**
+- LLD entities aren't "every noun in the prompt" — filter by *does it hold changing state or enforce a rule?* Otherwise it's just a field on something else.
+- Lock the orchestrator early. "X has-a Y" only means something once you know which single class drives the main workflow — this stayed vague for a while and cost time.
+- A pattern (Strategy, Singleton, etc.) needs a real problem to solve. "Different rate per vehicle type" is a lookup, not a varying algorithm — Strategy would've been solving a problem that didn't exist.
+- Interfaces define behavior contracts, not stored fields (`Vehicle.type: string` on the interface itself was a language-semantics mistake).
+- Gate/service-style classes (`EntryGate`, `ExitGate`) should stay stateless — holding a specific `ticket`/`vehicle`/`spot` as an instance field breaks the moment a second request comes through.
+- Directional references matter: `Ticket -> ParkingSpot` one-way was enough because the physical ticket is what's presented at exit — no reverse lookup needed. Adding the reverse reference back would've been unjustified complexity.
+- Requirements can quietly get violated during class design even after being locked — `Ticket` was missing `entryTime`/`hourlyRate` for two full revision rounds despite requirement 2 stating it explicitly. Worth re-checking each class against the requirements list before calling a section done, not just against "does this look reasonable."
+
+**What I did well**
+- Defended early design choices with real reasoning (rate locked at entry, ticket→spot direction) instead of guessing.
+- Caught some of my own gaps mid-flow (the `init(size)` comment questioning per-type capacity was a good self-catch).
+- Cleaned up scope contradictions fast once flagged (payment leaking back into the exit flow was fixed immediately, no hedging).
+- Iterated across multiple rounds on Class Design rather than accepting a broken first draft.
+
+**To improve**
+- State a design decision's assumption *before* being asked, not just when defending it under cross-questioning (e.g., "single-threaded, single-gate" should be said upfront, not pulled out by a follow-up).
+- When told "fixed," verify the change actually landed before saying so — happened twice this session where a stated fix wasn't reflected in the file.
+- In the last few rounds, moved from independently reasoning through gaps to asking for the fix directly. Good for first-pass learning, but note: this section would score as *interviewer-assisted*, not independent, in a real interview — the goal next time is to close gaps like "missing method," "wrong return type," "field that violates a locked separation" without needing the corrected code handed over.
+
+**Recurring issue pattern**
+- The most common mistake type across this session wasn't *not knowing* LLD principles — it was **inconsistency between stated decisions and written design** (e.g., agreeing `ParkingSpotManager` shouldn't know about rates, then giving it a `rateCard` field anyway; agreeing on one-directional `Ticket -> ParkingSpot`, then adding the reverse reference back). Treat every previously locked decision as a constraint to check new code against, not just a note taken and moved past.
+
