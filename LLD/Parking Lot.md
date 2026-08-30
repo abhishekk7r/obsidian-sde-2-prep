@@ -19,3 +19,5 @@ Design the core classes and their relationships (not full production code) to su
 5. Upon the exit from the Parking, cost will be calculated. 
 6. We only have support for 3 type of vehicle, though it can extend in future
 --- 
+#### Out Of Scope
+- 
