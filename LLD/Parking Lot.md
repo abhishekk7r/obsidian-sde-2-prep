@@ -61,7 +61,7 @@ class ParkingLot:
 	- exitGate : ExitGate
 	
 	
-	+ registerVehicle(vehicle, )
+	+ registerVehicle(vehicle, time, )
 	+ calculateCost()
 	  
 class ParkingSpotManager:
