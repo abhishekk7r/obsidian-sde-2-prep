@@ -17,7 +17,7 @@ Design the core classes and their relationships (not full production code) to su
 3. A ticket would contain the parking spot number, entry time, hourly rate. 
 4. Different type of vehicles will have different parking spots & different hourly rate. 
 5. Upon the exit from the Parking, cost will be calculated. 
-6. We only have support for 3 type of vehicle, though it can extend in future
+6. We only have support for 3 type of vehicle(Motorcycle/Car/Bus), though it can extend in future
 7. If there are no spots that are available, we reject the VEHICLE at the ENTRY.
 --- 
 #### Out Of Scope
