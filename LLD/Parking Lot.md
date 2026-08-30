@@ -44,7 +44,7 @@ Design a parking lot system.
 - ParkingSpot has a ticket.
 - Ticket has a Vehicle, ParkingSpot (reference for both)
 - Rate Card has many vehicle type with hourly rate. 
-- Vehicle (inheritance) -> 
+- Vehicle (inheritance) -> Motorcycle,  
 
 > [!note] Why not a Strategy pattern for rates?
 > Strategy earns its place when the *algorithm* varies by type, not just a *value*. Here the formula is the same for every vehicle — only the number differs — so a plain lookup (`RateCard`) is the right-sized design. Forcing Strategy now would be solving a problem that doesn't exist yet.
