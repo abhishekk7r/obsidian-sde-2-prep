@@ -64,6 +64,7 @@ class ParkingLot:
 	+ registerVehicle()
 	+ calculateCost()
 	  
-class Par
+class ParkingSpotManager:
+
 
 ```
