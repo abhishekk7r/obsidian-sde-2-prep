@@ -24,4 +24,3 @@ Design a parking lot system.
 
 ## Entities & Relationships
 
-*(to be filled in — Section 2)*
