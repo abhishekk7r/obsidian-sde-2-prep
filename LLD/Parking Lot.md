@@ -69,7 +69,7 @@ class ParkingSpotManager:
 	
 	+ init(size) // Where do we add differnet types of parking?
 	+ assignParkingSpot(vehicleNumber, vehicle)
-	+ calculateCharge()
+	+ calculateCharge(vehicleNumber, )
 
 class ParkingSpot:
 	- status : ENUM
