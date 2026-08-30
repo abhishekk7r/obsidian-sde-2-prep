@@ -75,6 +75,6 @@ class ParkingSpot:
 	- type : string
 
 class Ticket:
-	- 
+	- vehicle: Vehicle
 
 ```
