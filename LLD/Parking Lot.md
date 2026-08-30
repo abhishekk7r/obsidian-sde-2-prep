@@ -67,6 +67,7 @@ class ParkingLot:
 class ParkingSpotManager:
 	- List<parkingSpot> parkingSpot
 	
+	+ init
 	+ assignParkingSpot(vehicleNumber, vehicle)
 
 class ParkingSpot:
