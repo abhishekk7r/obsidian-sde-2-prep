@@ -82,7 +82,7 @@ class EntryGate:
 
 class ExitGate:
 	- ticket: Ticket
-	- ParkingSpotManager
+	- parkingSpotManager
 
 class ParkingSpot:
 	- status : ENUM
