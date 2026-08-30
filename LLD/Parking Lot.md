@@ -80,6 +80,8 @@ class EntryGate:
 	+ generateTicket(vehicle)
 	+ assignParkingSpot(ticket, parkingSpot)
 
+class ExitGate:
+	- 
 
 class ParkingSpot:
 	- status : ENUM
