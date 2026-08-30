@@ -25,4 +25,4 @@ Design a parking lot system.
 ## Entities & Relationships
 
 1. Parking Spot
-2. 
+2. Parking Spot 
