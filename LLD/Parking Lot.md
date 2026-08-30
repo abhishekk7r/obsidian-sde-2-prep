@@ -37,7 +37,6 @@ Design a parking lot system.
 **Relationships**
 
 - Parking lot has a ParkingSpotManager
-- ParkingLot has a RateCard
 - ParkingLot has a EntryGate & Exit Gate (Singelton)
 - ParkingLot has a Rate Card - static map 
 - ParkingLotManager has many parkingSpots
