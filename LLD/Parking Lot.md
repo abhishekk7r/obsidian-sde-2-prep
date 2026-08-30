@@ -55,6 +55,6 @@ Two things to answer during class design
 
 ```java
 class ParkingLot:
-	- parkingLot
+	- parkingSpot
 
 ```
