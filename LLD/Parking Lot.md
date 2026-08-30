@@ -59,6 +59,8 @@ class ParkingLot:
 	- rateCard : RateCard
 	- entryGate : EntryGate
 	- exitGate : ExitGate
-	- 
+	
+	
+	+ 
 
 ```
