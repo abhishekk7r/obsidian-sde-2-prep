@@ -57,6 +57,7 @@ Two things to answer during class design
 class ParkingLot:
 	- parkingSpotManager: ParkingSpotManager
 	- rateCard : RateCard
-	- entryGate : 
+	- entryGate : EntryGate
+	- 
 
 ```
