@@ -79,6 +79,6 @@ class Ticket:
 	- parkingSpot : ParkingSpot
 	- vehicleNumber : int
 	
-	+ createTicket(vehicleNumber, va)
+	+ createTicket(vehicleNumber, vehicle, parkingSpot)
 
 ```
