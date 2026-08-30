@@ -24,3 +24,4 @@ Design a parking lot system.
 
 ## Entities & Relationships
 
+1. 
