@@ -73,7 +73,7 @@ class ParkingSpotManager:
 	  
 class EntryGate:
 	- ticket: Ticket
-	- parkingSpot
+	- parkingSpot: 
 
 class ParkingSpot:
 	- status : ENUM
