@@ -334,3 +334,4 @@ classDiagram
 ```
 
 **Legend:** `*--` composition (owns, dies with parent) · `o--` aggregation (manages, independent lifecycle) · `..>` dependency (uses/creates) · `-->` reference · `<|..` interface implementation
+
