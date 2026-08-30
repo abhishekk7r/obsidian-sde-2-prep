@@ -43,7 +43,7 @@ Design a parking lot system.
 - ParkingLotManager has many parkingSpots
 - ParkingSpot has a status Free/Occupied. 
 - ParkingSpot has a ticket.
-- Ticket has a Vehicle, ParkingSpot (refrence,)
+- Ticket has a Vehicle, ParkingSpot (reference for b)
 - Rate Card has many vehicle type with hourly rate. 
 
 > [!note] Why not a Strategy pattern for rates?
