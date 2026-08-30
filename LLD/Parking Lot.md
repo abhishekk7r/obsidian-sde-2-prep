@@ -65,6 +65,6 @@ class ParkingLot:
 	+ calculateCost()
 	  
 class ParkingSpotManager:
-
+	- 
 
 ```
