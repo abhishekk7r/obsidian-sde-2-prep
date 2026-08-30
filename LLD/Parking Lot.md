@@ -41,7 +41,7 @@ Design a parking lot system.
 - ParkingLot has a EntryGate & Exit Gate (Singelton)
 - ParkingLot has a Rate Card - static map 
 - ParkingLotManager has many parkingSpots
-- ParkingSpot has status Free/Occupied. 
+- ParkingSpot has a status Free/Occupied. 
 - Rate Card has many vehicle type with hourly rate. 
 
 > [!note] Why not a Strategy pattern for rates?
