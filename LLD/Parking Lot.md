@@ -36,15 +36,25 @@ Design a parking lot system.
 
 **Relationships**
 
-- Parking lot has a ParkingSpot
-- ParkingLot has a EntryGate & Exit Gate 
-- ParkingLot has a Rate Card - static map 
-- ParkingLotManager has many parkingSpots
-- ParkingSpot has a status Free/Occupied. 
-- ParkingSpot has a ticket.
-- Ticket has a Vehicle, ParkingSpot (reference for both)
-- Rate Card has many vehicle type with hourly rate. 
-- Vehicle (inheritance) -> Motorcycle, car, buses 
+Entities:
+- ParkingLot          (orchestrator — owns everything below)
+- ParkingSpotManager  (owns the pool of ParkingSpots; find/allocate/free)
+- ParkingSpot         (id, type, status: FREE/OCCUPIED)
+- Vehicle (interface) -> Motorcycle, Car, Bus
+- Ticket              (id, vehicle ref, spot ref, entryTime, hourlyRate)
+- EntryGate           (vehicle in -> Ticket, or reject)
+- ExitGate            (ticket in -> cost calculated, spot freed)
+- RateCard            (VehicleType -> hourlyRate lookup)
+
+Relationships:
+- ParkingLot -> ParkingSpotManager (has-a, 1)
+- ParkingLot -> RateCard (has-a, 1)
+- ParkingLot -> EntryGate, ExitGate (has-a, 1 each — single gate per scope)
+- ParkingSpotManager -> ParkingSpot (has-many, 200, partitioned by type)
+- ParkingSpot -> Ticket (has-a, 0..1 — only while occupied)
+- Ticket -> Vehicle, ParkingSpot (references, both required)
+- Vehicle (interface) <|-- Motorcycle, Car, Bus
+- Payment: out of scope — ExitGate computes final cost and hands off to an external system; spot is freed once cost is computed (not gated on payment confirmation)
 
 > [!note] Why not a Strategy pattern for rates?
 > Strategy earns its place when the *algorithm* varies by type, not just a *value*. Here the formula is the same for every vehicle — only the number differs — so a plain lookup (`RateCard`) is the right-sized design. Forcing Strategy now would be solving a problem that doesn't exist yet.
