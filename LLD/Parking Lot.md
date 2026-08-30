@@ -25,4 +25,5 @@ Design a parking lot system.
 ## Entities & Relationships
 
 1. Parking Spot
-2. Parking Spot 
+2. Parking Spot Manager
+3. 
