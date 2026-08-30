@@ -61,6 +61,7 @@ class ParkingLot:
 	- exitGate : ExitGate
 	
 	
+	+ registerVehicle()
 	+ 
 
 ```
