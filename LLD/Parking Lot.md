@@ -74,6 +74,7 @@ class ParkingSpot:
 	- status : ENUM
 	- type : string
 
-
+class Ticket:
+	- 
 
 ```
