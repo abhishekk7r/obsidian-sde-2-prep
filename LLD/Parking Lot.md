@@ -58,6 +58,7 @@ class ParkingLot:
 	- parkingSpotManager: ParkingSpotManager
 	- rateCard : RateCard
 	- entryGate : EntryGate
-	- exitGate : ExitG
+	- exitGate : ExitGate
+	- 
 
 ```
