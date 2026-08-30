@@ -16,4 +16,4 @@ Design the core classes and their relationships (not full production code) to su
 2. Upon Entry, Each Vehicle should be provided with a TICKET.
 3. A ticket would contain the parking spot number, entry time, hourly rate. 
 4. Different type of vehicles will have different parking spots & different hourly rate. 
-5. Upon the exit from the Parking
+5. Upon the exit from the Parking, cal
