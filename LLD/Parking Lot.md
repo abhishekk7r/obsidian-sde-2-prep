@@ -219,3 +219,118 @@ class ParkingLot:
 > [!warning] Still open for the Implementation section
 > - Exact duration math (partial hours — round up or bill by the minute?) isn't decided yet.
 > - `occupy()`/`vacate()` calling `vacate()` on an already-free spot, or `occupy()` on an already-occupied one — should these throw, or fail silently? Worth deciding when we write pseudocode.
+#### Class Diagram
+> [!note] Study aid only
+> Hello Interview explicitly recommends *against* drawing formal UML in the actual interview — plain class-block notation (what we used above) is faster and what they teach. This diagram is here purely as a personal reference for the finished design, not something to reproduce on a whiteboard under time pressure.
+
+```mermaid
+classDiagram
+    direction TB
+
+    class VehicleType {
+        <<enumeration>>
+        MOTORCYCLE
+        CAR
+        BUS
+    }
+
+    class SpotStatus {
+        <<enumeration>>
+        FREE
+        OCCUPIED
+    }
+
+    class Vehicle {
+        <<interface>>
+        +getVehicleNumber() string
+        +getType() VehicleType
+    }
+
+    class Motorcycle {
+        -vehicleNumber string
+    }
+    class Car {
+        -vehicleNumber string
+    }
+    class Bus {
+        -vehicleNumber string
+    }
+
+    Vehicle <|.. Motorcycle
+    Vehicle <|.. Car
+    Vehicle <|.. Bus
+
+    class ParkingSpot {
+        -id string
+        -type VehicleType
+        -status SpotStatus
+        +occupy() void
+        +vacate() void
+        +isAvailable() bool
+    }
+
+    class ParkingSpotManager {
+        -parkingSpots List~ParkingSpot~
+        +init(capacityByType) void
+        +findAndAssignSpot(type) ParkingSpot
+        +releaseSpot(spot) void
+    }
+
+    class RateCard {
+        -rates Map~VehicleType, double~
+        +getHourlyRate(type) double
+    }
+
+    class Ticket {
+        -vehicle Vehicle
+        -parkingSpot ParkingSpot
+        -entryTime DateTime
+        -hourlyRate double
+    }
+
+    class Receipt {
+        -ticket Ticket
+        -exitTime DateTime
+        -amount double
+    }
+
+    class EntryGate {
+        -parkingSpotManager ParkingSpotManager
+        -rateCard RateCard
+        +enter(vehicle) Ticket
+    }
+
+    class ExitGate {
+        -parkingSpotManager ParkingSpotManager
+        +exit(ticket) Receipt
+    }
+
+    class ParkingLot {
+        -parkingSpotManager ParkingSpotManager
+        -rateCard RateCard
+        -entryGate EntryGate
+        -exitGate ExitGate
+        +registerVehicle(vehicle) Ticket
+        +exitVehicle(ticket) Receipt
+    }
+
+    ParkingLot *-- ParkingSpotManager : owns
+    ParkingLot *-- RateCard : owns
+    ParkingLot *-- EntryGate : owns
+    ParkingLot *-- ExitGate : owns
+
+    ParkingSpotManager o-- ParkingSpot : manages 200
+
+    EntryGate ..> ParkingSpotManager : uses
+    EntryGate ..> RateCard : uses
+    EntryGate ..> Ticket : creates
+
+    ExitGate ..> ParkingSpotManager : uses
+    ExitGate ..> Receipt : creates
+
+    Ticket --> Vehicle : references
+    Ticket --> ParkingSpot : references
+    Receipt --> Ticket : references
+```
+
+**Legend:** `*--` composition (owns, dies with parent) · `o--` aggregation (manages, independent lifecycle) · `..>` dependency (uses/creates) · `-->` reference · `<|..` interface implementation
