@@ -26,6 +26,6 @@ Design a parking lot system.
 
 1. Parking Spot
 2. Parking Spot Manager
-3. Vehicle Inte
+3. Vehicle Interface -> 
 4. Entry/Exit Class
 5. 
