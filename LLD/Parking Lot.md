@@ -100,7 +100,8 @@ class Ticket:
 	- entryTime: Date
 	- exitTime: Date
 	
-	+ createTicket(vehicleNumber, vehicle, parkingSpot) -> {}
+	+ createTicket(vehicleNumber, vehicle, parkingSpot) -> 
+	+ 
 
 interface Vehicle:
 	- type : string
