@@ -80,7 +80,7 @@ class Ticket:
 	- parkingSpot : ParkingSpot
 	- vehicleNumber : int
 	
-	+ createTicket(vehicleNumber, vehicle, parkingSpot) -> 
+	+ createTicket(vehicleNumber, vehicle, parkingSpot) -> {}
 
 interface Vehicle:
 	- type : string
