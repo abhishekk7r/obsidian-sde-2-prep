@@ -62,7 +62,7 @@ class ParkingLot:
 	
 	
 	+ registerVehicle(vehicleNumber, vehicle, time)
-	+ calculateCost(vehicleNumber, time)
+	+ calculateCost(vehicleNumber, vehicletime)
 	  
 class ParkingSpotManager:
 	- List<parkingSpot> parkingSpot
