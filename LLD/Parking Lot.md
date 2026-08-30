@@ -20,4 +20,4 @@ Design the core classes and their relationships (not full production code) to su
 6. We only have support for 3 type of vehicle, though it can extend in future
 --- 
 #### Out Of Scope
-1. Multi
+1. Multi-Level Pakr
