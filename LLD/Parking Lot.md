@@ -85,7 +85,7 @@ class ExitGate:
 	- rateCard : RateCard
 	  
 	+ calculateFee(ticket, rateCard)
-	+ 
+	+ freeUpParkingSpot(ticket)
 	
 
 class ParkingSpot:
