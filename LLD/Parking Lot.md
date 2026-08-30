@@ -62,6 +62,6 @@ class ParkingLot:
 	
 	
 	+ registerVehicle()
-	+ dere
+	+ calcu
 
 ```
