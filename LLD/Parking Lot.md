@@ -81,7 +81,8 @@ class EntryGate:
 	+ assignParkingSpot(ticket, parkingSpot)
 
 class ExitGate:
-	- 
+	- ticket: Ticket
+	- ParkingSpotManager
 
 class ParkingSpot:
 	- status : ENUM
