@@ -38,7 +38,7 @@ Design a parking lot system.
 
 - Parking lot has a ParkingSpotManager
 - ParkingLot has a RateCard
-- ParkingLot has a EntryGate & Exit Gate - 1 instance across whole 
+- ParkingLot has a EntryGate & Exit Gate - 1 instance across whole class
 - ParkingLot has a Rate Card - static map 
 
 > [!note] Why not a Strategy pattern for rates?
