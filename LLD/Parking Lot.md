@@ -36,14 +36,7 @@ Design a parking lot system.
 
 **Relationships**
 
-- `ParkingLot` *has-a* `ParkingSpotManager` (1)
-- `ParkingLot` *has-a* `RateCard` (1)
-- `ParkingLot` *has-a* `EntryGate`, `ExitGate` (1 each — single gate per scope)
-- `ParkingSpotManager` *has-many* `ParkingSpot` (200, partitioned by type: 50 motorcycle / 100 car / 50 bus)
-- `ParkingSpot` *has-a* `Ticket` (0..1 — only while occupied)
-- `Ticket` *references* `Vehicle` and `ParkingSpot`
-- `Vehicle` (interface) `◁--` `Motorcycle`, `Car`, `Bus`
-- Payment: out of scope — `ExitGate` computes final cost and hands off to an external system; the spot is freed once cost is computed, not gated on payment confirmation.
+- 
 
 > [!note] Why not a Strategy pattern for rates?
 > Strategy earns its place when the *algorithm* varies by type, not just a *value*. Here the formula is the same for every vehicle — only the number differs — so a plain lookup (`RateCard`) is the right-sized design. Forcing Strategy now would be solving a problem that doesn't exist yet.
