@@ -76,5 +76,6 @@ class ParkingSpot:
 
 class Ticket:
 	- vehicle: Vehicle
+	- 
 
 ```
