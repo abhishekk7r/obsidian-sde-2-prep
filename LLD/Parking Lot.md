@@ -69,14 +69,14 @@ class ParkingSpotManager:
 	- rateCard : RateCard
 	
 	+ init(size) // Where do we add differnet types of parking?
-	+ assignParkingSpot(vehicleNumber, vehicle) -> bool
+
 	  
 class EntryGate:
 	- ticket: Ticket
 	- parkingSpot: ParkingSpot
 	- parkingSpotManager: ParkingSpotManager
 	  
-	+ assignParkingSpot
+	+ assignParkingSpot()
 
 class ParkingSpot:
 	- status : ENUM
