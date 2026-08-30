@@ -75,7 +75,9 @@ class EntryGate:
 	- ticket: Ticket
 	- parkingSpot: ParkingSpot
 	- parkingSpotManager: ParkingSpotManager
+	- vehicle : Vehicle
 	  
+	+ generateTicket(vehicle)
 	+ assignParkingSpot(ticket, parkingSpot)
 
 
