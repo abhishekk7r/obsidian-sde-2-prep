@@ -22,3 +22,4 @@ Design the core classes and their relationships (not full production code) to su
 #### Out Of Scope
 1. Multi-Level Parking
 2. Parking Spot Allocation Algorithm -- We can talk about this in brief
+3. Payment 
