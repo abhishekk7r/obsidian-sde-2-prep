@@ -51,61 +51,171 @@ Design a parking lot system.
 
 Two things to answer during class design
 - State: What does this class needs to remember
-- Behaviour: What operations does the outside world need, and which requirement does each satisfy. 
+- Behaviour: What operations does the outside world need, and which requirement does each satisfy.
 
 ```java
-class ParkingLot:
-	- parkingSpotManager: ParkingSpotManager
-	- rateCard : RateCard
-	- entryGate : EntryGate
-	- exitGate : ExitGate
-	
-	
-	+ registerVehicle(vehicleNumber, vehicle, time) -> object
-	+ calculateCost(Ticket) -> Recipt
-	  
-class ParkingSpotManager:
-	- List<parkingSpot> parkingSpot
-	
-	+ init(size) 
-	+ 
+// ── Enums ─────────────────────────────────────────────
+// Enums instead of raw strings: a closed set of vehicle
+// types / spot statuses shouldn't be typo-able ("car" vs "Car" vs "CAR").
 
-	  
-class EntryGate:
-	- ticket: Ticket
-	- parkingSpot: ParkingSpot
-	- parkingSpotManager: ParkingSpotManager
-	- vehicle : Vehicle
-	  
-	+ generateTicket(vehicle)
-	+ assignParkingSpot(ticket, parkingSpot)
+enum VehicleType:
+	MOTORCYCLE, CAR, BUS
 
-class ExitGate:
-	- ticket: Ticket
-	- parkingSpotManager: ParkingSpotManager
-	- rateCard : RateCard
-	  
-	+ calculateFee(ticket, rateCard)
-	+ freeUpParkingSpot(ticket)
-	
+enum SpotStatus:
+	FREE, OCCUPIED
+
+
+// ── Vehicle ───────────────────────────────────────────
+// Interface defines a behavior contract only — no stored fields on
+// the interface itself (fields live on the implementing classes).
+
+interface Vehicle:
+	+ getVehicleNumber() -> string
+	+ getType() -> VehicleType
+
+class Motorcycle implements Vehicle:
+	- vehicleNumber: string
+	+ getVehicleNumber() -> string   // returns vehicleNumber
+	+ getType() -> VehicleType.MOTORCYCLE
+
+class Car implements Vehicle:
+	- vehicleNumber: string
+	+ getVehicleNumber() -> string
+	+ getType() -> VehicleType.CAR
+
+class Bus implements Vehicle:
+	- vehicleNumber: string
+	+ getVehicleNumber() -> string
+	+ getType() -> VehicleType.BUS
+
+
+// ── ParkingSpot ───────────────────────────────────────
+// Owns its own occupancy state and the rule for changing it
+// ("Tell, Don't Ask" — no external class flips this directly).
 
 class ParkingSpot:
-	- status : ENUM
-	- type : string
+	- id: string                // needed so Ticket can carry a spot number (req 2)
+	- type: VehicleType
+	- status: SpotStatus
+
+	+ occupy() -> void           // sets status = OCCUPIED; throws/asserts if already occupied
+	+ vacate() -> void           // sets status = FREE
+	+ isAvailable() -> bool      // status == FREE
+
+
+// ── ParkingSpotManager ────────────────────────────────
+// Owns ONLY the pool of spots. Knows nothing about tickets,
+// vehicles, or rates — that separation was decided in
+// Entities & Relationships and is preserved here.
+
+class ParkingSpotManager:
+	- parkingSpots: List<ParkingSpot>
+
+	// capacityByType lets us set up 50 motorcycle / 100 car / 50 bus
+	// spots distinctly, rather than one flat "size" that can't express
+	// per-type pools.
+	+ init(capacityByType: Map<VehicleType, int>) -> void
+
+	// Finds the first FREE spot of the matching type, marks it occupied,
+	// and returns it. Returns null if none available (caller uses this
+	// to satisfy requirement 6 — reject at entry).
+	+ findAndAssignSpot(type: VehicleType) -> ParkingSpot?
+
+	// Called on exit to return a spot to the pool.
+	+ releaseSpot(spot: ParkingSpot) -> void   // calls spot.vacate()
+
+
+// ── RateCard ──────────────────────────────────────────
+// Plain lookup, not a Strategy hierarchy — the cost formula
+// (hourlyRate × hoursParked) is identical for every vehicle type,
+// only the rate number differs. See note above on Strategy pattern.
+
+class RateCard:
+	- rates: Map<VehicleType, double>
+
+	+ getHourlyRate(type: VehicleType) -> double
+
+
+// ── Ticket ────────────────────────────────────────────
+// Pure data holder. Carries everything requirement 2 asks for:
+// spot number (via parkingSpot.id), entry time, and hourly rate
+// LOCKED AT ISSUE TIME (so a later rate change never affects
+// someone already parked).
 
 class Ticket:
 	- vehicle: Vehicle
-	- parkingSpot : ParkingSpot
-	- vehicleNumber : int
-	- entryTime: Date
-	- exitTime: Date
-	
-	+ createTicket(vehicleNumber, vehicle, parkingSpot) -> ReciptDTO
-	+ discardTicket(vehicle) -> 
+	- parkingSpot: ParkingSpot   // one-directional: ParkingSpot does NOT
+	                              // reference back to Ticket. The physical
+	                              // ticket is what's presented at exit, so
+	                              // no reverse lookup is ever needed.
+	- entryTime: DateTime
+	- hourlyRate: double         // copied from RateCard at issue time, not
+	                              // looked up again at exit
 
-interface Vehicle:
-	- type : string
-	  
-class MotorCycle implements Vehicle:
-	- 
+
+// ── Receipt ───────────────────────────────────────────
+// Small addition: a clean return type for exit, instead of a bare
+// number, so it's obvious what exitVehicle() hands back.
+
+class Receipt:
+	- ticket: Ticket
+	- exitTime: DateTime
+	- amount: double
+
+
+// ── EntryGate ─────────────────────────────────────────
+// Stateless service: holds only its COLLABORATORS (manager, rate card)
+// as fields, never a specific ticket/vehicle/spot — those are per-call
+// data, not something a gate "remembers" between vehicles.
+
+class EntryGate:
+	- parkingSpotManager: ParkingSpotManager
+	- rateCard: RateCard
+
+	// Orchestrates entry end-to-end:
+	// 1. Ask ParkingSpotManager for a free spot of this vehicle's type.
+	// 2. If none available -> return null (requirement 6: reject at entry).
+	// 3. Else look up the hourly rate and build the Ticket.
+	+ enter(vehicle: Vehicle) -> Ticket?
+
+
+// ── ExitGate ──────────────────────────────────────────
+// Also stateless — only holds parkingSpotManager as a collaborator.
+// (No rateCard field needed: the rate is already locked on the ticket.)
+
+class ExitGate:
+	- parkingSpotManager: ParkingSpotManager
+
+	// Orchestrates exit end-to-end:
+	// 1. Compute duration = now - ticket.entryTime.
+	// 2. amount = duration (hours) * ticket.hourlyRate.
+	// 3. parkingSpotManager.releaseSpot(ticket.parkingSpot).
+	// 4. Return a Receipt (payment itself is out of scope — handed to
+	//    an external system from here).
+	+ exit(ticket: Ticket) -> Receipt
+
+
+// ── ParkingLot ────────────────────────────────────────
+// The orchestrator / aggregate root. Public-facing API simply
+// delegates to entryGate / exitGate rather than duplicating their logic.
+
+class ParkingLot:
+	- parkingSpotManager: ParkingSpotManager
+	- rateCard: RateCard
+	- entryGate: EntryGate
+	- exitGate: ExitGate
+
+	+ registerVehicle(vehicle: Vehicle) -> Ticket?   // delegates to entryGate.enter(vehicle)
+	+ exitVehicle(ticket: Ticket) -> Receipt         // delegates to exitGate.exit(ticket)
 ```
+
+> [!tip] What changed from the earlier draft
+> - `Ticket` now carries `entryTime` and `hourlyRate` (req 2 was previously unmet).
+> - `ParkingSpotManager` gained the missing `findAndAssignSpot`/`releaseSpot` methods, and lost `rateCard` (rates aren't its concern).
+> - `EntryGate`/`ExitGate` no longer hold a specific `ticket`/`vehicle`/`spot` as instance state — they're stateless services with only their collaborators as fields.
+> - `ParkingSpot` gained an `id` and enum `type`, plus its own `occupy()`/`vacate()` behavior instead of being a passive data bag.
+> - `ParkingLot`'s two public methods now clearly delegate to the gates instead of duplicating their logic.
+
+> [!warning] Still open for the Implementation section
+> - Exact duration math (partial hours — round up or bill by the minute?) isn't decided yet.
+> - `occupy()`/`vacate()` calling `vacate()` on an already-free spot, or `occupy()` on an already-occupied one — should these throw, or fail silently? Worth deciding when we write pseudocode.
