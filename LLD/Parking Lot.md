@@ -84,5 +84,6 @@ class Ticket:
 	+ createTicket(vehicleNumber, vehicle, parkingSpot)
 
 interface Vechile:
-	- type
+	- type : string
+	  
 ```
