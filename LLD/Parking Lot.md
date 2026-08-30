@@ -67,7 +67,7 @@ class ParkingLot:
 class ParkingSpotManager:
 	- List<parkingSpot> parkingSpot
 	
-	+ init(size, List<par>)
+	+ init(size)
 	+ segreateParkingSpotByVehicle
 	+ assignParkingSpot(vehicleNumber, vehicle)
 
