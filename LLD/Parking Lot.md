@@ -62,7 +62,7 @@ class ParkingLot:
 	
 	
 	+ registerVehicle(vehicleNumber, vehicle, time) -> object
-	+ calculateCost(vehicleNumber, vehicle, time) -> int
+	+ calculateCost(Ticket) -> int
 	  
 class ParkingSpotManager:
 	- List<parkingSpot> parkingSpot
