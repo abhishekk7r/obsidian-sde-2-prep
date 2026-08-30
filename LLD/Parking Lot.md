@@ -68,6 +68,7 @@ class ParkingSpotManager:
 	- List<parkingSpot> parkingSpot
 	
 	+ assignParkingSpot(vehicleNumber, vehicle)
-	  
+
+class 
 
 ```
