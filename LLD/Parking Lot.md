@@ -69,6 +69,8 @@ class ParkingSpotManager:
 	
 	+ assignParkingSpot(vehicleNumber, vehicle)
 
-class 
+class ParkingSpot:
+	- status : ENUM
+	- 
 
 ```
