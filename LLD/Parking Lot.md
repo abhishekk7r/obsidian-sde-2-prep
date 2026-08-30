@@ -70,6 +70,9 @@ class ParkingSpotManager:
 	
 	+ init(size) // Where do we add differnet types of parking?
 	+ assignParkingSpot(vehicleNumber, vehicle) -> bool
+	  
+class EntryGate:
+
 
 class ParkingSpot:
 	- status : ENUM
