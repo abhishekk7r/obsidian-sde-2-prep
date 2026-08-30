@@ -11,4 +11,4 @@ Design the core classes and their relationships (not full production code) to su
 
 (Deliberately open-ended, the way it'd typically be given verbally — the rest gets clarified through your own requirements-gathering questions, not handed to you as a spec.)
 
-### Functional Requriement
+### Requirement
