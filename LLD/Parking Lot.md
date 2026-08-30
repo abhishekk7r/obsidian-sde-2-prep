@@ -40,7 +40,8 @@ Design a parking lot system.
 - ParkingLot has a RateCard
 - ParkingLot has a EntryGate & Exit Gate (Singelton)
 - ParkingLot has a Rate Card - static map 
-- ParkingLotManager has a 
+- ParkingLotManager has many parkingSpots
+- 
 
 > [!note] Why not a Strategy pattern for rates?
 > Strategy earns its place when the *algorithm* varies by type, not just a *value*. Here the formula is the same for every vehicle — only the number differs — so a plain lookup (`RateCard`) is the right-sized design. Forcing Strategy now would be solving a problem that doesn't exist yet.
