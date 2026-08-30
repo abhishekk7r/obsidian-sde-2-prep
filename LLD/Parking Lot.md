@@ -38,7 +38,7 @@ Design a parking lot system.
 
 - Parking lot has a ParkingSpotManager
 - ParkingLot has a RateCard
-- ParkingLot has a EntryGate & Exit Gate - Singelton
+- ParkingLot has a EntryGate & Exit Gate (Singelton
 - ParkingLot has a Rate Card - static map 
 
 > [!note] Why not a Strategy pattern for rates?
