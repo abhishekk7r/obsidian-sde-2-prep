@@ -85,5 +85,6 @@ class Ticket:
 
 interface Vechile:
 	- type : string
-	- 
+	  
+class MotorCycle implements Vehicle
 ```
