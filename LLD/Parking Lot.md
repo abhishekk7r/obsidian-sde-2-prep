@@ -54,6 +54,7 @@ Two things to answer during class design
 - Behaviour: What operations does the outside world need, and which requirement does each satisfy. 
 
 ```java
-class 
+class ParkingLot:
+	- 
 
 ```
