@@ -35,7 +35,6 @@ Design a parking lot system.
 - `RateCard` — `VehicleType → hourlyRate` lookup (not a Strategy-pattern hierarchy: the cost formula `hourlyRate × hoursParked` is identical across vehicle types, only the rate value varies, so a single lookup class is the right level of complexity for now. Revisit as Strategy if a future requirement makes the formula itself diverge by type — e.g. flat daily rate for buses.)
 
 **Relationships**
-
 - `ParkingLot` *has-a* `ParkingSpotManager` (1)
 - `ParkingLot` *has-a* `RateCard` (1)
 - `ParkingLot` *has-a* `EntryGate`, `ExitGate` (1 each — single gate per scope, not a Singleton pattern)
