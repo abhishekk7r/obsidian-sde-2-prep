@@ -67,7 +67,8 @@ class ParkingLot:
 class ParkingSpotManager:
 	- List<parkingSpot> parkingSpot
 	
-	+ init(size) // Where do we add differnet types of parking?
+	+ init(size) 
+	+ 
 
 	  
 class EntryGate:
