@@ -14,3 +14,4 @@ Design a parking lot system.
 1. Multi-Level Parking
 2. Parking Spot Allocation Algorithm -- We can talk about this in brief
 3. Payment Collection
+4. Concurrency on single Parking Spot
