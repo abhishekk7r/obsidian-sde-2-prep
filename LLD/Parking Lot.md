@@ -29,3 +29,28 @@ Design a parking lot system.
 3. Vehicle Interface -> Different Clasess
 4. Entry/Exit Class
 5. Ticket
+# Entities & Relationships
+**Entities**
+
+- `ParkingLot` — orchestrator; owns `ParkingSpotManager`, `RateCard`, `EntryGate`, `ExitGate`
+- `ParkingSpotManager` — owns the pool of `ParkingSpot`s; find/allocate a free spot of a given type, free a spot. Knows nothing about tickets, vehicles, or rates.
+- `ParkingSpot` — id, type, status (`FREE` / `OCCUPIED`)
+- `Vehicle` (interface) → `Motorcycle`, `Car`, `Bus`
+- `Ticket` — id, vehicle reference, spot reference, entryTime, hourlyRate (locked at issue time)
+- `EntryGate` — vehicle in → issues `Ticket`, or rejects if no matching spot
+- `ExitGate` — ticket in → calculates cost, frees the spot
+- `RateCard` — `VehicleType → hourlyRate` lookup (not a Strategy-pattern hierarchy: the cost formula `hourlyRate × hoursParked` is identical across vehicle types, only the rate value varies, so a single lookup class is the right level of complexity for now. Revisit as Strategy if a future requirement makes the formula itself diverge by type — e.g. flat daily rate for buses.)
+
+**Relationships**
+
+- `ParkingLot` *has-a* `ParkingSpotManager` (1)
+- `ParkingLot` *has-a* `RateCard` (1)
+- `ParkingLot` *has-a* `EntryGate`, `ExitGate` (1 each — single gate per scope)
+- `ParkingSpotManager` *has-many* `ParkingSpot` (200, partitioned by type: 50 motorcycle / 100 car / 50 bus)
+- `ParkingSpot` *has-a* `Ticket` (0..1 — only while occupied)
+- `Ticket` *references* `Vehicle` and `ParkingSpot`
+- `Vehicle` (interface) `◁--` `Motorcycle`, `Car`, `Bus`
+- Payment: out of scope — `ExitGate` computes final cost and hands off to an external system; the spot is freed once cost is computed, not gated on payment confirmation.
+
+> [!note] Why not a Strategy pattern for rates?
+> Strategy earns its place when the *algorithm* varies by type, not just a *value*. Here the formula is the same for every vehicle — only the number differs — so a plain lookup (`RateCard`) is the right-sized design. Forcing Strategy now would be solving a problem that doesn't exist yet.
