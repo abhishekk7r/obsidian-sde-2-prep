@@ -61,8 +61,8 @@ class ParkingLot:
 	- exitGate : ExitGate
 	
 	
-	+ registerVehicle(vehicleNumber, vehicle, time)
-	+ calculateCost(vehicleNumber, vehicle, time)
+	+ registerVehicle(vehicleNumber, vehicle, time) -> bool
+	+ calculateCost(vehicleNumber, vehicle, time) -> 
 	  
 class ParkingSpotManager:
 	- List<parkingSpot> parkingSpot
