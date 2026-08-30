@@ -63,5 +63,7 @@ class ParkingLot:
 	
 	+ registerVehicle()
 	+ calculateCost()
+	  
+
 
 ```
