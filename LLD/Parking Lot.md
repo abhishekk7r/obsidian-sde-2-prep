@@ -101,7 +101,7 @@ class Ticket:
 	- exitTime: Date
 	
 	+ createTicket(vehicleNumber, vehicle, parkingSpot) -> 
-	+ discardTicket()
+	+ discardTicket(vehicle) 
 
 interface Vehicle:
 	- type : string
