@@ -100,8 +100,8 @@ class Ticket:
 	- entryTime: Date
 	- exitTime: Date
 	
-	+ createTicket(vehicleNumber, vehicle, parkingSpot) -> 
-	+ discardTicket(vehicle) 
+	+ createTicket(vehicleNumber, vehicle, parkingSpot) -> ReciptDTO
+	+ discardTicket(vehicle) -> 
 
 interface Vehicle:
 	- type : string
