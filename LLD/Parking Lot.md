@@ -87,5 +87,5 @@ interface Vehicle:
 	- type : string
 	  
 class MotorCycle implements Vehicle:
-
+	- 
 ```
