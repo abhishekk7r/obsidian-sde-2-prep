@@ -85,5 +85,5 @@ class Ticket:
 
 interface Vechile:
 	- type : string
-	  
+	- 
 ```
