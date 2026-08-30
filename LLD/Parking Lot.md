@@ -98,7 +98,7 @@ class Ticket:
 	- parkingSpot : ParkingSpot
 	- vehicleNumber : int
 	- entryTime: Date
-	- e
+	- exit
 	
 	+ createTicket(vehicleNumber, vehicle, parkingSpot) -> {}
 
