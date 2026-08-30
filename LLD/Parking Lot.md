@@ -66,7 +66,7 @@ class ParkingLot:
 	  
 class ParkingSpotManager:
 	- List<parkingSpot> parkingSpot
-	- rateCard : Rate
+	- rateCard : RateCard
 	
 	+ init(size) // Where do we add differnet types of parking?
 	+ assignParkingSpot(vehicleNumber, vehicle)
