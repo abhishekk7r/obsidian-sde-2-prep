@@ -50,4 +50,5 @@ Design a parking lot system.
 ### Class Design
 
 Two things to answer during class design
+- State
 - 
