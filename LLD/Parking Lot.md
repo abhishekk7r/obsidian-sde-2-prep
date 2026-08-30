@@ -72,7 +72,7 @@ class ParkingSpotManager:
 	+ assignParkingSpot(vehicleNumber, vehicle) -> bool
 	  
 class EntryGate:
-	- ticke
+	- ticket: 
 
 class ParkingSpot:
 	- status : ENUM
