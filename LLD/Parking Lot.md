@@ -82,7 +82,8 @@ class EntryGate:
 class ExitGate:
 	- ticket: Ticket
 	- parkingSpotManager: ParkingSpotManager
-	- rateCard : 
+	- rateCard : RateCard
+	  
 	
 
 class ParkingSpot:
