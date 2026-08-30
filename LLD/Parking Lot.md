@@ -72,6 +72,5 @@ class ParkingSpotManager:
 
 class ParkingSpot:
 	- status : ENUM
-	- 
 
 ```
