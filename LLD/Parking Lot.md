@@ -51,5 +51,5 @@ Design a parking lot system.
 
 Two things to answer during class design
 - State: What does this class needs to remember
-- 
-- 
+- Behaviour: What operations does the outside world need, and which requirement does each satisfy. 
+
