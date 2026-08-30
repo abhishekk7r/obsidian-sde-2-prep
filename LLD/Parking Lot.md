@@ -77,6 +77,8 @@ class ParkingSpot:
 class Ticket:
 	- vehicle: Vehicle
 	- parkingSpot : ParkingSpot
-	- vehicleNumber : 
+	- vehicleNumber : int
+	
+	+ 
 
 ```
