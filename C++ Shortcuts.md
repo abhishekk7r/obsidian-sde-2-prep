@@ -30,7 +30,7 @@ mp[x]++;
 
 ## 6. Existence Check in Set
 ```cpp
-dunordered_set<int> st;
+unordered_set<int> st;
 st.count(x);
 ```
 
