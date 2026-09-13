@@ -6,3 +6,9 @@
 | [[Rotting Oranges]] | Multi-source BFS | Done |
 | [[Pacific Atlantic Water Flow]] | Multi-source boundary DFS/BFS (reverse flow) | Done |
 | [[Pacific Atlantic Water Flow#Surrounded Regions\|Surrounded Regions]] | Multi-source boundary DFS/BFS (mark-safe) | Done |
+| [[Shortest Bridge]] | DFS to find + Multi-source BFS to expand | Done |
+| [[Longest Increasing Path In A Matrix]] | DFS + Memoization on grid | Done |
+
+**References:**
+- [[Patterns — Graph BFS-DFS]] — pattern templates, practice order, evaluation checklists
+- [[Mistake Log]] — recurring bugs to watch for
