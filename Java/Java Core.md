@@ -4,11 +4,11 @@
 
 ## JVM / JRE / JDK
 
-| |Contains|Use case|
-|---|---|---|
-|**JVM**|Runs bytecode → machine code. Platform-dependent (bytecode itself is not). Includes JIT compiler.|Executes the program|
-|**JRE**|JVM + class libraries|Enough to just *run* a Java program|
-|**JDK**|JRE + dev tools (compiler, debugger, etc.)|Needed to *build* Java programs|
+|         | Contains                                                                                          | Use case                            |
+| ------- | ------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| **JVM** | Runs bytecode → machine code. Platform-dependent (bytecode itself is not). Includes JIT compiler. | Executes the program                |
+| **JRE** | JVM + class libraries                                                                             | Enough to just *run* a Java program |
+| **JDK** | JRE + dev tools (compiler, debugger, etc.)                                                        | Needed to *build* Java programs     |
 
 > [!tip] JDK ⊃ JRE ⊃ JVM — each layer wraps the previous one
 
