@@ -16,12 +16,12 @@
 
 ## OOP — 4 Pillars
 
-|Pillar|Meaning|Mnemonic|
-|---|---|---|
-|Encapsulation|Protect internal state|**protect**|
-|Abstraction|Hide implementation details|**hide**|
-|Inheritance|`IS-A` relationship|**reuse**|
-|Polymorphism|Same interface, different implementations|**substitute**|
+| Pillar        | Meaning                                   | Mnemonic       |
+| ------------- | ----------------------------------------- | -------------- |
+| Encapsulation | Protect internal state                    | **protect**    |
+| Abstraction   | Hide implementation details               | **hide**       |
+| Inheritance   | `IS-A` relationship                       | **reuse**      |
+| Polymorphism  | Same interface, different implementations | **substitute** |
 
 ---
 
