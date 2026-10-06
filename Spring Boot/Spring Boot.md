@@ -43,12 +43,12 @@
 
 ## 3. Bean Scopes
 
-| Scope | Lifetime | Full lifecycle incl. destroy? |
-|---|---|---|
-| `singleton` (default) | One per container | Yes |
-| `prototype` | New every request | **No** — `@PreDestroy` never fires |
-| `request` | One per HTTP request | Yes |
-| `session` | One per HTTP session | Yes |
+| Scope                 | Lifetime             | Full lifecycle incl. destroy?      |
+| --------------------- | -------------------- | ---------------------------------- |
+| `singleton` (default) | One per container    | Yes                                |
+| `prototype`           | New every request    | **No** — `@PreDestroy` never fires |
+| `request`             | One per HTTP request | Yes                                |
+| `session`             | One per HTTP session | Yes                                |
 
 ![[bean-scope-injection-traps.svg]]
 
