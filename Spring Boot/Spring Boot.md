@@ -25,14 +25,14 @@
 | Unchecked (`RuntimeException`, `Error`) | Rolls back by default |
 | Checked exceptions | Does **not** roll back by default — use `rollbackFor` |
 
-| Propagation | Behavior |
-|---|---|
-| `REQUIRED` (default) | Join existing, else create new |
-| `REQUIRES_NEW` | Suspend existing, start independent one |
-| `NESTED` | Savepoint within outer transaction |
-| `SUPPORTS` | Join if exists, else run non-transactionally |
-| `MANDATORY` | Must already be in a transaction — else throws |
-| `NEVER` / `NOT_SUPPORTED` | Must not / suspends existing |
+| Propagation               | Behavior                                       |
+| ------------------------- | ---------------------------------------------- |
+| `REQUIRED` (default)      | Join existing, else create new                 |
+| `REQUIRES_NEW`            | Suspend existing, start independent one        |
+| `NESTED`                  | Savepoint within outer transaction             |
+| `SUPPORTS`                | Join if exists, else run non-transactionally   |
+| `MANDATORY`               | Must already be in a transaction — else throws |
+| `NEVER` / `NOT_SUPPORTED` | Must not / suspends existing                   |
 
 > [!warning] Production trap
 > Long-running `@Transactional` methods hold a pooled DB connection for their full duration — wrap a slow external call inside one and you can exhaust the connection pool under load.
