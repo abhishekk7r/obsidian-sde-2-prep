@@ -1,8 +1,8 @@
-# Indexing
-
 ---
 tags: [database, indexing]
 ---
+
+# Indexing
 
 > [!note] Confidence check
 > Only "SQL query writing" is confirmed-likely (from another candidate's account). Clustered/non-clustered indexing is a *reasonable guess*, not confirmed — know the basics, don't over-invest.

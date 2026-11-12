@@ -1,8 +1,8 @@
-# HashMap & equals / hashCode
-
 ---
 tags: [java, collections, hashmap, amex]
 ---
+
+# HashMap & equals / hashCode
 
 ## HashMap internals
 

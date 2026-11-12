@@ -2,7 +2,7 @@
 
 Start here. Chapters are folders, numbered sub-chapters are notes, the last level jumps to a heading.
 
-**Syllabus:** [[Big Tech SDE2 Syllabus]]
+**Syllabus:** [[Big Tech SDE2 Syllabus]] · **To cover:** [[Cover]]
 
 ## 1. Companies
 
@@ -46,6 +46,8 @@ Start here. Chapters are folders, numbered sub-chapters are notes, the last leve
 	- 2.4.3 [[Modern Java (8–21)#Switch Expressions & Pattern Matching (Java 14 / 21)|Switch Expressions & Pattern Matching (Java 14 / 21)]]
 	- 2.4.4 [[Modern Java (8–21)#Records|Records]]
 	- 2.4.5 [[Modern Java (8–21)#Sealed Interfaces|Sealed Interfaces]]
+- **2.5** [[JVM Memory & Garbage Collection]]
+- **2.6** [[Code Review, SOLID & Clean Code]]
 
 ## 3. Concurrency
 
@@ -56,17 +58,20 @@ Start here. Chapters are folders, numbered sub-chapters are notes, the last leve
 	- 3.2.1 [[synchronized, volatile & Locks#`synchronized` Keyword|synchronized Keyword]]
 	- 3.2.2 [[synchronized, volatile & Locks#`volatile`|volatile]]
 	- 3.2.3 [[synchronized, volatile & Locks#Locks — ReentrantLock / tryLock / Fairness|Locks — ReentrantLock / tryLock / Fairness]]
-- **3.3** [[Atomics & Concurrent Collections]]
-	- 3.3.1 [[Atomics & Concurrent Collections#Atomic Classes & CAS|Atomic Classes & CAS]]
-	- 3.3.2 [[Atomics & Concurrent Collections#Concurrent Collections|Concurrent Collections]]
-- **3.4** [[Thread Coordination]]
-	- 3.4.1 [[Thread Coordination#wait() / notify() / notifyAll()|wait() / notify() / notifyAll()]]
-	- 3.4.2 [[Thread Coordination#Semaphore / CountDownLatch / CyclicBarrier|Semaphore / CountDownLatch / CyclicBarrier]]
-- **3.5** [[Deadlock, Livelock & Starvation]]
-	- 3.5.1 [[Deadlock, Livelock & Starvation#Deadlock, Livelock & Starvation|Deadlock, Livelock & Starvation]]
-- **3.6** [[Executors & Virtual Threads]]
-	- 3.6.1 [[Executors & Virtual Threads#Thread Pools & ExecutorService|Thread Pools & ExecutorService]]
-	- 3.6.2 [[Executors & Virtual Threads#Virtual Threads & Java 17-21 Features|Virtual Threads & Java 17-21 Features]]
+- **3.3** [[Lock Internals & Java Memory Model]]
+- **3.4** [[Atomics & Concurrent Collections]]
+	- 3.4.1 [[Atomics & Concurrent Collections#Atomic Classes & CAS|Atomic Classes & CAS]]
+	- 3.4.2 [[Atomics & Concurrent Collections#Concurrent Collections|Concurrent Collections]]
+- **3.5** [[Thread Coordination]]
+	- 3.5.1 [[Thread Coordination#wait() / notify() / notifyAll()|wait() / notify() / notifyAll()]]
+	- 3.5.2 [[Thread Coordination#Semaphore / CountDownLatch / CyclicBarrier|Semaphore / CountDownLatch / CyclicBarrier]]
+- **3.6** [[Deadlock, Livelock & Starvation]]
+	- 3.6.1 [[Deadlock, Livelock & Starvation#Deadlock, Livelock & Starvation|Deadlock, Livelock & Starvation]]
+- **3.7** [[Executors & Virtual Threads]]
+	- 3.7.1 [[Executors & Virtual Threads#Thread Pools & ExecutorService|Thread Pools & ExecutorService]]
+	- 3.7.2 [[Executors & Virtual Threads#Virtual Threads & Java 17-21 Features|Virtual Threads & Java 17-21 Features]]
+- **3.8** [[CompletableFuture, Future & ForkJoin]]
+- **3.9** [[ThreadLocal & BlockingQueue]]
 
 ## 4. Spring Boot
 
@@ -83,13 +88,17 @@ Start here. Chapters are folders, numbered sub-chapters are notes, the last leve
 - **4.4** [[Transactions & Spring Data JPA]]
 	- 4.4.1 [[Transactions & Spring Data JPA#`@Transactional`|@Transactional]]
 	- 4.4.2 [[Transactions & Spring Data JPA#Spring Data JPA|Spring Data JPA]]
+- **4.5** [[JPA Performance (N+1, Fetching, Caching)]]
 
 ## 5. Data & Messaging
 
-- **5.1** [[Indexing]]
-	- 5.1.1 [[Indexing#Indexes — the short version|Indexes — the short version]]
-- **5.2** [[SQL]]
-	- 5.2.1 [[SQL#SQL — the short version|SQL — the short version]]
+- **5.1** [[SQL]]
+	- 5.1.1 [[SQL#SQL — the short version|SQL — the short version]]
+- **5.2** [[Indexing]]
+	- 5.2.1 [[Indexing#Indexes — the short version|Indexes — the short version]]
+- **5.3** [[Transactions, Isolation & Locking]]
+- **5.4** [[Caching & Redis]]
+- **5.5** [[Kafka]]
 
 ## 6. AWS
 
@@ -123,31 +132,33 @@ Start here. Chapters are folders, numbered sub-chapters are notes, the last leve
 
 ### 7.1 Concepts
 
-- **7.1.1** [[Distributed Patterns]]
-	- 7.1.1.1 [[Distributed Patterns#Saga ⭐ (confirmed asked)|Saga ⭐ (confirmed asked)]]
-	- 7.1.1.2 [[Distributed Patterns#Circuit Breaker|Circuit Breaker]]
-	- 7.1.1.3 [[Distributed Patterns#Retry (+ backoff + jitter)|Retry (+ backoff + jitter)]]
-	- 7.1.1.4 [[Distributed Patterns#Bulkhead|Bulkhead]]
-	- 7.1.1.5 [[Distributed Patterns#CQRS (Command Query Responsibility Segregation)|CQRS (Command Query Responsibility Segregation)]]
-	- 7.1.1.6 [[Distributed Patterns#Event Sourcing|Event Sourcing]]
-	- 7.1.1.7 [[Distributed Patterns#Repository|Repository]]
-	- 7.1.1.8 [[Distributed Patterns#Publish-Subscribe|Publish-Subscribe]]
-	- 7.1.1.9 [[Distributed Patterns#API Gateway|API Gateway]]
-	- 7.1.1.10 [[Distributed Patterns#Service Discovery|Service Discovery]]
-	- 7.1.1.11 [[Distributed Patterns#Sidecar|Sidecar]]
-	- 7.1.1.12 [[Distributed Patterns#Resilience stack — how they combine|Resilience stack — how they combine]]
-	- 7.1.1.13 [[Distributed Patterns#Category recap|Category recap]]
-- **7.1.2** [[Four 9s of Availability]]
+- **7.1.1** [[API Design & Idempotency]]
+- **7.1.2** [[Distributed Patterns]]
+	- 7.1.2.1 [[Distributed Patterns#Saga ⭐ (confirmed asked)|Saga ⭐ (confirmed asked)]]
+	- 7.1.2.2 [[Distributed Patterns#Circuit Breaker|Circuit Breaker]]
+	- 7.1.2.3 [[Distributed Patterns#Retry (+ backoff + jitter)|Retry (+ backoff + jitter)]]
+	- 7.1.2.4 [[Distributed Patterns#Bulkhead|Bulkhead]]
+	- 7.1.2.5 [[Distributed Patterns#CQRS (Command Query Responsibility Segregation)|CQRS (Command Query Responsibility Segregation)]]
+	- 7.1.2.6 [[Distributed Patterns#Event Sourcing|Event Sourcing]]
+	- 7.1.2.7 [[Distributed Patterns#Repository|Repository]]
+	- 7.1.2.8 [[Distributed Patterns#Publish-Subscribe|Publish-Subscribe]]
+	- 7.1.2.9 [[Distributed Patterns#API Gateway|API Gateway]]
+	- 7.1.2.10 [[Distributed Patterns#Service Discovery|Service Discovery]]
+	- 7.1.2.11 [[Distributed Patterns#Sidecar|Sidecar]]
+	- 7.1.2.12 [[Distributed Patterns#Resilience stack — how they combine|Resilience stack — how they combine]]
+	- 7.1.2.13 [[Distributed Patterns#Category recap|Category recap]]
+- **7.1.3** [[Four 9s of Availability]]
 
 ### 7.2 HLD
 
-- **7.2.1** [[Design Top K Heavy Hitters]]
-	- 7.2.1.1 [[Design Top K Heavy Hitters#How we are maintaining the top K elements?|How we are maintaining the top K elements?]]
+- **7.2.1** [[Rate Limiter]]
 - **7.2.2** [[Notification System]]
 	- 7.2.2.1 [[Notification System#Problem|Problem]]
 	- 7.2.2.2 [[Notification System#Requirements|Requirements]]
 	- 7.2.2.3 [[Notification System#HLD|HLD]]
 	- 7.2.2.4 [[Notification System#Key Decisions & Trade-offs|Key Decisions & Trade-offs]]
+- **7.2.3** [[Design Top K Heavy Hitters]]
+	- 7.2.3.1 [[Design Top K Heavy Hitters#How we are maintaining the top K elements?|How we are maintaining the top K elements?]]
 
 ### 7.3 LLD
 
