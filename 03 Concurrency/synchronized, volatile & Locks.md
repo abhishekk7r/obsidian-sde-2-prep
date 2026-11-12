@@ -1,6 +1,25 @@
 
 ## `synchronized` Keyword
 
+### Quick Recap
+
+> [!tip] Picture it
+> A bathroom with one key. `synchronized a()` = the bathroom (needs the key). Plain `b()` = the kitchen (no lock) — anyone walks in anytime, even while the bathroom is taken.
+
+| Thread 1 is inside instance `synchronized a()`. Thread 2 calls… | Runs at the same time? |
+|---|---|
+| plain `b()` on same object | **Yes** — no lock is checked |
+| instance `synchronized b()` on same object | **No** — same key (`this`) → BLOCKED |
+| instance `synchronized b()` on a different object | **Yes** — different key |
+| `static synchronized b()` | **Yes** — class key ≠ object key |
+
+> [!danger] Trap — "static synchronized locks the whole class"
+> Wrong. It only blocks other `static synchronized` methods of that class. Instance methods (synchronized or not) are untouched.
+
+- Internals (header, thin → fat lock, `monitorenter`/`monitorexit`): see [[Lock Internals & Java Memory Model]]
+
+---
+
 - Guards **code paths**, not objects — an unsynchronized method on the same object is not blocked by another thread holding the lock elsewhere
 - Backed by every object's implicit **monitor** — one thread holds it at a time, others → BLOCKED
 

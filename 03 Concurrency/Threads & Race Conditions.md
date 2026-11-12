@@ -1,5 +1,32 @@
 # Threads & Race Conditions
 
+## Quick Recap
+
+> [!tip] Picture it
+> Threads = roommates in one flat. Own bed (**stack**), shared kitchen (**heap**). Switching roommates is cheap — same flat, no moving house. One messy roommate spoils the kitchen for everyone.
+
+| Question | Answer |
+|---|---|
+| Why is a thread switch cheaper than a process switch? | Same address space → **no page-table swap, no TLB flush** |
+| `sleep()` inside `synchronized`, another thread wants in | Sleeper keeps the lock → sleeper **TIMED_WAITING**, other thread **BLOCKED** |
+| `wait()` inside `synchronized` | **Releases** the lock → other thread enters. Caller **WAITING** until `notify()`/interrupt |
+| Nobody ever calls `notify()` | Hang / lost signal — **not** a deadlock (no circular wait) |
+| Uncaught exception in one thread | Only that thread dies, others keep running. JVM exits when last non-daemon thread ends. Real risk: shared state left half-updated |
+| `counter++` from 2 threads gives < 2000 | Read → modify → write, two threads read the same old value. Fix: `synchronized`, `AtomicInteger`, `LongAdder` |
+
+- **Data race** — same variable, ≥1 writer, **no synchronization** between the accesses (e.g. plain shared `int x`, reader may see old value forever)
+- **Race condition** — result depends on thread timing (broader)
+
+> [!danger] Race condition with NO data race
+> `synchronized getBalance()` + `synchronized setBalance()`, then `setBalance(getBalance() + 10)` from 2 threads. Every access is locked (no data race), but the read-then-write pair isn't atomic → lost update.
+
+> [!warning] Interview wording
+> Use the state names: BLOCKED (waiting for a lock), WAITING (`wait()`/`join()`), TIMED_WAITING (`sleep()`/`wait(ms)`).
+
+**Mnemonic:** *Race = wrong answer. Deadlock = no answer. Sleep holds, wait yields.*
+
+---
+
 ## Process vs Thread
 
 | | Process | Thread |
