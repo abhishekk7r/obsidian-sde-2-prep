@@ -51,9 +51,9 @@ Start here. Chapters are folders, numbered sub-chapters are notes, the last leve
 
 ## 3. Concurrency
 
-- **3.1** [[Threads & Race Conditions]]
-	- 3.1.1 [[Threads & Race Conditions#Process vs Thread|Process vs Thread]]
-	- 3.1.2 [[Threads & Race Conditions#Race Conditions & Critical Sections|Race Conditions & Critical Sections]]
+- **3.1** [[3.1 Threads & Race Conditions]]
+	- 3.1.1 [[3.1 Threads & Race Conditions#Process vs Thread|Process vs Thread]]
+	- 3.1.2 [[3.1 Threads & Race Conditions#Race Conditions & Critical Sections|Race Conditions & Critical Sections]]
 - **3.2** [[synchronized, volatile & Locks]]
 	- 3.2.1 [[synchronized, volatile & Locks#`synchronized` Keyword|synchronized Keyword]]
 	- 3.2.2 [[synchronized, volatile & Locks#`volatile`|volatile]]
