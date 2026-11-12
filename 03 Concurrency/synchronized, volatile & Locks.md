@@ -60,6 +60,22 @@
 
 ## `volatile`
 
+### Quick Recap
+
+> [!tip] Picture it
+> A notice board. Without `volatile`, each thread copies the note into its own notebook and keeps reading the notebook. With `volatile`, everyone must read the board every time.
+
+- Stop-flag bug: worker is **not** blocked — it keeps looping on its own old copy (`true`)
+
+> [!danger] Trap — `volatile` does NOT fix `count++`
+> Two people read the board at the same moment → both see 5 → both write 6 → board shows 6, not 7. Fresh read ≠ safe update. Fix: `AtomicInteger.incrementAndGet()` or `synchronized`.
+
+> [!danger] Why double-checked locking needs `volatile`
+> `instance = new Singleton()` = 3 steps: (1) get memory → (2) run constructor → (3) store address in `instance`. CPU/JIT may reorder to 1 → 3 → 2. Thread B sees `instance != null`, skips the lock, uses an object whose constructor hasn't run.
+> Picture: the address is already on the map, but the house walls aren't built. `volatile` forbids that reorder.
+
+---
+
 ![[volatile-visibility.svg]]
 
 - Guarantees **visibility** (every read sees the latest write, no stale CPU-cache copies) and **ordering** (happens-before — no reordering across a volatile write/read boundary)
@@ -99,6 +115,42 @@
 ---
 
 ## Locks — ReentrantLock / tryLock / Fairness
+
+### Quick Recap
+
+> [!tip] Picture it
+> A bank token counter. `lock()` = take a token and wait. `tryLock()` = peek, leave if busy. Fair lock = strict first-come-first-served.
+
+| `ReentrantLock` adds over `synchronized` | Note |
+|---|---|
+| `tryLock()` / `tryLock(timeout)` | Timeout = max time to **wait to get** the lock, not how long you hold it |
+| `lockInterruptibly()` | Waiting thread can be cancelled |
+| Fairness — `new ReentrantLock(true)` | Longest-waiting thread goes next; less starvation, lower throughput |
+| `newCondition()` | Several separate waiting lines on one lock (e.g. `notFull`, `notEmpty`) |
+| Lock in one method, unlock in another | `synchronized` must open and close in the same block |
+
+**Internals — AQS (AbstractQueuedSynchronizer)**
+```
+ state = 0 (free) / n (held n times by owner)
+ T1: CAS state 0 → 1  ✔  → owner = T1
+ T2: CAS state 0 → 1  ✘  → join FIFO queue → parked (sleeps)
+ T1: unlock() → state 0 → wake first thread in queue
+```
+
+> [!danger] Why `lock()` goes BEFORE `try`
+> If `lock()` itself fails (e.g. `lockInterruptibly()` interrupted), you never got the lock. Inside `try`, `finally` would still call `unlock()` → `IllegalMonitorStateException` → **hides the real exception**. `Lock` isn't `AutoCloseable` → no try-with-resources.
+
+> [!warning] Forgetting `unlock()` in `finally`
+> Lock held forever → every other thread waits forever. Call it a **lock leak / hang**, not a deadlock (no circular wait).
+
+> [!danger] `tryLock` deadlock fix — the step people miss
+> On failure, **release the lock you already hold** → wait a random bit → retry. Releasing is what breaks the circle.
+
+- **Simpler, main fix = lock ordering** — always lock the smaller account ID first, whatever the transfer direction
+- Picture: two people at a narrow door — if everyone always takes the left side first, they never face each other
+- Nested `synchronized` in opposite order is the classic deadlock itself — not a fix
+
+---
 
 ### Correct usage pattern
 ```java
