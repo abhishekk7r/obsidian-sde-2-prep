@@ -12,7 +12,7 @@ Excalidraw: [[Design Top K Heavy Hitter]]
 1. Practical Views on these platforms are > 1B unique videos, this translates to **~100 QPS.**
 2. Our system should be highly scalable to handle these many events
 3. High throughput system
-4. Highly available - [[Fours 9's of Availability]] 
+4. Highly available - [[Four 9s of Availability]] 
 5. Low Latency Reads (< 100 ms) - getTopK videos. Especially for smaller durations like 1 min, 5 mins, 60 mins. 
 6. For Reads of > 1 Day, `Low Latency cannot be there as the scale is huge, can be discussed in design decisions.` 
 7. Accuracy of getTopK for smaller/recent duration
@@ -33,6 +33,4 @@ Grows & Does not scale.
 Min heap of size k < 1000 is fine. 
 
 2. Use Kafka
-	1. 
-
-
+	1.

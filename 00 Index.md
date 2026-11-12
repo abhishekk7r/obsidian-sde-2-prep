@@ -1,0 +1,202 @@
+# SDE-2 Prep — Index
+
+Start here. Chapters are folders, numbered sub-chapters are notes, the last level jumps to a heading.
+
+**Syllabus:** [[Big Tech SDE2 Syllabus]]
+
+## 1. Companies
+
+- **1.1** [[Amex — SE II]]
+- **1.2** [[Angel One — SDE-2]]
+- **1.3** [[Kotak Mahindra Bank — SDE]]
+- **1.4** [[Lenskart — Backend Engineer]]
+- **1.5** [[Moody's — SDE-2]]
+- **1.6** [[NatWest — Java SE]]
+- **1.7** [[Oracle Health (Cerner) — IC2 ASE2]]
+- **1.8** [[Patterns Across Interviews]]
+- **1.9** [[Visa]]
+
+## 2. Java
+
+- **2.1** [[Collections & Generics]]
+	- 2.1.1 [[Collections & Generics#ArrayDeque vs LinkedList|ArrayDeque vs LinkedList]]
+	- 2.1.2 [[Collections & Generics#ArrayDeque + for-each removal|ArrayDeque + for-each removal]]
+	- 2.1.3 [[Collections & Generics#PriorityQueue|PriorityQueue]]
+	- 2.1.4 [[Collections & Generics#TreeMap / TreeSet|TreeMap / TreeSet]]
+	- 2.1.5 [[Collections & Generics#LinkedHashMap → LRU Cache|LinkedHashMap → LRU Cache]]
+	- 2.1.6 [[Collections & Generics#Generics — bounded types & wildcards|Generics — bounded types & wildcards]]
+- **2.2** [[HashMap & equals-hashCode]]
+	- 2.2.1 [[HashMap & equals-hashCode#HashMap internals|HashMap internals]]
+	- 2.2.2 [[HashMap & equals-hashCode#HashMap Internals — Buckets, Resize, Treeification|HashMap Internals — Buckets, Resize, Treeification]]
+	- 2.2.3 [[HashMap & equals-hashCode#equals() / hashCode() + String Immutability|equals() / hashCode() + String Immutability]]
+- **2.3** [[Java Fundamentals & OOP]]
+	- 2.3.1 [[Java Fundamentals & OOP#JVM / JRE / JDK|JVM / JRE / JDK]]
+	- 2.3.2 [[Java Fundamentals & OOP#OOP — 4 Pillars|OOP — 4 Pillars]]
+	- 2.3.3 [[Java Fundamentals & OOP#Interface vs Abstract Class|Interface vs Abstract Class]]
+	- 2.3.4 [[Java Fundamentals & OOP#Abstract vs Virtual|Abstract vs Virtual]]
+	- 2.3.5 [[Java Fundamentals & OOP#Composition Over Inheritance|Composition Over Inheritance]]
+	- 2.3.6 [[Java Fundamentals & OOP#Overloading vs Overriding|Overloading vs Overriding]]
+	- 2.3.7 [[Java Fundamentals & OOP#Static Keyword & Initialization Order|Static Keyword & Initialization Order]]
+	- 2.3.8 [[Java Fundamentals & OOP#final vs finally vs finalize|final vs finally vs finalize]]
+	- 2.3.9 [[Java Fundamentals & OOP#Autoboxing & Integer Cache|Autoboxing & Integer Cache]]
+	- 2.3.10 [[Java Fundamentals & OOP#Exception Handling|Exception Handling]]
+- **2.4** [[Modern Java (8–21)]]
+	- 2.4.1 [[Modern Java (8–21)#Streams API — map / filter / reduce / collect|Streams API — map / filter / reduce / collect]]
+	- 2.4.2 [[Modern Java (8–21)#var — Local Type Inference (Java 10+)|var — Local Type Inference (Java 10+)]]
+	- 2.4.3 [[Modern Java (8–21)#Switch Expressions & Pattern Matching (Java 14 / 21)|Switch Expressions & Pattern Matching (Java 14 / 21)]]
+	- 2.4.4 [[Modern Java (8–21)#Records|Records]]
+	- 2.4.5 [[Modern Java (8–21)#Sealed Interfaces|Sealed Interfaces]]
+
+## 3. Concurrency
+
+- **3.1** [[Atomics & Concurrent Collections]]
+	- 3.1.1 [[Atomics & Concurrent Collections#Atomic Classes & CAS|Atomic Classes & CAS]]
+	- 3.1.2 [[Atomics & Concurrent Collections#Concurrent Collections|Concurrent Collections]]
+- **3.2** [[Deadlock, Livelock & Starvation]]
+	- 3.2.1 [[Deadlock, Livelock & Starvation#Deadlock, Livelock & Starvation|Deadlock, Livelock & Starvation]]
+- **3.3** [[Executors & Virtual Threads]]
+	- 3.3.1 [[Executors & Virtual Threads#Thread Pools & ExecutorService|Thread Pools & ExecutorService]]
+	- 3.3.2 [[Executors & Virtual Threads#Virtual Threads & Java 17-21 Features|Virtual Threads & Java 17-21 Features]]
+- **3.4** [[Thread Coordination]]
+	- 3.4.1 [[Thread Coordination#wait() / notify() / notifyAll()|wait() / notify() / notifyAll()]]
+	- 3.4.2 [[Thread Coordination#Semaphore / CountDownLatch / CyclicBarrier|Semaphore / CountDownLatch / CyclicBarrier]]
+- **3.5** [[Threads & Race Conditions]]
+	- 3.5.1 [[Threads & Race Conditions#Process vs Thread|Process vs Thread]]
+	- 3.5.2 [[Threads & Race Conditions#Race Conditions & Critical Sections|Race Conditions & Critical Sections]]
+- **3.6** [[synchronized, volatile & Locks]]
+	- 3.6.1 [[synchronized, volatile & Locks#`synchronized` Keyword|synchronized Keyword]]
+	- 3.6.2 [[synchronized, volatile & Locks#`volatile`|volatile]]
+	- 3.6.3 [[synchronized, volatile & Locks#Locks — ReentrantLock / tryLock / Fairness|Locks — ReentrantLock / tryLock / Fairness]]
+
+## 4. Spring Boot
+
+- **4.1** [[Auto-Configuration & Profiles]]
+	- 4.1.1 [[Auto-Configuration & Profiles#Auto-Configuration|Auto-Configuration]]
+	- 4.1.2 [[Auto-Configuration & Profiles#Application Properties / Profiles|Application Properties / Profiles]]
+- **4.2** [[IoC, DI & Beans]]
+	- 4.2.1 [[IoC, DI & Beans#IoC / DI & Bean Lifecycle|IoC / DI & Bean Lifecycle]]
+	- 4.2.2 [[IoC, DI & Beans#Bean Scopes|Bean Scopes]]
+	- 4.2.3 [[IoC, DI & Beans#Stereotype Annotations|Stereotype Annotations]]
+- **4.3** [[REST Controllers & Exception Handling]]
+	- 4.3.1 [[REST Controllers & Exception Handling#REST Controller Annotations|REST Controller Annotations]]
+	- 4.3.2 [[REST Controllers & Exception Handling#Exception Handling — `@ControllerAdvice`|Exception Handling — @ControllerAdvice]]
+- **4.4** [[Transactions & Spring Data JPA]]
+	- 4.4.1 [[Transactions & Spring Data JPA#`@Transactional`|@Transactional]]
+	- 4.4.2 [[Transactions & Spring Data JPA#Spring Data JPA|Spring Data JPA]]
+
+## 5. Data & Messaging
+
+- **5.1** [[Indexing]]
+	- 5.1.1 [[Indexing#Indexes — the short version|Indexes — the short version]]
+- **5.2** [[SQL]]
+	- 5.2.1 [[SQL#SQL — the short version|SQL — the short version]]
+
+## 6. AWS
+
+- **6.1** [[Bedrock]]
+	- 6.1.1 [[Bedrock#Internal implementation|Internal implementation]]
+	- 6.1.2 [[Bedrock#When to use|When to use]]
+	- 6.1.3 [[Bedrock#How to use|How to use]]
+	- 6.1.4 [[Bedrock#When NOT to use|When NOT to use]]
+- **6.2** [[CDK]]
+	- 6.2.1 [[CDK#Internal implementation|Internal implementation]]
+	- 6.2.2 [[CDK#When to use — CDK vs raw CloudFormation vs Terraform|When to use — CDK vs raw CloudFormation vs Terraform]]
+	- 6.2.3 [[CDK#How to use|How to use]]
+	- 6.2.4 [[CDK#When NOT to use|When NOT to use]]
+- **6.3** [[DynamoDB]]
+	- 6.3.1 [[DynamoDB#Internal implementation|Internal implementation]]
+	- 6.3.2 [[DynamoDB#When to use|When to use]]
+	- 6.3.3 [[DynamoDB#How to use|How to use]]
+	- 6.3.4 [[DynamoDB#When NOT to use|When NOT to use]]
+- **6.4** [[Lambda]]
+	- 6.4.1 [[Lambda#Internal implementation|Internal implementation]]
+	- 6.4.2 [[Lambda#When to use|When to use]]
+	- 6.4.3 [[Lambda#How to use|How to use]]
+	- 6.4.4 [[Lambda#When NOT to use|When NOT to use]]
+- **6.5** [[SQS-DLQ]]
+	- 6.5.1 [[SQS-DLQ#Internal implementation|Internal implementation]]
+	- 6.5.2 [[SQS-DLQ#When to use|When to use]]
+	- 6.5.3 [[SQS-DLQ#How to use|How to use]]
+	- 6.5.4 [[SQS-DLQ#When NOT to use|When NOT to use]]
+
+## 7. System Design
+
+### 7.1 Concepts
+
+- **7.1.1** [[Distributed Patterns]]
+	- 7.1.1.1 [[Distributed Patterns#Saga ⭐ (confirmed asked)|Saga ⭐ (confirmed asked)]]
+	- 7.1.1.2 [[Distributed Patterns#Circuit Breaker|Circuit Breaker]]
+	- 7.1.1.3 [[Distributed Patterns#Retry (+ backoff + jitter)|Retry (+ backoff + jitter)]]
+	- 7.1.1.4 [[Distributed Patterns#Bulkhead|Bulkhead]]
+	- 7.1.1.5 [[Distributed Patterns#CQRS (Command Query Responsibility Segregation)|CQRS (Command Query Responsibility Segregation)]]
+	- 7.1.1.6 [[Distributed Patterns#Event Sourcing|Event Sourcing]]
+	- 7.1.1.7 [[Distributed Patterns#Repository|Repository]]
+	- 7.1.1.8 [[Distributed Patterns#Publish-Subscribe|Publish-Subscribe]]
+	- 7.1.1.9 [[Distributed Patterns#API Gateway|API Gateway]]
+	- 7.1.1.10 [[Distributed Patterns#Service Discovery|Service Discovery]]
+	- 7.1.1.11 [[Distributed Patterns#Sidecar|Sidecar]]
+	- 7.1.1.12 [[Distributed Patterns#Resilience stack — how they combine|Resilience stack — how they combine]]
+	- 7.1.1.13 [[Distributed Patterns#Category recap|Category recap]]
+- **7.1.2** [[Four 9s of Availability]]
+
+### 7.2 HLD
+
+- **7.2.1** [[Design Top K Heavy Hitters]]
+	- 7.2.1.1 [[Design Top K Heavy Hitters#How we are maintaining the top K elements?|How we are maintaining the top K elements?]]
+- **7.2.2** [[Notification System]]
+	- 7.2.2.1 [[Notification System#Problem|Problem]]
+	- 7.2.2.2 [[Notification System#Requirements|Requirements]]
+	- 7.2.2.3 [[Notification System#HLD|HLD]]
+	- 7.2.2.4 [[Notification System#Key Decisions & Trade-offs|Key Decisions & Trade-offs]]
+
+### 7.3 LLD
+
+- **7.3.1** [[Common Learnings]]
+	- 7.3.1.1 [[Common Learnings#Things I did well|Things I did well]]
+	- 7.3.1.2 [[Common Learnings#Concepts that are missing|Concepts that are missing]]
+	- 7.3.1.3 [[Common Learnings#Problems in my understanding|Problems in my understanding]]
+	- 7.3.1.4 [[Common Learnings#Log|Log]]
+- **7.3.2** [[Design Elevator]]
+- **7.3.3** [[Parking Lot]]
+	- 7.3.3.1 [[Parking Lot#Problem Statement (as an interviewer would give it)|Problem Statement (as an interviewer would give it)]]
+	- 7.3.3.2 [[Parking Lot#Entities & Relationships|Entities & Relationships]]
+- **7.3.4** [[Vending Machine]]
+	- 7.3.4.1 [[Vending Machine#Problem|Problem]]
+	- 7.3.4.2 [[Vending Machine#Requirements|Requirements]]
+	- 7.3.4.3 [[Vending Machine#HLD|HLD]]
+	- 7.3.4.4 [[Vending Machine#Key Decisions & Trade-offs|Key Decisions & Trade-offs]]
+
+### 7.4 Design Patterns
+
+- **7.4.1** [[Behavioral]]
+	- 7.4.1.1 [[Behavioral#Strategy|Strategy]]
+	- 7.4.1.2 [[Behavioral#Observer|Observer]]
+	- 7.4.1.3 [[Behavioral#Chain of Responsibility|Chain of Responsibility]]
+	- 7.4.1.4 [[Behavioral#Template Method|Template Method]]
+	- 7.4.1.5 [[Behavioral#Section recap|Section recap]]
+- **7.4.2** [[Creational]]
+	- 7.4.2.1 [[Creational#Singleton|Singleton]]
+	- 7.4.2.2 [[Creational#Factory Method|Factory Method]]
+	- 7.4.2.3 [[Creational#Builder|Builder]]
+	- 7.4.2.4 [[Creational#Section recap|Section recap]]
+- **7.4.3** [[Structural]]
+	- 7.4.3.1 [[Structural#Adapter|Adapter]]
+	- 7.4.3.2 [[Structural#Decorator|Decorator]]
+	- 7.4.3.3 [[Structural#Facade|Facade]]
+	- 7.4.3.4 [[Structural#Proxy ⭐ (my project's OPF fleet)|Proxy ⭐ (my project's OPF fleet)]]
+	- 7.4.3.5 [[Structural#Section recap|Section recap]]
+
+## 8. Behavioral & Projects
+
+- **8.1** [[Production Debugging — OOM after an old commit]]
+- **8.2** [[Region Migration (RFE)]]
+	- 8.2.1 [[Region Migration (RFE)#The "not a developer" problem|The "not a developer" problem]]
+	- 8.2.2 [[Region Migration (RFE)#Questions to prepare|Questions to prepare]]
+- **8.3** [[Story Bank]]
+	- 8.3.1 [[Story Bank#Resume questions to prepare|Resume questions to prepare]]
+	- 8.3.2 [[Story Bank#Conflict with a manager or peer|Conflict with a manager or peer]]
+	- 8.3.3 [[Story Bank#Feedback I gave|Feedback I gave]]
+	- 8.3.4 [[Story Bank#A performance problem I fixed|A performance problem I fixed]]
+	- 8.3.5 [[Story Bank#A hard task I owned alone|A hard task I owned alone]]
+	- 8.3.6 [[Story Bank#A choice between two options|A choice between two options]]
+	- 8.3.7 [[Story Bank#Why this company / why leaving|Why this company / why leaving]]
