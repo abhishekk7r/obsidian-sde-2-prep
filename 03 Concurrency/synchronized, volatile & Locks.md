@@ -1,4 +1,3 @@
-# synchronized, volatile & Locks
 
 ## `synchronized` Keyword
 
