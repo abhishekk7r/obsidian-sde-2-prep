@@ -8,10 +8,10 @@ Status tracker for the design-patterns revision set (Moody's SDE2). One file per
 
 | Category | File | Patterns | Status |
 |---|---|---|---|
-| Creational | [[Creational]] | Singleton, Factory Method, Builder | ✅ |
-| Structural | [[Structural]] | Adapter, Decorator, Facade, **Proxy** | ✅ |
-| Behavioral | [[Behavioral]] | Strategy, Observer, Chain of Responsibility, Template Method | ✅ |
-| Distributed | [[Distributed Patterns]] | **Saga**, Circuit Breaker, Retry, Bulkhead, CQRS, Event Sourcing, Repository, Pub-Sub, API Gateway, Service Discovery, Sidecar | ✅ |
+| Creational | [[7.4.2 Creational]] | Singleton, Factory Method, Builder | ✅ |
+| Structural | [[7.4.3 Structural]] | Adapter, Decorator, Facade, **Proxy** | ✅ |
+| Behavioral | [[7.4.1 Behavioral]] | Strategy, Observer, Chain of Responsibility, Template Method | ✅ |
+| Distributed | [[7.1.2 Distributed Patterns]] | **Saga**, Circuit Breaker, Retry, Bulkhead, CQRS, Event Sourcing, Repository, Pub-Sub, API Gateway, Service Discovery, Sidecar | ✅ |
 
 ## Project-mapped patterns (name these explicitly in the interview)
 

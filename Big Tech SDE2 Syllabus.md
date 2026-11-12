@@ -112,7 +112,7 @@ Language: Java. Folder: `LLD/` · patterns notes in `Design Patterns/`
 | W1 | OOP, SOLID, composition vs inheritance | Notes refresh |
 | W2 | Patterns: Strategy, Factory, Observer, Singleton, Builder | One example each |
 | W3 | Patterns: State, Decorator, Command, Chain of Responsibility | One example each |
-| W4 | [[Parking Lot]] redo (cold, 60 min) + [[Design Elevator]] redo | Timed |
+| W4 | [[7.3.3 Parking Lot]] redo (cold, 60 min) + [[7.3.2 Design Elevator]] redo | Timed |
 | W5 | Movie Ticket Booking (seat locking, concurrency) | Full design + code |
 | W6 | Rate Limiter (token bucket, thread-safe) + LRU / LFU Cache | Code + concurrency |
 | W7 | Splitwise + Amazon Locker | Full design |
@@ -120,7 +120,7 @@ Language: Java. Folder: `LLD/` · patterns notes in `Design Patterns/`
 | W9 | File System + Inventory Management | Full design |
 | W10 | Subscription system (Atlassian) + Task Scheduler | Full design |
 | W11 | Connect Four / Tic-Tac-Toe + Snake & Ladder (game-style machine coding) | 90-min timed builds |
-| W12 | [[Vending Machine]] redo (State pattern) + 1 mock machine coding | Timed |
+| W12 | [[7.3.4 Vending Machine]] redo (State pattern) + 1 mock machine coding | Timed |
 
 > [!tip] Machine coding bar (Uber, Flipkart style)
 > - Working, runnable code in 60–90 min
@@ -145,7 +145,7 @@ Framework (Hello Interview): **Requirements (functional, non-functional) → Cor
 | Week | Problems |
 |---|---|
 | W5 | Bitly (URL shortener), Rate Limiter (distributed) |
-| W6 | [[Notification System]] redo, [[Design Top K Heavy Hitters]] redo |
+| W6 | [[7.2.2 Notification System]] redo, [[7.2.3 Design Top K Heavy Hitters]] redo |
 | W7 | WhatsApp (chat), FB News Feed |
 | W8 | Ticketmaster (contention), Uber (geo + matching) |
 | W9 | Dropbox (blobs), YouTube (video upload + streaming) |

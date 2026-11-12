@@ -39,7 +39,7 @@ What's left to cover, in priority order. Tick a line once the note is written **
 	- N+1 and fixes: `JOIN FETCH`, `@EntityGraph`, batch size
 	- Lazy vs eager · `LazyInitializationException` · entity states
 	- First-level vs second-level cache
-- [ ] **[[Rate Limiter]]** (Hello Interview format)
+- [ ] **[[7.2.1 Rate Limiter]]** (Hello Interview format)
 	- Token bucket vs fixed / sliding window
 	- Redis + Lua, distributed counters, sharding by key
 	- Redis down: fail-open vs fail-closed · 429 + `Retry-After`
@@ -49,10 +49,10 @@ What's left to cover, in priority order. Tick a line once the note is written **
 - [ ] **[[2.5 JVM Memory & Garbage Collection]]**
 	- Heap, stack, metaspace · young / old generation
 	- G1 vs ZGC · Java memory leaks · OOM types · heap dump reading
-- [ ] **[[Region Migration (RFE)]]**
+- [ ] **[[8.1 Region Migration (RFE)]]**
 	- 5-minute walkthrough
 	- The 4 pieces I wrote, with numbers: proxy routing / fallback, data reconciliation, traffic-shift + capacity, rollback + monitoring
-- [ ] **[[Story Bank]]**
+- [ ] **[[8.2 Story Bank]]**
 	- Conflict · feedback · performance fix · owned alone · choice between two options
 	- Why JPMC · why leaving Amazon after a year
 
@@ -64,11 +64,11 @@ What's left to cover, in priority order. Tick a line once the note is written **
 - [ ] [[3.7 Executors & Virtual Threads]]: pool sizing (CPU-bound vs I/O-bound)
 - [ ] [[3.9 ThreadLocal & BlockingQueue]]: ThreadLocal leak in thread pools · producer-consumer with `BlockingQueue`
 - [ ] [[4.1 IoC, DI & Beans]]: circular dependencies · `@Configuration` vs `@Component` · Spring Boot startup flow
-- [ ] [[4.3 REST Controllers & Exception Handling]] + [[API Design & Idempotency]]: status codes · idempotent methods · idempotency key · pagination · versioning
+- [ ] [[4.3 REST Controllers & Exception Handling]] + [[7.1.1 API Design & Idempotency]]: status codes · idempotent methods · idempotency key · pagination · versioning
 - [ ] [[5.1 SQL]]: Nth-highest salary · dept with no employees · manager self-join · duplicates · `EXISTS` vs `IN`
 - [ ] [[5.2 Indexing]]: composite index + leftmost prefix · when an index isn't used · `EXPLAIN` · B+ tree vs hash
 - [ ] [[6.1 Lambda]]: cold starts · reserved vs provisioned concurrency · memory / CPU / timeout limits · SQS-trigger retries
-- [ ] [[Notification System]]: fill the empty template
+- [ ] [[7.2.2 Notification System]]: fill the empty template
 
 ---
 
