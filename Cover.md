@@ -12,7 +12,7 @@ What's left to cover, in priority order. Tick a line once the note is written **
 
 ## Tier 1: missing, almost certain to come up
 
-- [ ] **[[Code Review, SOLID & Clean Code]]**
+- [ ] **[[2.6 Code Review, SOLID & Clean Code]]**
 	- Review order: correctness → thread safety → exceptions → security → design → money → naming and tests
 	- SOLID with one bad-code example each
 	- Q: review this PR · which SOLID principle does this break · why `BigDecimal` for money
@@ -46,7 +46,7 @@ What's left to cover, in priority order. Tick a line once the note is written **
 - [ ] **[[5.4 Caching & Redis]]**
 	- Cache-aside, read-through, write-through, write-back, write-around
 	- Eviction (LRU, TTL) · invalidation · cache stampede · Redis data types
-- [ ] **[[JVM Memory & Garbage Collection]]**
+- [ ] **[[2.5 JVM Memory & Garbage Collection]]**
 	- Heap, stack, metaspace · young / old generation
 	- G1 vs ZGC · Java memory leaks · OOM types · heap dump reading
 - [ ] **[[Region Migration (RFE)]]**
@@ -67,7 +67,7 @@ What's left to cover, in priority order. Tick a line once the note is written **
 - [ ] [[4.3 REST Controllers & Exception Handling]] + [[API Design & Idempotency]]: status codes · idempotent methods · idempotency key · pagination · versioning
 - [ ] [[5.1 SQL]]: Nth-highest salary · dept with no employees · manager self-join · duplicates · `EXISTS` vs `IN`
 - [ ] [[5.2 Indexing]]: composite index + leftmost prefix · when an index isn't used · `EXPLAIN` · B+ tree vs hash
-- [ ] [[Lambda]]: cold starts · reserved vs provisioned concurrency · memory / CPU / timeout limits · SQS-trigger retries
+- [ ] [[6.1 Lambda]]: cold starts · reserved vs provisioned concurrency · memory / CPU / timeout limits · SQS-trigger retries
 - [ ] [[Notification System]]: fill the empty template
 
 ---

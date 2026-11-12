@@ -1,1 +1,0 @@
-# JVM Memory & Garbage Collection
