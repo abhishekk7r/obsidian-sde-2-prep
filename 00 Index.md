@@ -2,7 +2,7 @@
 
 Start here. Chapters are folders, numbered sub-chapters are notes, the last level jumps to a heading.
 
-**Syllabus:** [[Big Tech SDE2 Syllabus]] · **To cover:** [[Cover]]
+**Syllabus:** [[Interview Syllabus — JPMC & Delta]] · [[Big Tech SDE2 Syllabus]] · **To cover:** [[Cover]]
 
 ## 1. Companies
 
