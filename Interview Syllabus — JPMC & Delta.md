@@ -69,9 +69,9 @@ updated: 2026-11-13
 ## 4. Java depth (Delta focus + JPMC VP)
 
 - **Code review checklist** → [[2.6 Code Review, SOLID & Clean Code]]
-- **HashMap / ConcurrentHashMap internals** → [[2.2 HashMap & equals-hashCode]], [[3.3 Atomics & Concurrent Collections]]
-- **synchronized / volatile internals, JMM** → [[3.2 synchronized, volatile & Locks]], Lock Internals note
-- **Executors, CompletableFuture, virtual threads**
+- **HashMap / ConcurrentHashMap internals** → [[2.2 HashMap & equals-hashCode]], [[3.4 Atomics & Concurrent Collections]]
+- **synchronized / volatile internals, JMM** → [[3.2 synchronized, volatile & Locks]], [[3.3 Lock Internals & Java Memory Model]]
+- **Executors, CompletableFuture, virtual threads** → [[3.7 Executors & Virtual Threads]], [[3.8 CompletableFuture, Future & ForkJoin]]
 - **JVM memory & GC** → [[2.5 JVM Memory & Garbage Collection]]
 - **Spring:** IoC/beans, `@Transactional` traps, JPA N+1
 - **Optimistic vs pessimistic locking**, isolation levels
