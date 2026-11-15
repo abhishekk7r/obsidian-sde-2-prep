@@ -15,6 +15,8 @@ Start here. Chapters are folders, numbered sub-chapters are notes, the last leve
 - **1.7** [[1.7 Amex — SE II]]
 - **1.8** [[1.8 Kotak Mahindra Bank — SDE]]
 - **1.9** [[1.9 Patterns Across Interviews]]
+- **1.10** [[1.10 JPMorgan Chase — SWE II]]
+- **1.11** [[1.11 Delta Air Lines — Sr SDE]]
 
 ## 2. Java
 
