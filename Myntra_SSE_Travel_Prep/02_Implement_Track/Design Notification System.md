@@ -12,7 +12,6 @@
 4. Each notification goes through selected providers and fallbacks for the critical notifications.
 
 ### Non - Functional Requirements
-1. Durability: Transactional Notification can never be lost, losing promotional notifications sometime is fine. 
 
 |     |     |
 | --- | --- |
