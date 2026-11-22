@@ -13,10 +13,10 @@
 
 ### Non - Functional Requirements
 
-|           | Transactional                        | Promotional                                   |
-| --------- | ------------------------------------ | --------------------------------------------- |
-| Durablity | OTPs can never be lost               | Promotional notification can be lost sometime |
-| Latency   | OTPs needs to be sent within seconds | Fine, if it take minutes                      |
-| Delivery  | Deduplication, must be seen once     | At most once per user campaing                |
-| Isolation |                                      |                                               |
+|           | Transactional                                      | Promotional                                   |
+| --------- | -------------------------------------------------- | --------------------------------------------- |
+| Durablity | OTPs can never be lost                             | Promotional notification can be lost sometime |
+| Latency   | OTPs needs to be sent within seconds               | Fine, if it take minutes                      |
+| Delivery  | Deduplication, must be seen once                   | At most once per user campaing                |
+| Isolation | A Campaign cannot slow down the transactional lane |                                               |
 
