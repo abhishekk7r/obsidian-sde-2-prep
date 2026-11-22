@@ -8,4 +8,5 @@
 
 1. Order/External Service should be able to queue notification in our service: an OTP, an order update, a payment receipt.
 2. Anyone can see the status of a notification.
-3. 
+3. Teams can run promotional notification for some users or everyone. 
+4. 
