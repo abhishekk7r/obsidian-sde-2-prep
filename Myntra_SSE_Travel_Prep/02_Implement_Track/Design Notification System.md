@@ -7,4 +7,5 @@
 ### Functional Requirements
 
 1. Order/External Service should be able to queue notification in our service.
-2. Notification service should be able to support 
+2. Notification service should be able to support different type of notification. 
+3. 
