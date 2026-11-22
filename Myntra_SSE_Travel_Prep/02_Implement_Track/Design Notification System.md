@@ -11,3 +11,5 @@
 3. Teams can run promotional notification for some users or everyone. 
 4. Each notification goes through selected providers and fallbacks for the critical notifications.
 
+### Non - Functional Requirements
+
