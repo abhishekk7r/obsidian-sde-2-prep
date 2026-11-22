@@ -16,4 +16,5 @@
 |           | Transactional          | Promotional                                   |
 | --------- | ---------------------- | --------------------------------------------- |
 | Durablity | OTPs can never be lost | Promotional notification can be lost sometime |
+| Latency   |                        |                                               |
 
