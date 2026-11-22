@@ -13,7 +13,7 @@
 
 ### Non - Functional Requirements
 
-|     |     |     |
-| --- | --- | --- |
-|     |     |     |
+|     | Transactional | Promotional |
+| --- | ------------- | ----------- |
+|     |               |             |
 
