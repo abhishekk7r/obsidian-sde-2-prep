@@ -13,7 +13,7 @@
 
 ### Non - Functional Requirements
 
-|           | Transactional | Promotional |
-| --------- | ------------- | ----------- |
-| Durablity |               |             |
+|           | Transactional          | Promotional |
+| --------- | ---------------------- | ----------- |
+| Durablity | OTPs can never be lost |             |
 
