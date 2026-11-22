@@ -13,4 +13,4 @@
 
 ### Non - Functional Requirements
 1. Durability: Transactional Notification can never be lost, losing promotional notifications sometime is fine. 
-2. 
+
